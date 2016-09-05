@@ -83,6 +83,7 @@ static int cmd_x(char *args)
 
 	int n;
 	int add;
+	char *p_add=(char *) &add;
 //	int row,col;
 	if(sscanf(args,"%d %x",&n,&add)!=2)
 	{
@@ -91,8 +92,8 @@ static int cmd_x(char *args)
 	printf("%d %x",n,add);
 	while(n--)
 	{
-		printf("0x%02x\t",*(char *)add);
-		add++;
+		printf("0x%02x\t",*p_add);
+		p_add++;
 	}
 /*	//int row,col;
 	for(row=0;8*row+col<=n;row++)
