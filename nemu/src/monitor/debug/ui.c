@@ -8,7 +8,7 @@
 #include <readline/history.h>
 
 void cpu_exec(uint32_t);
-
+int exec(swaddr_t);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -36,6 +36,27 @@ static int cmd_q(char *args) {
 	return -1;
 }
 
+static int cmd_si(char *args){
+	int instr_len;
+	int times;
+	if(args==NULL)
+	{
+		instr_len=exec(cpu.eip);
+		cpu.eip+=instr_len;
+	}
+	else
+	{
+		
+		times=atoi((const char *)args);
+		while(times--)
+		{
+			instr_len=exec(cpu.eip);
+			cpu.eip+=instr_len;
+		}
+	}
+
+	return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -46,7 +67,7 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-
+	{ "si","Execute the program for one or n tomes",cmd_si},
 	/* TODO: Add more commands */
 
 };
