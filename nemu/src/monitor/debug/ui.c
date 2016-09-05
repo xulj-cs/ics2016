@@ -79,35 +79,32 @@ static int cmd_info(char *args)
 
 static int cmd_x(char *args)
 {
-	printf("hello");
-
 	int n;
 	int add;
 	char *p_add=(char *) &add;
-//	int row,col;
 	if(sscanf(args,"%d %x",&n,&add)!=2)
 	{
 		panic("error");
 	}
-	printf("%d %x",n,add);
-	while(n--)
+/*	while(n--)
 	{
 		printf("0x%02x\t",*p_add);
 		p_add++;
 	}
-/*	//int row,col;
+	*/
+	int row,col;
 	for(row=0;8*row+col<=n;row++)
 	{
 		printf("0x%x:\t",add);
 		for(col=1;8*row+col<=n;col++)
 		{
-			printf("0x%02x\t",*(char *)add);
-			add++;
+			printf("0x%02x\t",*p_add);
+			p_add++;
 		}
 		col=1;
 		printf("\n");
 	}
-*/	
+
 	return 0;
 	
 }
