@@ -76,6 +76,29 @@ static int cmd_info(char *args)
 	}
 	return 0;
 }
+
+static int cmd_x(char *args)
+{
+	int n;
+	int add;
+	if(sscanf(args,"%d %x",&n,&add)!=2)
+	{
+		panic("error");
+	}
+	int row,col;
+	for(row=0;8*row+col<=n;row++)
+	{
+		printf("0x%x:\t",add);
+		for(col=1;8*row+col<=n;col++)
+		{
+			printf("0x%02x\t",*(char *)add);
+			add++;
+		}
+		col=1;
+		printf("\n");
+	}
+	return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -88,6 +111,7 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si","Execute the program for one or n tomes",cmd_si},
 	{ "info","Display states of the program",cmd_info},
+	{ "x", "Scan the momery",cmd_x},
 	/* TODO: Add more commands */
 
 };
