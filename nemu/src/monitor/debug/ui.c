@@ -95,7 +95,7 @@ static int cmd_x(char *args)
 	int row,col;
 	for(row=0;8*row+col<=n;row++)
 	{
-		printf("0x%x:\t",add);
+		printf("0x%x:\t",(int)p_add);
 		for(col=1;col<=8&&8*row+col<=n;col++)
 		{
 			printf("0x%02x\t",*p_add);
