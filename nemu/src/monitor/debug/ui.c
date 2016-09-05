@@ -89,7 +89,11 @@ static int cmd_x(char *args)
 		panic("error");
 	}
 	printf("%d %x",n,add);
-
+	while(n--)
+	{
+		printf("0x%02x\t",*(char *)add);
+		add++;
+	}
 /*	//int row,col;
 	for(row=0;8*row+col<=n;row++)
 	{
