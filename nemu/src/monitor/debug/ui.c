@@ -83,7 +83,8 @@ static int cmd_x(char *args)
 	int add;
 	if(sscanf(args,"%d %x",&n,&add)!=2)
 	{
-		panic("error");
+	//	panic("error");
+		printf("error");
 	}
 	int row,col;
 	for(row=0;8*row+col<=n;row++)
