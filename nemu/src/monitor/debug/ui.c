@@ -79,7 +79,7 @@ static int cmd_info(char *args)
 
 static int cmd_x(char *args)
 {
-	printf("%s",args);
+/*	printf("%s",args);
 	int n;
 	int add;
 	if(sscanf(args,"%d %x",&n,&add)!=2)
@@ -98,7 +98,9 @@ static int cmd_x(char *args)
 		col=1;
 		printf("\n");
 	}
+	*/
 	return 0;
+	
 }
 static int cmd_help(char *args);
 
