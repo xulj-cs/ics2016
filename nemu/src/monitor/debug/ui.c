@@ -79,7 +79,8 @@ static int cmd_info(char *args)
 
 static int cmd_x(char *args)
 {
-//	printf("%s",args);
+	printf("hello");
+
 /*	int n;
 	int add;
 	int row,col;
