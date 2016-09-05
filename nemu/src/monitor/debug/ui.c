@@ -2,11 +2,10 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
-
+#include "cpu/reg.h"
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
 void cpu_exec(uint32_t);
 int exec(swaddr_t);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
@@ -57,6 +56,26 @@ static int cmd_si(char *args){
 
 	return 0;
 }
+
+static int cmd_info(char *args)
+{
+	if(strcmp((const char *)args,"r")==0)
+	{
+		printf("eax\t\t%x\t\t%d",cpu.eax,cpu.eax);
+		printf("ecx\t\t%x\t\t%d",cpu.ecx,cpu.ecx);
+		printf("edx\t\t%x\t\t%d",cpu.edx,cpu.edx);
+		printf("ebx\t\t%x\t\t%d",cpu.ebx,cpu.ebx);
+
+		printf("esp\t\t%x\t\t%x",cpu.esp,cpu.esp);
+		printf("ebp\t\t%x\t\t%x",cpu.ebp,cpu.ebp);
+		printf("esi\t\t%x\t\t%d",cpu.esi,cpu.esi);
+		printf("edi\t\t%x\t\t%d",cpu.edi,cpu.edi);
+
+		printf("eip\t\t%x\t\t%x",cpu.eip,cpu.eip);
+
+	}
+	return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -68,6 +87,7 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si","Execute the program for one or n tomes",cmd_si},
+	{ "info","Display states of the program",cmd_info},
 	/* TODO: Add more commands */
 
 };
