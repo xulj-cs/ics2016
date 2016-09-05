@@ -81,14 +81,16 @@ static int cmd_x(char *args)
 {
 	printf("hello");
 
-/*	int n;
+	int n;
 	int add;
-	int row,col;
+//	int row,col;
 	if(sscanf(args,"%d %x",&n,&add)!=2)
 	{
 		panic("error");
 	}
-	//int row,col;
+	printf("%d %x",n,add);
+
+/*	//int row,col;
 	for(row=0;8*row+col<=n;row++)
 	{
 		printf("0x%x:\t",add);
