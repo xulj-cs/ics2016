@@ -81,11 +81,11 @@ static int cmd_x(char *args)
 {
 	int n;
 	int add;
-	char *p_add=(char *) &add;
 	if(sscanf(args,"%d %x",&n,&add)!=2)
 	{
 		panic("error");
 	}
+	char *p_add=(char *) add;
 /*	while(n--)
 	{
 		printf("0x%02x\t",*p_add);
