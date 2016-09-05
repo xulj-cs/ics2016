@@ -79,12 +79,12 @@ static int cmd_info(char *args)
 
 static int cmd_x(char *args)
 {
+	printf("%s",args);
 	int n;
 	int add;
 	if(sscanf(args,"%d %x",&n,&add)!=2)
 	{
-	//	panic("error");
-		printf("error");
+		panic("error");
 	}
 	int row,col;
 	for(row=0;8*row+col<=n;row++)
