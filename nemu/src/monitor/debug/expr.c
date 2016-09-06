@@ -23,8 +23,8 @@ static struct rule {
 	 */
 	
 	{" +",	NOTYPE},				// spaces
-	{"\(",'('},					//left parenthesis 
-	{")",')'},					//right parathesis
+	{"\\(",'('},					//left parenthesis 
+	{"\\)",')'},					//right parathesis
 	{"\\*",'*'},				//multiply
 	{"/",'/'},					//divide
 	{"\\+", '+'},				//plus
