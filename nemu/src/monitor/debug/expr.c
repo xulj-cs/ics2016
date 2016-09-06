@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ
+	NOTYPE = 256, EQ,NUM_DEC
 
 	/* TODO: Add more token types */
 
@@ -21,10 +21,17 @@ static struct rule {
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
-
+	
 	{" +",	NOTYPE},				// spaces
-	{"\\+", '+'},					// plus
-	{"==", EQ}						// equal
+	{"\(",'('},					//left parenthesis 
+	{")",')'},					//right parathesis
+	{"\\*",'*'},				//multiply
+	{"/",'/'},					//divide
+	{"\\+", '+'},				//plus
+	{"-",'-'},					// minus
+	{"\\[0-9\\]\\+",NUM_DEC},	//dec number
+	{"==", EQ},						// equal
+
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -79,8 +86,23 @@ static bool make_token(char *e) {
 				 */
 
 				switch(rules[i].token_type) {
+					case '(':tokens[nr_token].type='(';break;
+					case ')':tokens[nr_token].type=')';break;
+					case '*':tokens[nr_token].type='*';break;
+					case '/':tokens[nr_token].type='/';break;
+					case '+':tokens[nr_token].type='+';break;
+					case '-':tokens[nr_token].type='-';break;
+					case  EQ:tokens[nr_token].type=EQ; break;
+					case  NUM_DEC:tokens[nr_token].type=NUM_DEC;
+					if(substr_len>=32)
+						assert(0);
+					strncpy(tokens[nr_token].str,(const char *)substr_start,substr_len);
+					tokens[nr_token].str[substr_len]='\0';
+					break;
 					default: panic("please implement me");
 				}
+				
+				nr_token++;
 
 				break;
 			}
