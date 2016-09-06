@@ -3,6 +3,9 @@
 #include "monitor/watchpoint.h"
 #include "nemu.h"
 #include "cpu/reg.h"
+#include "common.h"
+#include "memory/memory.h"
+
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -80,16 +83,16 @@ static int cmd_info(char *args)
 static int cmd_x(char *args)
 {
 	int n;
-	unsigned add;
+	swaddr_t  add;
 	if(sscanf(args,"%d %x",&n,&add)!=2)
 	{
 		panic("error");
 	}
-	char *p_add=(char *) add;
+//	char *p_add=(char *) add;
 	while(n--)
 	{
-		printf("0x%02x\t",*p_add);
-		p_add++;
+		printf("0x%02x\t",swaddr_read(add,1));
+		add++;
 	}
 	
 /*	int row,col;
