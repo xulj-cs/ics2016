@@ -89,25 +89,27 @@ static int cmd_x(char *args)
 		panic("error");
 	}
 //	char *p_add=(char *) add;
-	while(n--)
+
+/*	while(n--)
 	{
 		printf("0x%02x\t",swaddr_read(add,1));
 		add++;
 	}
+	*/
 	
-/*	int row,col;
+	int row,col;
 	for(row=0;8*row+col<=n;row++)
 	{
-		printf("0x%x:\t",(int)add);
+		printf("0x%x:\t",add);
 		for(col=1;col<=8&&8*row+col<=n;col++)
 		{
-			printf("0x%02x\t",*add);
+			printf("0x%02x\t",swaddr_read(add,1));
 			add++;
 		}
 		col=1;
 		printf("\n");
 	}
-*/
+
 	return 0;
 	
 }
