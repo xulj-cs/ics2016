@@ -8,7 +8,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ,NUM_DEC
+	NOTYPE = 256, EQ, NUM_DEC
 
 	/* TODO: Add more token types */
 
