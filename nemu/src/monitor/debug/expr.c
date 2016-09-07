@@ -228,7 +228,13 @@ unsigned eval(int p,int q,bool *success)
 			case '+':return value1+value2; break;
 			case '-':return value1-value2; break;
 			case '*':return value1*value2; break;
-			case '/':return value1/value2; break;
+			case '/':
+			if(value2==0)
+			{	*success=false;
+				printf("division by zero\n");
+				return -1;
+			}
+			return value1/value2; break;
 			default: assert(0); 
 		}
 	}
