@@ -169,6 +169,7 @@ bool is_in_parenthese(int p,int q)
 }
 int dominant_operator(int p,int q)
 {
+	Log("p==%d,q==%d",p,q);
 	int i;
 	int min_prece_level=3;
 	int index=p;
@@ -177,7 +178,9 @@ int dominant_operator(int p,int q)
 		if(!is_operator(tokens[i].type))
 			break;
 		if(is_in_parenthese(p,i))
+		{	Log("i==%d,break",i);
 			break;
+		}
 		if(min_prece_level>=prece_level(tokens[i].type))
 		{
 			min_prece_level=prece_level(tokens[i].type);
@@ -204,7 +207,7 @@ unsigned eval(int p,int q,bool *success)
 		return atoi((const char *)tokens[p].str);
 
 	}
-	else if(check_parenthese(p,q)==true)
+	else if(check_parenthese(p,q)==true)	
 	{
 		return eval(p+1,q-1,success);
 	}
