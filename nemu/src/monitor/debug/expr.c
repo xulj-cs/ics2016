@@ -162,6 +162,8 @@ int prece_level(int type)
 }
 bool is_in_parenthese(int p,int q)
 {
+	if(p==q-1)
+		return false;
 	return is_parenthese_matched(p,q-1);
 }
 int dominant_operator(int p,int q)
@@ -212,7 +214,7 @@ unsigned eval(int p,int q,bool *success)
 			return -1;	
 		}
 		int op=dominant_operator(p,q);
-		Log("op_index==%d",op);
+		Log("op_index=%d",op);
 		if(op==p)
 		{
 			*success=false;
