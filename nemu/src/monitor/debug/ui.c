@@ -118,9 +118,7 @@ static int cmd_p(char *args)
 {
 	bool success=true;
 	unsigned result=expr(args,&success);
-	if(!success)
-		printf("the expression is illegal\n");
-	else
+	if(success)
 		printf("$ = %u\n",result);
 	return 0;
 }
