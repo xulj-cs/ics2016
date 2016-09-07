@@ -181,6 +181,9 @@ int dominant_operator(int p,int q)
 		{	Log("i==%d,break",i);
 			break;
 		}
+		Log("min==%d",min_prece_level);
+		Log("prece_level==%d",prece_level(tokens[i].type));
+
 		if(min_prece_level>=prece_level(tokens[i].type))
 		{
 			min_prece_level=prece_level(tokens[i].type);
