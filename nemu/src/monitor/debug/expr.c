@@ -30,7 +30,7 @@ static struct rule {
 	{"/",'/'},					//divide
 	{"\\+", '+'},				//plus
 	{"-",'-'},					// minus
-	{"[:digit:]",NUM_DEC},	//dec number
+	{"[0-9]",NUM_DEC},	//dec number
 	{"==", EQ},						// equal
 
 };
