@@ -169,26 +169,20 @@ bool is_in_parenthese(int p,int q)
 }
 int dominant_operator(int p,int q)
 {
-	Log("p==%d,q==%d",p,q);
 	int i;
 	int min_prece_level=3;
 	int index=p;
 	for(i=p+1;i<=q-1;i++)
 	{
 		if(!is_operator(tokens[i].type))
-			break;
+			continue;
 		if(is_in_parenthese(p,i))
-		{	Log("i==%d,break",i);
-			break;
-		}
-		Log("min==%d",min_prece_level);
-		Log("prece_level==%d",prece_level(tokens[i].type));
+			continue;
 
 		if(min_prece_level>=prece_level(tokens[i].type))
 		{
 			min_prece_level=prece_level(tokens[i].type);
 			index=i;
-			Log("index==%d",index);
 		}
 
 	}
@@ -222,7 +216,6 @@ unsigned eval(int p,int q,bool *success)
 			return -1;	
 		}
 		int op=dominant_operator(p,q);
-		Log("op_index=%d",op);
 		if(op==p)
 		{
 			*success=false;
