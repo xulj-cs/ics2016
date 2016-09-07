@@ -113,6 +113,17 @@ static int cmd_x(char *args)
 	return 0;
 	
 }
+
+static int cmd_p(char *args)
+{
+	bool success=true;
+	unsigned result=expr(args,&success);
+	if(!success)
+		printf("the expression is illegal\n");
+	else
+		printf("$ = %u\n",result);
+	return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -126,6 +137,7 @@ static struct {
 	{ "si","Execute the program for one or n tomes",cmd_si},
 	{ "info","Display states of the program",cmd_info},
 	{ "x", "Scan the momery",cmd_x},
+	{ "p", "Calculate the value of expression", cmd_p},
 	/* TODO: Add more commands */
 
 };
