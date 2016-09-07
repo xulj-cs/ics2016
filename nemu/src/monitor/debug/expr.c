@@ -212,6 +212,7 @@ unsigned eval(int p,int q,bool *success)
 			return -1;	
 		}
 		int op=dominant_operator(p,q);
+		Log("op_index==%d",op);
 		if(op==p)
 		{
 			*success=false;
