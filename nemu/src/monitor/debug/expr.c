@@ -182,6 +182,7 @@ int dominant_operator(int p,int q)
 		{
 			min_prece_level=prece_level(tokens[i].type);
 			index=i;
+			Log("index==%d",index);
 		}
 
 	}
