@@ -162,9 +162,10 @@ int prece_level(int type)
 }
 bool is_in_parenthese(int p,int q)
 {
-	if(p==q-1)
+/*	if(p==q-1)
 		return false;
-	return is_parenthese_matched(p,q-1);
+		*/
+	return !is_parenthese_matched(p,q-1);
 }
 int dominant_operator(int p,int q)
 {
