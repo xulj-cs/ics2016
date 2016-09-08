@@ -99,6 +99,8 @@ static int cmd_x(char *args)
 	bool success=true;
 	char* arg1=strtok(args," ");
 	char* arg2=args+strlen(arg1)+1;
+
+	Log("%s\n%s",arg1,arg2);
 	n=atoi(arg1);
 	add=expr(arg2,&success);
 	if(!success)
