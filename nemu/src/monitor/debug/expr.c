@@ -252,12 +252,12 @@ unsigned eval(int p,int q,bool *success)
 
 				for(i=0;i<=7;i++)
 				{
-					if(strcmp((const char *)&tokens[p].str[i],regsw[i])==0)
+					if(strcmp((const char *)&tokens[p].str[1],regsw[i])==0)
 						return reg_w(i);
 				}
 				for(i=0;i<=7;i++)
 				{
-					if(strcmp((const char *)&tokens[p].str[i],regsb[i])==0)
+					if(strcmp((const char *)&tokens[p].str[1],regsb[i])==0)
 						return reg_b(i);
 				}
 				panic("error");
