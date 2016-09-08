@@ -1,4 +1,5 @@
 #include "nemu.h"
+#include "cpu/reg.h"
 #include <stdlib.h>
 
 /* We use the POSIX regex functions to process regular expressions.
@@ -8,7 +9,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM_DEC,NUM_HEX, REG
+	NOTYPE = 256, EQ, NUM_DEC, NUM_HEX, REG, N_EQ, AND ,OR , NOT
 
 	/* TODO: Add more token types */
 
@@ -33,10 +34,14 @@ static struct rule {
 	{"0x[0-9]+]",NUM_HEX}, //hex number
 	{"[0-9]+",NUM_DEC},	//dec number
 	{"\\$e[a-d]x",REG},    //eax ebx ecx edx
-	{"\\$[a-d][xlh]",REG},
+	{"\\$[a-d][xlh]",REG},  //
 	{"\\$(e)?[sd]i",REG},	//edi esi
 	{"\\$(e)?[bsi]p",REG},	//ebp esp eip
-	{"==", EQ},						// equal
+	{"!=",N_EQ},          //unequal
+	{"==", EQ},				//equal
+	{"&&",AND},				//and
+	{"\\|\\|",OR},				//or
+	{"!",NOT},				//not	
 
 };
 
@@ -68,6 +73,7 @@ typedef struct token {
 
 Token tokens[32];
 int nr_token;
+bool is_operator(int type);
 
 static bool make_token(char *e) {
 	int position = 0;
@@ -90,8 +96,8 @@ static bool make_token(char *e) {
 				 * to record the token in the array `tokens'. For certain types
 				 * of tokens, some extra actions should be performed.
 				 */
-
-				switch(rules[i].token_type) {
+				
+			/*	switch(rules[i].token_type) {
 					case '(':tokens[nr_token].type='(';break;
 					case ')':tokens[nr_token].type=')';break;
 					case '*':tokens[nr_token].type='*';break;
@@ -99,6 +105,7 @@ static bool make_token(char *e) {
 					case '+':tokens[nr_token].type='+';break;
 					case '-':tokens[nr_token].type='-';break;
 					case  EQ:tokens[nr_token].type=EQ; break;
+					case N_EQ:tokens[nr_token].
 					case  NUM_DEC:tokens[nr_token].type=NUM_DEC;
 					if(substr_len>=32)
 						assert(0);
@@ -107,9 +114,20 @@ static bool make_token(char *e) {
 					break;
 					default: panic("please implement me");
 				}
-				
-				nr_token++;
+			*/
 
+				if(rules[i].token_type!=NOTYPE)
+				{	
+					tokens[nr_token].type=rules[i].token_type;
+					if(!is_operator(rules[i].token_type))
+					{	if(substr_len>=32)
+							assert(0);
+						strncpy(tokens[nr_token].str,(const char *)substr_start,substr_len);
+						tokens[nr_token].str[substr_len]='\0';	
+					}
+					nr_token++;
+				}
+				
 				break;
 			}
 		}
@@ -150,18 +168,26 @@ bool check_parenthese(int p,int q)
 
 bool is_operator(int type)
 {
-	if(type=='+'||type=='-'||type=='*'||type=='/')
-		return true;
-	return false;
+	if(type==NUM_DEC||type==NUM_HEX||type==REG)
+		return false;
+	return true;
 }
 
 
 int prece_level(int type)
 {
-	if(type=='+'||type=='-')
+	if(type==OR)
 		return 1;
-	if(type=='*'||type=='/')
+	if(type==AND)
 		return 2;
+	if(type==EQ||type==N_EQ)
+		return 3;
+	if(type=='+'||type=='-')
+		return 4;
+	if(type=='*'||type=='/')
+		return 5;
+	if(type==NOT)
+		return 6;
 	panic("error");
 	return 0;
 }
@@ -175,7 +201,7 @@ bool is_in_parenthese(int p,int q)
 int dominant_operator(int p,int q)
 {
 	int i;
-	int min_prece_level=3;
+	int min_prece_level=6;
 	int index=p;
 	for(i=p+1;i<=q-1;i++)
 	{
@@ -201,14 +227,40 @@ unsigned eval(int p,int q,bool *success)
 	}
 	else if(p==q)
 	{
-		if(tokens[p].type!=NUM_DEC)
+		if(is_operator(tokens[p].type))
 		{
 			*success=false;
 			return -1;
 		}
-		return atoi((const char *)tokens[p].str);
+		unsigned result;
+		int i;
+		switch(tokens[p].type)
+		{
+			case NUM_DEC:sscanf(tokens[p].str,"%u",&result);return result;
+			case NUM_HEX:sscanf(tokens[p].str,"%x",&result);return result;
+			case REG:
+				
+				for(i=0;i<=7;i++)
+				{
+					if(strcmp((const char *)&tokens[p].str[1],regsl[i])==0)
+						return reg_l(i);
+				}
 
+				for(i=0;i<=7;i++)
+				{
+					if(strcmp((const char *)&tokens[p].str[i],regsw[i])==0)
+						return reg_w(i);
+				}
+				for(i=0;i<=7;i++)
+				{
+					if(strcmp((const char *)&tokens[p].str[i],regsb[i])==0)
+						return reg_b(i);
+				}
+				panic("error");
+				default:panic("error");
+		 }
 	}
+
 	else if(check_parenthese(p,q)==true)	
 	{
 		return eval(p+1,q-1,success);
