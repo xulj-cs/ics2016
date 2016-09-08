@@ -295,8 +295,7 @@ unsigned eval(int p,int q,bool *success)
 						return 0;
 					else
 						return 1;
-					break;
-				case NEG:return -1*value;break;
+				case NEG:return -1*value;
 				case DEREF:
 					return swaddr_read((uint32_t)value,4);
 				default: panic("error");return -1;
@@ -314,40 +313,36 @@ unsigned eval(int p,int q,bool *success)
 			unsigned value2=eval(op+1,q,success);
 			switch(tokens[op].type)
 			{
-				case '+':return value1+value2; break;
-				case '-':return value1-value2; break;
-				case '*':return value1*value2; break;
+				case '+':return value1+value2; 
+				case '-':return value1-value2; 
+				case '*':return value1*value2; 
 				case '/':
 				if(value2==0)
 				{	*success=false;
 					printf("division by zero\n");
 					return -1;
 				}
-				return value1/value2; break;
+				return value1/value2; 
 				case EQ:
 					if(value1==value2)
 						return 1;
 					else
 						return 0;
-					break;
 				case N_EQ:
 					if(value1==value2)
 						return 0;
 					else
 						return 1;
-						break;
 				case AND:
 					if(value1&&value2)
 						return 1;
 					else
 						return 0;
-					break;
 				case OR:
 					if(value1||value2)
 						return 1;
 					else
 						return 0;
-					break;
 				default: assert(0); return 0;
 			}
 		}
