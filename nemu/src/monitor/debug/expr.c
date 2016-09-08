@@ -186,7 +186,7 @@ int prece_level(int type)
 		return 4;
 	if(type=='*'||type=='/')
 		return 5;
-	if(type==NOT)
+	if(type==NOT||type==DEREF||type==NEG)
 		return 6;
 	panic("error");
 	return 0;
@@ -203,7 +203,7 @@ int dominant_operator(int p,int q)
 	int i;
 	int min_prece_level=6;
 	int index=p;
-	for(i=p+1;i<=q-1;i++)
+	for(i=p;i<=q-1;i++)
 	{
 		if(!is_operator(tokens[i].type))
 			continue;
@@ -257,7 +257,8 @@ unsigned eval(int p,int q,bool *success)
 						return reg_b(i);
 				}
 				panic("error");
-				default:panic("error");
+				return 0;
+			default:panic("error");return 0;
 		 }
 	}
 
@@ -273,26 +274,82 @@ unsigned eval(int p,int q,bool *success)
 			return -1;	
 		}
 		int op=dominant_operator(p,q);
-		if(op==p)
+	/*	if(op==p)
 		{
 			*success=false;
 			return -1;
 		}
-		unsigned value1=eval(p,op-1,success);
-		unsigned value2=eval(op+1,q,success);
-		switch(tokens[op].type)
+		*/
+		if(tokens[op].type==NOT||tokens[op].type==NEG||tokens[op].type==DEREF)
 		{
-			case '+':return value1+value2; break;
-			case '-':return value1-value2; break;
-			case '*':return value1*value2; break;
-			case '/':
-			if(value2==0)
-			{	*success=false;
-				printf("division by zero\n");
+			if(op!=p)
+			{
+				*success=false;
 				return -1;
 			}
-			return value1/value2; break;
-			default: assert(0); 
+			int  value=eval(op+1,q,success);
+			switch (tokens[op].type)
+			{
+				case NOT:
+					if(value)
+						return 0;
+					else
+						return 1;
+					break;
+				case NEG:return -1*value;break;
+				case DEREF:
+					return swaddr_read((uint32_t)value,4);
+				default: panic("error");return -1;
+			}
+		
+		}
+		else
+		{
+			if(op==p)
+			{
+				*success=false;
+				return -1;
+			}
+			unsigned value1=eval(p,op-1,success);
+			unsigned value2=eval(op+1,q,success);
+			switch(tokens[op].type)
+			{
+				case '+':return value1+value2; break;
+				case '-':return value1-value2; break;
+				case '*':return value1*value2; break;
+				case '/':
+				if(value2==0)
+				{	*success=false;
+					printf("division by zero\n");
+					return -1;
+				}
+				return value1/value2; break;
+				case EQ:
+					if(value1==value2)
+						return 1;
+					else
+						return 0;
+					break;
+				case N_EQ:
+					if(value1==value2)
+						return 0;
+					else
+						return 1;
+						break;
+				case AND:
+					if(value1&&value2)
+						return 1;
+					else
+						return 0;
+					break;
+				case OR:
+					if(value1||value2)
+						return 1;
+					else
+						return 0;
+					break;
+				default: assert(0); return 0;
+			}
 		}
 	}
 }
