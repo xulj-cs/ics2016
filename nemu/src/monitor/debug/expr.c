@@ -243,9 +243,10 @@ unsigned eval(int p,int q,bool *success)
 			case NUM_DEC:sscanf(tokens[p].str,"%u",&result);return result;
 			case NUM_HEX:sscanf(tokens[p].str,"%x",&result);return result;
 			case REG:
-				
+				Log("%s",&tokens[p].str[1]);
 				for(i=0;i<=7;i++)
 				{
+					Log("%s",regsl[i]);
 					if(strcmp((const char *)&tokens[p].str[1],regsl[i])==0)
 						return reg_l(i);
 				}
