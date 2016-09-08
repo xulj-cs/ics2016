@@ -207,6 +207,8 @@ int dominant_operator(int p,int q)
 	{
 		if(!is_operator(tokens[i].type))
 			continue;
+		if(tokens[i].type=='('||tokens[i].type==')')
+			continue;
 		if(is_in_parenthese(p,i))
 			continue;
 
