@@ -9,7 +9,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM_DEC, NUM_HEX, REG, N_EQ, AND ,OR , NOT
+	NOTYPE = 256, EQ, NUM_DEC, NUM_HEX, REG, N_EQ, AND ,OR , NOT ,NEG, DEREF
 
 	/* TODO: Add more token types */
 
@@ -301,6 +301,18 @@ uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
+	}
+	int i;
+	for(i=0;i<nr_token;i++)
+	{	
+		if(tokens[i].type=='*'&&(i==0||(tokens[i-1].type!=')'&&tokens[i-1].type!=NUM_DEC&&tokens[i-1].type!=NUM_HEX&&tokens[i-1].type!=REG)))
+			tokens[i].type=DEREF;
+	}
+
+	for(i=0;i<nr_token;i++)
+	{	
+		if(tokens[i].type=='-'&&(i==0||(tokens[i-1].type!=')'&&tokens[i-1].type!=NUM_DEC&&tokens[i-1].type!=NUM_HEX&&tokens[i-1].type!=REG)))
+			tokens[i].type=NEG;
 	}
 	unsigned result=eval(0,nr_token-1,success);
 	if(*success == false)
