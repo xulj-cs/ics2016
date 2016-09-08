@@ -84,19 +84,26 @@ static int cmd_x(char *args)
 {
 	int n;
 	swaddr_t  add;
-	if(sscanf(args,"%d %x",&n,&add)!=2)
+/*	if(sscanf(args,"%d %x",&n,&add)!=2)
 	{
 		panic("error");
 	}
 //	char *p_add=(char *) add;
 
-/*	while(n--)
+	while(n--)
 	{
 		printf("0x%02x\t",swaddr_read(add,1));
 		add++;
 	}
 	*/
-	
+	bool success=true;
+	char* arg1=strtok(args," ");
+	char* arg2=args+strlen(arg1)+1;
+	n=atoi(arg1);
+	add=expr(arg2,&success);
+	if(!success)
+		return 0;
+
 	int row,col;
 	for(row=0;8*row+col<=n;row++)
 	{
@@ -117,7 +124,7 @@ static int cmd_x(char *args)
 static int cmd_p(char *args)
 {
 	bool success=true;
-	unsigned result=expr(args,&success);
+	uint32_t result=expr(args,&success);
 	if(success)
 		printf("$ = %u\n",result);
 	return 0;
