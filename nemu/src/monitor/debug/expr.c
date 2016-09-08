@@ -31,7 +31,7 @@ static struct rule {
 	{"/",'/'},					//divide
 	{"\\+", '+'},				//plus
 	{"-",'-'},					// minus
-	{"0x[0-9]+]",NUM_HEX}, //hex number
+	{"0x[0-9]+",NUM_HEX}, //hex number
 	{"[0-9]+",NUM_DEC},	//dec number
 	{"\\$e[a-d]x",REG},    //eax ebx ecx edx
 	{"\\$[a-d][xlh]",REG},  //
