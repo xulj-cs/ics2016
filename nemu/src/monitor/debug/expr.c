@@ -201,7 +201,7 @@ bool is_in_parenthese(int p,int q)
 int dominant_operator(int p,int q)
 {
 	int i;
-	int min_prece_level=6;
+	int min_prece_level=7;
 	int index=p;
 	for(i=p;i<=q-1;i++)
 	{
@@ -215,7 +215,9 @@ int dominant_operator(int p,int q)
 		if(min_prece_level>=prece_level(tokens[i].type))
 		{
 			min_prece_level=prece_level(tokens[i].type);
-			index=i;
+			if(!(min_prece_level==prece_level(tokens[i].type)&&6==min_prece_level))
+
+				index=i;
 		}
 
 	}
