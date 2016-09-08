@@ -8,7 +8,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM_DEC
+	NOTYPE = 256, EQ, NUM_DEC,NUM_HEX, REG
 
 	/* TODO: Add more token types */
 
@@ -30,7 +30,12 @@ static struct rule {
 	{"/",'/'},					//divide
 	{"\\+", '+'},				//plus
 	{"-",'-'},					// minus
+	{"0x[0-9]+]",NUM_HEX}, //hex number
 	{"[0-9]+",NUM_DEC},	//dec number
+	{"$e[a-d]x",REG},    //eax ebx ecx edx
+	{"$[a-d][xlh]",REG},
+	{"$(e)?[sd]i",REG},	//edi esi
+	{"$(e)?[bsi]p",REG},	//ebp esp eip
 	{"==", EQ},						// equal
 
 };
