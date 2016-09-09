@@ -10,7 +10,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 void cpu_exec(uint32_t);
-int exec(swaddr_t);
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -39,22 +39,24 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args){
-	int instr_len;
-	int times;
 	if(args==NULL)
 	{
-		instr_len=exec(cpu.eip);
+	/*	instr_len=exec(cpu.eip);
 		cpu.eip+=instr_len;
+		*/
+		cpu_exec(1);
 	}
 	else
 	{
 		
-		times=atoi((const char *)args);
-		while(times--)
+		int	times=atoi((const char *)args);
+	/*	while(times--)
 		{
 			instr_len=exec(cpu.eip);
 			cpu.eip+=instr_len;
 		}
+		*/
+		cpu_exec(times);
 	}
 
 	return 0;
@@ -100,7 +102,6 @@ static int cmd_x(char *args)
 	char* arg1=strtok(args," ");
 	char* arg2=args+strlen(arg1)+1;
 
-	Log("%s\n%s",arg1,arg2);
 	n=atoi(arg1);
 	add=expr(arg2,&success);
 	if(!success)
