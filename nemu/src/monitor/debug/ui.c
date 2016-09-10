@@ -108,13 +108,13 @@ static int cmd_x(char *args)
 		return 0;
 
 	int row,col;
-	for(row=0;8*row+col<=n;row++)
+	for(row=0;4*row+col<=n;row++)
 	{
 		printf("0x%x:\t",add);
-		for(col=1;col<=8&&8*row+col<=n;col++)
+		for(col=1;col<=4&&4*row+col<=n;col++)
 		{
-			printf("0x%02x\t",swaddr_read(add,1));
-			add++;
+			printf("0x%08x\t",swaddr_read(add,4));
+			add+=4;
 		}
 		col=1;
 		printf("\n");
