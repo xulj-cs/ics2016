@@ -110,3 +110,25 @@ void show_watchpoint()
 		}
 	}
 }
+bool is_changed()
+{
+	bool bl=false;
+	bool t=true;
+	WP *p=head;
+	for(;p!=NULL;p=p->next)
+	{
+		uint32_t new_result=expr(p->e,&t);
+		if(p->old_result!=new_result)
+		{
+			bl=true;
+			
+			printf("Watchpoint %d:%s\n",p->NO,p->e);
+			printf("Old value = %u\n",p->old_result);
+			printf("New value = %u\n",new_result);
+			
+			p->old_result=new_result;
+		}
+	 }
+	
+	return bl;
+}

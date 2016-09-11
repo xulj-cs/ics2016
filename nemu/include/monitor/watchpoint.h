@@ -15,4 +15,5 @@ typedef struct watchpoint {
 int new_wp(char *e,uint32_t result);
 bool free_wp(int no);
 void show_watchpoint();
+bool is_changed();
 #endif
