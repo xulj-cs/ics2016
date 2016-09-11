@@ -132,6 +132,32 @@ static int cmd_p(char *args)
 		printf("$ = %u\n",result);
 	return 0;
 }
+
+static int cmd_w(char *args)
+{
+	bool success=true;
+	uint32_t result=expr(args,&success);
+
+	int i=0;
+	for(;i<nr_token;i++)
+	{
+		if(tokens[i].type==DEREF||tokens[i].type==REG)
+			break;
+	}
+	if(i==nr_token)
+	{
+		success=false;
+		printf("Cannot watch constant value '%s'",args);
+	}
+
+	if(success)
+	{	
+		int no=new_wp(args,result);
+		printf("Watchpoint %d:%s",no,args);
+	}
+	return 0;
+
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -142,10 +168,12 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-	{ "si","Execute the program for one or n tomes",cmd_si},
+	{ "si","Execute the program for one or n step(s)",cmd_si},
 	{ "info","Display states of the program",cmd_info},
 	{ "x", "Scan the momery",cmd_x},
 	{ "p", "Calculate the value of expression", cmd_p},
+	{ "w", "Set the watchpoint", cmd_w},
+//	{ "d", "Delete the watchpoint",cmd_d},
 	/* TODO: Add more commands */
 
 };
