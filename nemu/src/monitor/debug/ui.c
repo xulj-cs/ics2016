@@ -151,13 +151,13 @@ static int cmd_w(char *args)
 	if(i==nr_token)
 	{
 		success=false;
-		printf("Cannot watch constant value '%s'",args);
+		printf("Cannot watch constant value '%s'\n",args);
 	}
 
 	if(success)
 	{	
 		int no=new_wp(args,result);
-		printf("Watchpoint %d:%s",no,args);
+		printf("Watchpoint %d:%s\n",no,args);
 	}
 	return 0;
 
@@ -168,7 +168,7 @@ static int cmd_d(char *args)
 	int no=atoi(args);
 	if(free_wp(no)==false)
 	{
-		printf("No watchpoint number %d",no);
+		printf("No watchpoint number %d\n",no);
 	}
 
 	return 0;

@@ -65,9 +65,10 @@ int new_wp(char *e,uint32_t result)
 	head=p;
 	strcpy(p->e,e);
 	p->old_result=result;
+	int no=p->NO;
 	sort(head);
 
-	return p->NO;
+	return no;
 }
 
 bool free_wp(int no)
@@ -86,7 +87,7 @@ bool free_wp(int no)
 		if(p!=q)
 			q->next=p->next;
 		else
-			head=NULL;
+			head=head->next;
 		
 		p->next=free_;
 		free_=p;
@@ -101,7 +102,7 @@ void show_watchpoint()
 		printf("No watchpoints\n");
 	else
 	{
-		printf("Num\tType\tWhat\n");
+		printf("Num\tType\t\tWhat\n");
 		WP *p=head;
 		for(;p!=NULL;p=p->next)
 		{
