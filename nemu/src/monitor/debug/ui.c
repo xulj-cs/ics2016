@@ -79,6 +79,10 @@ static int cmd_info(char *args)
 		printf("eip\t\t0x%x\t\t0x%x\n",cpu.eip,cpu.eip);
 
 	}
+	else if(strcmp((const char *)args,"w")==0)
+	{
+		show_watchpoint();
+	}
 	return 0;
 }
 
@@ -158,6 +162,17 @@ static int cmd_w(char *args)
 	return 0;
 
 }
+
+static int cmd_d(char *args)
+{	
+	int no=atoi(args);
+	if(free_wp(no)==false)
+	{
+		printf("No watchpoint number %d",no);
+	}
+
+	return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -173,7 +188,7 @@ static struct {
 	{ "x", "Scan the momery",cmd_x},
 	{ "p", "Calculate the value of expression", cmd_p},
 	{ "w", "Set the watchpoint", cmd_w},
-//	{ "d", "Delete the watchpoint",cmd_d},
+	{ "d", "Delete the watchpoint",cmd_d},
 	/* TODO: Add more commands */
 
 };

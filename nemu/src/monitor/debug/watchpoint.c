@@ -95,4 +95,17 @@ bool free_wp(int no)
 	}
 }
 
-
+void show_watchpoint()
+{
+	if(head==NULL)
+		printf("No watchpoints\n");
+	else
+	{
+		printf("Num\tType\tWhat\n");
+		WP *p=head;
+		for(;p!=NULL;p=p->next)
+		{
+			printf("%d\twatchpoint\t%s\n",p->NO,p->e);
+		}
+	}
+}
