@@ -33,7 +33,7 @@ static struct rule {
 	{"/",'/'},					//divide
 	{"\\+", '+'},				//plus
 	{"-",'-'},					// minus
-	{"0x[0-9]+",NUM_HEX}, //hex number
+	{"0[Xx][0-9a-fA-F]+",NUM_HEX}, //hex number
 	{"[0-9]+",NUM_DEC},	//dec number
 	{"\\$e[a-d]x",REG},    //eax ebx ecx edx
 	{"\\$[a-d][xlh]",REG},  //
@@ -191,7 +191,7 @@ int prece_level(int type)
 	if(type==NOT||type==DEREF||type==NEG)
 		return 6;
 	panic("error");
-	return 0;
+	
 }
 bool is_in_parenthese(int p,int q)
 {
@@ -266,8 +266,8 @@ unsigned eval(int p,int q,bool *success)
 				if(strcmp((const char *)&tokens[p].str[1],"ip")==0)
 					return (uint16_t)cpu.eip;
 				panic("error");
-				return 0;
-			default:panic("error");return 0;
+	
+			default:panic("error");
 		 }
 	}
 
@@ -299,15 +299,11 @@ unsigned eval(int p,int q,bool *success)
 			int  value=eval(op+1,q,success);
 			switch (tokens[op].type)
 			{
-				case NOT:
-					if(value)
-						return 0;
-					else
-						return 1;
+				case NOT:return ! value;
 				case NEG:return -1*value;
 				case DEREF:
 					return swaddr_read((uint32_t)value,4);
-				default: panic("error");return -1;
+				default: panic("error");
 			}
 		
 		}
@@ -332,27 +328,11 @@ unsigned eval(int p,int q,bool *success)
 					return -1;
 				}
 				return value1/value2; 
-				case EQ:
-					if(value1==value2)
-						return 1;
-					else
-						return 0;
-				case N_EQ:
-					if(value1==value2)
-						return 0;
-					else
-						return 1;
-				case AND:
-					if(value1&&value2)
-						return 1;
-					else
-						return 0;
-				case OR:
-					if(value1||value2)
-						return 1;
-					else
-						return 0;
-				default: assert(0); return 0;
+				case EQ:	return value1 == value2;
+				case N_EQ:	return value1 != value2;
+				case AND:	return value1 && value2;
+				case OR:	return value1 || value2;
+				default: panic("error");
 			}
 		}
 	}
