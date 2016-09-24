@@ -103,11 +103,8 @@ static int cmd_x(char *args)
 	}
 	*/
 	int args_len=strlen(args);
-	printf("%s!%d",args,strlen(args));
 	bool success=true;
 	char* arg1=strtok(args," ");
-	printf("%s!%d",arg1,strlen(arg1));
-	printf("%d%d",strlen(args),strlen(arg1));	
 	if(args_len == strlen(arg1))
 //	char* arg2=args+strlen(arg1)+1;
 //	if(*arg2 == '\0')
@@ -117,7 +114,7 @@ static int cmd_x(char *args)
 		if(!success)
 			return 0;
 		printf("0x%x:\t",add);
-		printf("0x%08xx\t\n",swaddr_read(add,4));
+		printf("0x%08x\t\n",swaddr_read(add,4));
 	}
 	else
 	{
