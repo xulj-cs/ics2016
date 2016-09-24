@@ -105,23 +105,34 @@ static int cmd_x(char *args)
 	bool success=true;
 	char* arg1=strtok(args," ");
 	char* arg2=args+strlen(arg1)+1;
-
-	n=atoi(arg1);
-	add=expr(arg2,&success);
-	if(!success)
-		return 0;
-
-	int row,col;
-	for(row=0;4*row+col<=n;row++)
-	{
+	if(arg2 == NULL)
+	{	
+		
+		add=expr(arg1,&success);
+		if(!success)
+			return 0;
 		printf("0x%x:\t",add);
-		for(col=1;col<=4&&4*row+col<=n;col++)
+		printf("0x%08xx\t\n",swaddr_read(add,4));
+	}
+	else
+	{
+		n=atoi(arg1);
+		add=expr(arg2,&success);
+		if(!success)
+			return 0;
+
+		int row,col;
+		for(row=0;4*row+col<=n;row++)
 		{
-			printf("0x%08x\t",swaddr_read(add,4));
-			add+=4;
+			printf("0x%x:\t",add);
+			for(col=1;col<=4&&4*row+col<=n;col++)
+			{
+				printf("0x%08x\t",swaddr_read(add,4));
+				add+=4;
+			}
+			col=1;
+			printf("\n");
 		}
-		col=1;
-		printf("\n");
 	}
 
 	return 0;
