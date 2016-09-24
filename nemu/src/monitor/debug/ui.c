@@ -106,7 +106,7 @@ static int cmd_x(char *args)
 	bool success=true;
 	char* arg1=strtok(args," ");
 	printf("%s!%d",arg1,strlen(arg1));
-	
+	printf("%d%d",strlen(args),strlen(arg1));	
 	if(strlen(args)==strlen(arg1))
 //	char* arg2=args+strlen(arg1)+1;
 //	if(*arg2 == '\0')
