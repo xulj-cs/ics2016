@@ -88,7 +88,7 @@ static int cmd_info(char *args)
 
 static int cmd_x(char *args)
 {
-	int n;
+//	int n;
 	swaddr_t  add;
 /*	if(sscanf(args,"%d %x",&n,&add)!=2)
 	{
@@ -102,10 +102,11 @@ static int cmd_x(char *args)
 		add++;
 	}
 	*/
-	printf("%s!",args);
+	printf("%s!%d",args,strlen(args));
 	bool success=true;
 	char* arg1=strtok(args," ");
-	printf("%s!",arg1);
+	printf("%s!%d",arg1,strlen(arg1));
+	
 	if(strlen(args)==strlen(arg1))
 //	char* arg2=args+strlen(arg1)+1;
 //	if(*arg2 == '\0')
@@ -120,7 +121,7 @@ static int cmd_x(char *args)
 	else
 	{
 		char* arg2=args+strlen(arg1)+1;
-		n=atoi(arg1);
+		int	n=atoi(arg1);
 		add=expr(arg2,&success);
 		if(!success)
 			return 0;
