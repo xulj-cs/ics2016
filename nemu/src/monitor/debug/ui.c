@@ -102,12 +102,13 @@ static int cmd_x(char *args)
 		add++;
 	}
 	*/
-	printf("%s!",args);
+//	printf("%s!",args);
 	bool success=true;
 	char* arg1=strtok(args," ");
-	printf("%s!",arg1);
+//	printf("%s!",arg1);
+//	if(strlen(args)==strlen(arg1))
 	char* arg2=args+strlen(arg1)+1;
-	if(arg2 == NULL)
+	if(*arg2 == '\0')
 	{	
 		
 		add=expr(arg1,&success);
