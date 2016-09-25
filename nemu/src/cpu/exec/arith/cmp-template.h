@@ -23,6 +23,7 @@ make_helper(concat(cmp_ib2rm_,SUFFIX))
 	op_src->val = op_src->imm;
 	
 	len +=2;
+	Log("%d",len);
 	do_execute();
 
 	return len;
