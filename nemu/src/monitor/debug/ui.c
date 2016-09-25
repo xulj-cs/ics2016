@@ -78,6 +78,25 @@ static int cmd_info(char *args)
 
 		printf("eip\t\t0x%x\t\t0x%x\n",cpu.eip,cpu.eip);
 
+		printf("eflags\t[");
+
+		if(cpu.CF)
+			printf("CF ");
+		if(cpu.PF)
+			printf("PF ");
+		if(cpu.ZF)
+			printf("ZF ");
+		if(cpu.SF)
+			printf("SF ");
+		if(cpu.IF)
+			printf("IF ");
+		if(cpu.DF)
+			printf("DF ");
+		if(cpu.OF)
+			printf("OF ");
+
+		printf("]\n");
+
 	}
 	else if(strcmp((const char *)args,"w")==0)
 	{
