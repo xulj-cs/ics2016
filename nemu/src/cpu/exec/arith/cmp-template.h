@@ -29,11 +29,15 @@ make_helper(concat(cmp_ib2rm_,SUFFIX))
 	op_dest->size = DATA_BYTE;
 	int len =read_ModR_M( eip+1 ,op_dest,op_src2);
 //	snprintf(op_src2->str, OP_STR_SIZE, "%%%s", REG_NAME(reg->reg));
+	op_src->type=OP_TYPE_IMM;
+	op_src->imm=instr_fetch(eip+1+len,1);
+	op_src->val = op_dest->imm;
+	snprintf(op_src->str, OP_STR_SIZE, "$0x%x", op_src->imm);	
 
-	len += concat(decode_i_,SUFFIX)(eip+1+len);
+
 	do_execute();
 
-	return len+1;
+	return len+1+1;
 }
 
 #endif
