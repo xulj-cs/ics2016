@@ -16,13 +16,13 @@ static void do_execute()
 }
 make_helper(concat(cmp_ib2rm_,SUFFIX))
 {
-	int len = concat(decode_rm_,SUFFIX)(eip);
+	int len = concat(decode_rm_,SUFFIX)(eip+1);
 	
 	op_src->type=OP_TYPE_IMM;
-	op_src->imm=instr_fetch(eip+len,1);
+	op_src->imm=instr_fetch(eip+1+len,1);
 	op_src->val = op_src->imm;
 	
-	len += 1;
+	len +=2;
 	do_execute();
 
 	return len;
