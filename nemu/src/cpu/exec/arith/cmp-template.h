@@ -6,7 +6,7 @@ static void do_execute()
 {
 	DATA_TYPE result;
 	result = op_src->val - op_dest->val;
-	Log("%d%d",op_dest->val,op_src->val);
+//	Log("%d%d",op_dest->val,op_src->val);
 	cpu.OF=concat(OF_,SUFFIX)(op_src->val,op_dest->val,'-');
 	cpu.SF=MSB(result);
 	cpu.ZF=!result;

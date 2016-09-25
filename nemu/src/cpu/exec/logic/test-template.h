@@ -1,5 +1,4 @@
 #include "cpu/exec/template-start.h"
-#include "cpu/exec/eflags.h"
 #define instr test
 /*int concat(bool_PF__,SUFFIX)(DATA_TYPE n)
 {

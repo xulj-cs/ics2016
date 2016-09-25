@@ -1,6 +1,7 @@
 #include "cpu/exec/helper.h"
-
+#include "cpu/exec/eflags.h"
 #include "cpu/reg.h"
+
 #define DATA_BYTE 1
 #include "test-template.h"
 #undef DATA_BYTE
