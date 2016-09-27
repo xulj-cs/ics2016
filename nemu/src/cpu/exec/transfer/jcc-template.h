@@ -1,11 +1,18 @@
 #include "cpu/exec/template-start.h"
 
-#define instr jz
+//#define instr jz
 //#if DATA_BYTE == 1
 
 static void do_execute(){
 	
+	#ifdef JZ
 	if(cpu.ZF)
+	#endif
+
+	#ifdef JBE
+	if(cpu.ZF || cpu.CF)
+	#endif
+
 	{	
 		cpu.eip += op_src->val;
 		if(DATA_BYTE == 2)
