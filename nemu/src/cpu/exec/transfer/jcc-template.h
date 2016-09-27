@@ -20,8 +20,21 @@ static void do_execute(){
 	}
 	print_asm_template1();
 }
-
-make_instr_helper(i)
+//#if DATA_BYTE == 1 ||DATA_BYTE == 4
+//make_instr_helper(si)
 //#endif
+//#endif
+make_helper(concat3(instr,_si_,SUFFIX)){
+	
+	int len;
+	if(DATA_BYTE == 1)
+		len=decode_si_b(eip+1);
+	else
+		len=decode_si_l(eip+1);
+	do_execute();
 
+	return 1+len;
+		
+	
+	}
 #include "cpu/exec/template-end.h"

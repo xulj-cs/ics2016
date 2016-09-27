@@ -16,7 +16,7 @@
 #include "jcc-template.h"
 #undef DATA_BYTE
 
-make_helper_v(concat(instr,_i))
+make_helper_v(concat(instr,_si))
 #undef JZ
 #undef instr
 
@@ -35,7 +35,7 @@ make_helper_v(concat(instr,_i))
 #include "jcc-template.h"
 #undef DATA_BYTE
 
-make_helper_v(concat(instr,_i))
+make_helper_v(concat(instr,_si))
 #undef JBE
 #undef instr
 

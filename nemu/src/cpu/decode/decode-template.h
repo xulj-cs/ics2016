@@ -32,7 +32,12 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	 *
 	op_src->simm = ???
 	 */
-	panic("please implement me");
+	if(DATA_BYTE == 4)
+		op_src->simm = instr_fetch(eip, 4);
+	else
+		op_src->simm = (int8_t)instr_fetch(eip, 1);
+
+//	panic("please implement me");
 
 	op_src->val = op_src->simm;
 
