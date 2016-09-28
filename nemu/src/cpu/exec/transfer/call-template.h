@@ -14,9 +14,9 @@ static void do_execute(){
 
 
 //	print_asm_template1();
-//	print_asm(str(instr) " %s",cpu.eip + 1 + DATA_BYTE)
-
-	printf("%s\t%x\n",str(instr),cpu.eip+1+DATA_BYTE);
+	print_asm(str(instr) " %s",str(cpu.eip + 1 + DATA_BYTE));
+//	print_asm(str(instr) str(SUFFIX) " %s", op_src->str)
+//	printf("%s\t%x\n",str(instr),cpu.eip+1+DATA_BYTE);
 
 }
 //#if DATA_BYTE == 2 || DATA_BYTE == 4
