@@ -25,6 +25,23 @@ static void do_execute()
 
 }
 make_instr_helper(r2rm)
+#if DATA_BYTE == 2 ||DATA_BYTE == 4
+make_helper(concat(add_ib2rm_,SUFFIX))
+{
+	op_dest->size = DATA_BYTE;
+	int len = read_ModR_M( eip+1 , op_dest,op_src2);
+	
+	op_src->type=OP_TYPE_IMM;
+	op_src->imm=instr_fetch(eip+1+len,1);
+	op_src->val = op_src->imm;
+	snprintf(op_src->str,OP_STR_SIZE,"$0x%x", op_src->imm);
+
+	do_execute();
+
+	return len+1+1;
+
+}
+#endif
 
 //#endif
 
