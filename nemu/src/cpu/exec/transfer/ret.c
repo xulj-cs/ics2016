@@ -9,7 +9,7 @@ make_helper(ret_w){
 	cpu.ip=MEM_R(reg_l(R_ESP));
 	eip = eip & 0x0000ffff;
 	reg_l(R_ESP) += DATA_BYTE;
-	print_asm(str(retw));
+	print_asm(str(ret));
 	return 0;
 }
 #undef DATA_BYTE
@@ -20,7 +20,7 @@ make_helper(ret_l){
 	
 	reg_l(R_ESP) += DATA_BYTE;
 
-	print_asm(str(retl));
+	print_asm(str(ret));
 	return 0;
 }
 #undef DATA_BYTE
