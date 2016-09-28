@@ -21,7 +21,7 @@ make_helper(ret_l){
 	reg_l(R_ESP) += DATA_BYTE;
 
 	print_asm(str(ret));
-	return 0;
+	return 1;
 }
 #undef DATA_BYTE
 
