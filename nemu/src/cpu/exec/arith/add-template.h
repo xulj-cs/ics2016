@@ -26,7 +26,7 @@ static void do_execute()
 }
 make_instr_helper(r2rm)
 #if DATA_BYTE == 2 ||DATA_BYTE == 4
-make_helper(concat(add_ib2rm_,SUFFIX))
+/*make_helper(concat(add_ib2rm_,SUFFIX))
 {
 	op_dest->size = DATA_BYTE;
 	int len = read_ModR_M( eip+1 , op_dest,op_src2);
@@ -40,7 +40,8 @@ make_helper(concat(add_ib2rm_,SUFFIX))
 
 	return len+1+1;
 
-}
+}*/
+make_instr_helper(rm_imm)
 #endif
 
 //#endif

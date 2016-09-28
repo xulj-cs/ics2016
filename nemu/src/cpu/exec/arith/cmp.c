@@ -14,4 +14,4 @@
 #include "cmp-template.h"
 #undef DATA_BYTE
 
-make_helper_v(cmp_ib2rm)
+make_helper_v(cmp_rm_imm)

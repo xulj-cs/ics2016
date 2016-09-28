@@ -29,8 +29,8 @@ make_group(group1_v,
 
 /* 0x83 */
 make_group(group1_sx_v,
-	add_ib2rm_v, inv, inv, inv, 
-	inv, sub_ib2rm_v, inv, cmp_ib2rm_v)
+	add_rm_imm_v, inv, inv, inv, 
+	inv, sub_rm_imm_v, inv, cmp_rm_imm_v)
 
 /* 0xc0 */
 make_group(group2_i_b,
@@ -65,21 +65,21 @@ make_group(group2_cl_v,
 /* 0xf6 */
 make_group(group3_b,
 	inv, inv, inv, inv, 
-	inv, inv, inv, inv)
+	inv, imul_rm2a_b, div_rm_b, idiv_rm_b)
 
 /* 0xf7 */
 make_group(group3_v,
 	inv, inv, inv, inv, 
-	inv, inv, inv, inv)
+	inv, imul_rm2a_v, div_rm_v, idiv_rm_b)
 
 /* 0xfe */
 make_group(group4,
-	inv, inv, inv, inv, 
+	inv, dec_rm_b, inv, inv, 
 	inv, inv, inv, inv)
 
 /* 0xff */
 make_group(group5,
-	inv, inv, inv, inv, 
+	inv, dec_rm_v, inv, inv, 
 	inv, inv, inv, inv)
 
 make_group(group6,
@@ -112,25 +112,25 @@ helper_fun opcode_table [256] = {
 /* 0x3c */	inv, inv, inv, inv,
 /* 0x40 */	inv, inv, inv, inv,
 /* 0x44 */	inv, inv, inv, inv,
-/* 0x48 */	inv, inv, inv, inv,
-/* 0x4c */	inv, inv, inv, inv,
+/* 0x48 */	dec_r_v, dec_r_v, dec_r_v, dec_r_v,
+/* 0x4c */	dec_r_v, dec_r_v, dec_r_v, dec_r_v,
 /* 0x50 */	push_r_v, push_r_v, push_r_v, push_r_v,
 /* 0x54 */	push_r_v, push_r_v, push_r_v, push_r_v,
 /* 0x58 */	pop_r_v, pop_r_v, pop_r_v, pop_r_v,
 /* 0x5c */	pop_r_v, pop_r_v, pop_r_v, pop_r_v,
 /* 0x60 */	inv, inv, inv, inv,
 /* 0x64 */	inv, inv, operand_size, inv,
-/* 0x68 */	inv, inv, inv, inv,
+/* 0x68 */	inv, imul_i_rm2r_v, inv, imul_si_rm2r_v,
 /* 0x6c */	inv, inv, inv, inv,
 /* 0x70 */	inv, inv, inv, inv,
 /* 0x74 */	jz_si_b, inv, jbe_si_b, inv,
 /* 0x78 */	inv, inv, inv, inv,
 /* 0x7c */	inv, inv, inv, inv,
 /* 0x80 */	group1_b, group1_v, inv, group1_sx_v, 
-/* 0x84 */	test_r2rm_b,test_r2rm_v, inv, inv,
+/* 0x84 */	test_r2rm_b,test_r2rm_v, xchg_r2rm_b, xchg_r2rm_v,
 /* 0x88 */	mov_r2rm_b, mov_r2rm_v, mov_rm2r_b, mov_rm2r_v,
 /* 0x8c */	inv, inv, inv, inv,
-/* 0x90 */	inv, inv, inv, inv,
+/* 0x90 */	xchg_a2r_v, inv, inv, inv,
 /* 0x94 */	inv, inv, inv, inv,
 /* 0x98 */	inv, inv, inv, inv,
 /* 0x9c */	inv, inv, inv, inv,
@@ -204,7 +204,7 @@ helper_fun _2byte_opcode_table [256] = {
 /* 0xa0 */	inv, inv, inv, inv, 
 /* 0xa4 */	inv, inv, inv, inv,
 /* 0xa8 */	inv, inv, inv, inv,
-/* 0xac */	inv, inv, inv, inv,
+/* 0xac */	inv, inv, inv, imul_rm2r_v,
 /* 0xb0 */	inv, inv, inv, inv, 
 /* 0xb4 */	inv, inv, inv, inv, 
 /* 0xb8 */	inv, inv, inv, inv,
