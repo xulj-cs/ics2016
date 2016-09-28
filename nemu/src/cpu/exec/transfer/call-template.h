@@ -14,7 +14,7 @@ static void do_execute(){
 
 
 //	print_asm_template1();
-	print_asm(str(instr) " %s",str(cpu.eip + 1 + DATA_BYTE));
+	print_asm(str(instr) " %x",cpu.eip + 1 + DATA_BYTE);
 //	print_asm(str(instr) str(SUFFIX) " %s", op_src->str)
 //	printf("%s\t%x\n",str(instr),cpu.eip+1+DATA_BYTE);
 
