@@ -13,7 +13,10 @@ static void do_execute(){
 		cpu.eip += op_src->val;
 
 
-	print_asm_template1();
+//	print_asm_template1();
+//	print_asm(str(instr) " %s",cpu.eip + 1 + DATA_BYTE)
+	printf("%s%x",str(instr),cpu.eip+1+DATA_BYTE);
+
 }
 //#if DATA_BYTE == 2 || DATA_BYTE == 4
 make_instr_helper(i)
