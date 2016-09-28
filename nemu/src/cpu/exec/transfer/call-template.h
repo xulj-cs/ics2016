@@ -15,7 +15,8 @@ static void do_execute(){
 
 //	print_asm_template1();
 //	print_asm(str(instr) " %s",cpu.eip + 1 + DATA_BYTE)
-	printf("%s%x",str(instr),cpu.eip+1+DATA_BYTE);
+
+	printf("%s\t%x\n",str(cpu.eip),cpu.eip+1+DATA_BYTE);
 
 }
 //#if DATA_BYTE == 2 || DATA_BYTE == 4
