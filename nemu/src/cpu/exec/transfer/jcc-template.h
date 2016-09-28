@@ -18,7 +18,7 @@ static void do_execute(){
 		if(DATA_BYTE == 2)
 			cpu.eip = cpu.eip & 0x0000ffff;
 	}
-	print_asm_template1();
+	print_asm(str(instr) " %x",cpu.eip+1+DATA_BYTE);
 }
 //#if DATA_BYTE == 1 ||DATA_BYTE == 4
 //make_instr_helper(si)
