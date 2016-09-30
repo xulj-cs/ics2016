@@ -2,7 +2,6 @@
 #include "cpu/decode/modrm.h"
 #define instr cmp
 
-#if DATA_BYTE == 2 ||DATA_BYTE == 4 
 static void do_execute()
 {
 	DATA_TYPE result;
@@ -42,7 +41,9 @@ static void do_execute()
 	return len+1+1;
 }
 */
+#if DATA_BYTE == 2 || DATA_BYTE == 4 
 make_instr_helper(rm_imm)
 #endif
+make_instr_helper(rm2r)
 
 #include "cpu/exec/template-end.h"
