@@ -40,7 +40,7 @@ static void do_execute()
 	return len+1+1;
 
 }*/
-make_instr_helper(rm_imm)
+make_instr_helper(si2rm)
 #endif
 make_instr_helper(r2rm)
 make_instr_helper(rm2r)
