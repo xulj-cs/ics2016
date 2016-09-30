@@ -13,6 +13,10 @@ static void do_execute(){
 	if(cpu.ZF || cpu.CF)
 	#endif
 
+	#ifdef JLE
+	if(cpu.ZF || cpu.SF!=cpu.OF)
+	#endif
+
 	{	
 		cpu.eip += op_src->val;
 		if(DATA_BYTE == 2)
