@@ -5,17 +5,102 @@
 
 static void do_execute(){
 	
-	#ifdef JZ
-	if(cpu.ZF)
-	#endif
+//#if DATA_BYTE == 
+//	JCXZ JECXZ????
 
-	#ifdef JBE
+#ifdef JA
+	if(!cpu.CF && !cpu.ZF)
+#endif 
+
+#ifdef JAE
+	if(!cpu.CF)
+#endif
+
+#ifdef JB
+	if(cpu.CF)
+#endif
+
+#ifdef JBE
 	if(cpu.ZF || cpu.CF)
-	#endif
+#endif
 
-	#ifdef JLE
+//JC == JB
+
+#ifdef JE
+	if(cpu.ZF)
+#endif
+	
+//JZ == JE
+
+#ifdef JG
+	if(!cpu.ZF && cpu.SF==cpu.OF)
+#endif
+
+#ifdef JGE
+	if(cpu.SF==cpu.OF)
+#endif
+
+#ifdef JL
+	if(cpu.SF!=cpu.OF)
+#endif
+
+#ifdef JLE
 	if(cpu.ZF || cpu.SF!=cpu.OF)
-	#endif
+#endif
+
+//JNA == JBE
+
+//JNAE == JB
+
+//JNB == JAE
+
+//JNBE == JA
+
+//JNC == JAE
+	
+#ifdef JNE
+	if(!cpu.ZF)
+#endif
+
+//JNG == JLE
+
+//JNGE == JL
+
+//JNL == JGE
+
+//JNLE ==  JG
+
+#ifdef JNO
+	if( !cpu.OF )
+#endif
+
+#ifdef JNP
+	if( !cpu.PF)
+#endif
+
+#ifdef JNS
+	if( !cpu.SF)
+#endif
+
+//JNZ == JNE
+
+#ifdef JO
+	if( cpu.OF)
+#endif
+
+#ifdef JP
+	if( cpu.PF)
+#endif
+
+//JPE == JP
+
+//JPO == JNP
+
+#ifdef JS
+	if( cpu.SF)
+#endif
+
+//JZ ==JE
 
 	{	
 		cpu.eip += op_src->val;
