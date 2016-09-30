@@ -110,7 +110,7 @@ static void do_execute(){
 	if(DATA_BYTE==1)
 		print_asm(str(instr) " %x",cpu.eip+1+1);
 	else
-		print_asm(str(instr) " %x",cpu.eip+1+4);
+		print_asm(str(instr) " %x",cpu.eip+2+4);
 }
 //#if DATA_BYTE == 1 ||DATA_BYTE == 4
 //make_instr_helper(si)
