@@ -2,13 +2,12 @@
 #include "cpu/decode/modrm.h"
 #define instr sub
 
-#if DATA_BYTE == 2 ||DATA_BYTE == 4 
 static void do_execute()
 {
 	DATA_TYPE_S result;
-	if(DATA_BYTE == 2 || DATA_BYTE == 4)
-		result = op_dest->val - (DATA_TYPE_S)op_src->val;
-	else
+//	if(DATA_BYTE == 2 || DATA_BYTE == 4)
+//		result = op_dest->val - (DATA_TYPE_S)op_src->val;
+//	else
 		result = op_dest->val - op_src->val;
 	
 	OPERAND_W(op_dest,result);
@@ -48,8 +47,13 @@ static void do_execute()
 	return len+1+1;
 }
 */
-make_instr_helper(rm_imm)
-
+#if DATA_BYTE == 2 || DATA_BYTE == 4
+make_instr_helper(si2rm)
 #endif
+
+make_instr_helper(r2rm)
+make_instr_helper(rm2r)
+make_instr_helper(i2rm)
+make_instr_helper(i2a)
 
 #include "cpu/exec/template-end.h"
