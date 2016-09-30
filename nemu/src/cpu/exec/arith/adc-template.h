@@ -1,6 +1,6 @@
 #include "cpu/exec/template-start.h"
 #include "cpu/decode/modrm.h"
-#define instr add
+#define instr adc
 
 //#if DATA_BYTE == 2 ||DATA_BYTE == 4 
 static void do_execute()
@@ -9,7 +9,7 @@ static void do_execute()
 	//if(DATA_BYTE == 2 || DATA_BYTE == 4)
 	//	result = op_dest->val - (DATA_TYPE_S)op_src->val;
 	//else
-		result = op_dest->val + op_src->val;
+		result = op_dest->val + op_src->val + cpu.CF;
 	
 	OPERAND_W(op_dest,result);
 
