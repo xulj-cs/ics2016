@@ -26,7 +26,8 @@ make_helper ( concat(movzx_rmb2r_,SUFFIX )){
 	else
 	{
 		len = load_addr( eip+1, &m , op_src);
-		Log("before");
+		Log("before\n%x",op_src->addr);
+
 		op_src -> val = (uint8_t)swaddr_read(op_src->addr,op_src->size);
 		Log("after");
 	}
