@@ -13,6 +13,7 @@ static void do_execute(){
 
 
 make_instr_helper(r)
+make_instr_helper(rm)  //in fact only can be m
 
 #endif
 
