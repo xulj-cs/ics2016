@@ -2,10 +2,10 @@
 
 #define instr movsx
 
-static void do_execute(){
-	OPERAND_W (op_dest,op_src->val);
-	print_asm_template2();
-}
+//static void do_execute(){
+//	OPERAND_W (op_dest,op_src->val);
+//	print_asm_template2();
+//}
 
 make_helper ( concat(movsx_srmb2r_,SUFFIX )){
 	
@@ -30,7 +30,10 @@ make_helper ( concat(movsx_srmb2r_,SUFFIX )){
 		
 	}
 	
-	do_execute();
+//	do_execute();
+	OPERAND_W (op_dest,op_src->val);
+
+	print_asm(str(movsb)str(SUFFIX) " %s,%s",op_src->str,op_dest->str);
 
 	return 1+len; 
 }
@@ -59,8 +62,11 @@ make_helper(movsx_srmw2r_l){
 		
 	}
 	
-	do_execute();
+//	do_execute();
 
+	OPERAND_W (op_dest,op_src->val);
+
+	print_asm(str(movsw)str(SUFFIX) " %s,%s",op_src->str,op_dest->str);
 	return 1+len; 
 	
 	
