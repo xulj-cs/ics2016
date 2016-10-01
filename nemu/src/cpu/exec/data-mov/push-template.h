@@ -5,7 +5,8 @@
 static void do_execute(){
 	if(op_src->type == OP_TYPE_IMM )
 		reg_l(R_ESP) -= 4;
-	reg_l(R_ESP) -= DATA_BYTE;
+	else
+		reg_l(R_ESP) -= DATA_BYTE;
 	MEM_W(reg_l(R_ESP),op_src->val);
 
 	print_asm_template1();
