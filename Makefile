@@ -1,4 +1,4 @@
-##### global settings #####
+#### global settings #####
 
 .PHONY: nemu entry testcase kernel run gdb test submit clean
 
@@ -53,7 +53,7 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := obj/testcase/mov
+USERPROG := obj/testcase/bit
 ENTRY := $(USERPROG)
 
 entry: $(ENTRY)
