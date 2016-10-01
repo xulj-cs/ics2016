@@ -4,7 +4,7 @@
 
 static void do_execute()
 {
-	DATA_TYPE_S result;
+	DATA_TYPE result;
 //	if(DATA_BYTE == 2 || DATA_BYTE == 4)
 //		result = op_dest->val - (DATA_TYPE_S)op_src->val;
 //	else
