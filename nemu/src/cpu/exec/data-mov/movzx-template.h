@@ -33,7 +33,7 @@ make_helper ( concat(movzx_rmb2r_,SUFFIX )){
 //	do_execute();
 	OPERAND_W (op_dest,op_src->val);
 
-	print_asm(str(movsb)str(SUFFIX) " %s,%s",op_src->str,op_dest->str);
+	print_asm(str(movzb)str(SUFFIX) " %s,%s",op_src->str,op_dest->str);
 
 	return 1+len; 
 }
@@ -66,7 +66,7 @@ make_helper(movzx_rmw2r_l){
 
 	OPERAND_W (op_dest,op_src->val);
 
-	print_asm(str(movsw)str(SUFFIX) " %s,%s",op_src->str,op_dest->str);
+	print_asm(str(movzw)str(SUFFIX) " %s,%s",op_src->str,op_dest->str);
 	return 1+len; 
 	
 	
