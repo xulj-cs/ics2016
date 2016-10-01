@@ -3,9 +3,10 @@
 
 
 static void do_execute(){
-	if(op_src->type == OP_TYPE_IMM )
+/*	if(op_src->type == OP_TYPE_IMM )
 		reg_l(R_ESP) -= 4;
 	else
+*/
 		reg_l(R_ESP) -= DATA_BYTE;
 	MEM_W(reg_l(R_ESP),op_src->val);
 
@@ -15,6 +16,7 @@ static void do_execute(){
 
 make_instr_helper(r)
 make_instr_helper(rm)   //in fact only can be m
+
 #endif
 
 make_instr_helper(i)
