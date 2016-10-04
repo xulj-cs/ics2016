@@ -3,8 +3,20 @@
 
 
 static void do_execute(){
-	if(op_src->type == OP_TYPE_IMM )
-		reg_l(R_ESP) -= 4;
+	if(op_src->type == OP_TYPE_IMM ){
+		
+		if(ops_decoded.is_operand_size_16){
+			reg_l(R_ESP) -= 2;
+			swaddr_write(reg_l(R_ESP),2,op_src->val);
+
+		}
+		else
+		{
+			reg_l(R_ESP) -= 4;
+			swaddr_write(reg_l(R_ESP),4,op_src->val);
+		}
+		
+	}
 	else
 
 		reg_l(R_ESP) -= DATA_BYTE;
@@ -19,5 +31,5 @@ make_instr_helper(rm)   //in fact only can be m
 
 #endif
 
-make_instr_helper(i)
+make_instr_helper(si)
 #include "cpu/exec/template-end.h"

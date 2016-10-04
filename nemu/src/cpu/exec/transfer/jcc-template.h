@@ -113,10 +113,10 @@ static void do_execute(){
 		print_asm(str(instr) " %x",cpu.eip+2+4);
 }
 //#if DATA_BYTE == 1 ||DATA_BYTE == 4
-//make_instr_helper(si)
+make_instr_helper(si)
 //#endif
 //#endif
-make_helper(concat3(instr,_si_,SUFFIX)){
+/*make_helper(concat3(instr,_si_,SUFFIX)){
 	
 	int len;
 	if(DATA_BYTE == 1)
@@ -129,4 +129,5 @@ make_helper(concat3(instr,_si_,SUFFIX)){
 		
 	
 	}
+	*/
 #include "cpu/exec/template-end.h"
