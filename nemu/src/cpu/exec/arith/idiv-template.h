@@ -10,6 +10,7 @@ static void do_execute() {
 #else
 	a = ((int64_t)REG(R_EDX) << (DATA_BYTE * 8)) | (int64_t)REG(R_EAX);
 #endif
+	Log("b==%d",b);
 	REG(R_EAX) = a / b;
 	REG(R_EDX) = a % b;
 
