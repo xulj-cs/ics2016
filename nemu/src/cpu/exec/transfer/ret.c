@@ -22,7 +22,7 @@ make_helper(ret_near_i_w){
 	decode_i_w(eip+1);
 	reg_l(R_ESP) += op_src->val;
 	
-	print_asm(str(ret) " %x",op_src->val);
+	print_asm(str(ret) " $0x%x",op_src->val);
 	return 0;
 }
 #undef DATA_BYTE
@@ -47,7 +47,7 @@ make_helper(ret_near_i_l){
 	decode_i_w(eip+1);
 	reg_l(R_ESP) +=  op_src->val;
 
-	print_asm(str(ret) " %x",op_src->val);
+	print_asm(str(ret) " $0x%x",op_src->val);
 
 	return 0;
 }
