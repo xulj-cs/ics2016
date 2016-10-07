@@ -25,7 +25,7 @@ static void do_execute(){
 			print_asm(str(instr) " %x",cpu.eip+1+4);
 	}
 	else if(op_src->type == OP_TYPE_REG)
-		print_asm(str(instr) "*%s",op_src->str);
+		print_asm(str(instr) " *%s",op_src->str);
 	else
 		print_asm_template1();
 
