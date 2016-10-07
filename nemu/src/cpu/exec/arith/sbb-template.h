@@ -9,7 +9,7 @@ static void do_execute()
 //		result = op_dest->val - (DATA_TYPE_S)op_src->val;
 //	else
 		result = op_dest->val - (op_src->val+ cpu.CF );
-	
+	Log("%x",result);
 	OPERAND_W(op_dest,result);
 
 //	Log("%d-%d\n",op_dest->val,op_src->val);
