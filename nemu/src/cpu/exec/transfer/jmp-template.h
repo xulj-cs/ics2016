@@ -3,31 +3,22 @@
 #define instr jmp
 //#if DATA_BYTE == 1
 
-static void do_execute(){
+static void do_execute(){    //for imm
 	
-	if( op_src->type == OP_TYPE_IMM )
+//	if( op_src->type == OP_TYPE_IMM )
 		cpu.eip += op_src->val;
-#if DATA_BYTE == 2 || DATA_BYTE == 4
-	else  
-		cpu.eip = op_src->val;
-#endif
 
 	if(DATA_BYTE == 2)
 		cpu.eip = cpu.eip & 0x0000ffff;
 	
-	if(op_src->type == OP_TYPE_IMM)
+//	if(op_src->type == OP_TYPE_IMM)
 	{	
 		if(DATA_BYTE == 1)
 			print_asm(str(instr) " %x",cpu.eip+1+1);
 		else
 			print_asm(str(instr) " %x",cpu.eip+1+4);
 	}
-#if DATA_BYTE == 2 || DATA_BYTE == 4
-	else
-		print_asm(str(instr) " *%s",op_src->str);
-#endif
 }
-
 /*make_helper(concat3(instr,_si_,SUFFIX)){
 	
 	int len;
@@ -42,7 +33,21 @@ static void do_execute(){
 */
 make_instr_helper(si)
 #if DATA_BYTE == 2 || DATA_BYTE == 4
-make_instr_helper(rm)
+//make_instr_helper(rm)
+make_helper(concat3(instr,_rm_,SUFFIX)){
+	concat( decode_rm_,SUFFIX)(eip+1);
+	
+	cpu.eip = op_src->val;
+
+	if(DATA_BYTE == 2)
+		cpu.eip = cpu.eip & 0x0000ffff;
+	
+	print_asm(str(instr) " *%s",op_src->str);
+
+	return 0;
+
+	
+	}
 #endif
 //#endif
 
