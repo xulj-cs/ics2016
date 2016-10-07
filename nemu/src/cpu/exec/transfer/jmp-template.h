@@ -10,9 +10,10 @@ static void do_execute(){
 	else if(op_src->type == OP_TYPE_MEM)
 		cpu.eip = op_src->val;
 	else  //op_src->type == OP_TYPE_REG
-	
+	{
 		cpu.eip = MEM_R(op_src->val);
-
+		Log("%x \n %x",op_src->val,cpu.eip);
+	}
 
 	if(DATA_BYTE == 2)
 		cpu.eip = cpu.eip & 0x0000ffff;
