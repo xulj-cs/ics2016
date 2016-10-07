@@ -5,14 +5,30 @@
 
 static void do_execute(){
 	
-	cpu.eip += op_src->val;
+	if( op_src->type == OP_TYPE_IMM )
+		cpu.eip += op_src->val;
+	else if(op_src->type == OP_TYPE_MEM)
+		cpu.eip = op_src->val;
+	else  //op_src->type == OP_TYPE_REG
+	
+		cpu.eip = MEM_R(op_src->val);
+
 
 	if(DATA_BYTE == 2)
 		cpu.eip = cpu.eip & 0x0000ffff;
-	if(DATA_BYTE == 1)
-		print_asm(str(instr) " %x",cpu.eip+1+1);
+	
+	if(op_src->type == OP_TYPE_IMM)
+	{	
+		if(DATA_BYTE == 1)
+			print_asm(str(instr) " %x",cpu.eip+1+1);
+		else
+			print_asm(str(instr) " %x",cpu.eip+1+4);
+	}
+	else if(op_src->type == OP_TYPE_REG)
+		print_asm(str(instr) "*%s",op_src->str);
 	else
-		print_asm(str(instr) " %x",cpu.eip+1+4);
+		print_asm_template1();
+
 }
 
 /*make_helper(concat3(instr,_si_,SUFFIX)){
