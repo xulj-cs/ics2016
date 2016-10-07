@@ -4,7 +4,10 @@
 //#if DATA_BYTE == 1
 
 static void do_execute(){
-	
+	uint32_t eip = cpu.eip + op_src->val;
+	if(DATA_BYTE == 2)
+		eip = eip & 0x0000ffff;
+		
 //#if DATA_BYTE == 
 //	JCXZ JECXZ????
 
@@ -103,14 +106,16 @@ static void do_execute(){
 //JZ ==JE
 
 	{	
-		cpu.eip += op_src->val;
+		/*cpu.eip += op_src->val;
 		if(DATA_BYTE == 2)
 			cpu.eip = cpu.eip & 0x0000ffff;
+			*/
+		cpu.eip=eip;
 	}
 	if(DATA_BYTE==1)
-		print_asm(str(instr) " %x",cpu.eip+1+1);
+		print_asm(str(instr) " %x",eip+1+1);
 	else
-		print_asm(str(instr) " %x",cpu.eip+2+4);
+		print_asm(str(instr) " %x",eip+2+4);
 }
 //#if DATA_BYTE == 1 ||DATA_BYTE == 4
 make_instr_helper(si)
