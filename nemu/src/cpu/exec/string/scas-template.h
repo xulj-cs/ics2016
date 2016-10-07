@@ -19,7 +19,7 @@ make_helper(concat(scas_,SUFFIX)){
 	}
 
 
-	print_asm(str(instr) str(SUFFIX) " %s%s","%es:(%edi),%",REG_NAME(R_EAX));
+	print_asm(str(instr) str(SUFFIX) " %s%%%s","%es:(%edi),",REG_NAME(R_EAX));
 //	print_asm(str(%ds:(%esi),%es:(%edi)));
 	return 1;
 }
