@@ -26,7 +26,7 @@ make_helper(rep) {
 				);
 
 			/* TODO: Jump out of the while loop if necessary. */
-			if(cpu.ZF)
+			if(!cpu.ZF)
 				break;
 
 		}
@@ -55,7 +55,7 @@ make_helper(repnz) {
 			  );
 
 		/* TODO: Jump out of the while loop if necessary. */
-		if(!cpu.ZF)
+		if(cpu.ZF)
 			break;
 	}
 
