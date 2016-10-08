@@ -1,6 +1,5 @@
 #include "cpu/exec/helper.h"
 
-#include "cpu/reg.h"
 
 #define MEM_R(addr) swaddr_read(addr,DATA_BYTE)
 

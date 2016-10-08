@@ -1,5 +1,4 @@
 #include "cpu/exec/helper.h"
-#include "cpu/reg.h"
 
 #define instr ja
 #define JA
