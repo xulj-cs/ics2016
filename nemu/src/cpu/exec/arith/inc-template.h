@@ -1,5 +1,5 @@
 #include "cpu/exec/template-start.h"
-
+#include "cpu/exec/eflags.h"
 #define instr inc
 
 static void do_execute () {
@@ -7,7 +7,12 @@ static void do_execute () {
 	OPERAND_W(op_src, result);
 
 	/* TODO: Update EFLAGS. */
-	panic("please implement me");
+	//panic("please implement me");
+
+	cpu.OF=concat(OF_,SUFFIX)(op_src->val, 1 ,'+');
+	cpu.SF=MSB(result);
+	cpu.ZF=!result;
+	cpu.PF=concat(PF_,SUFFIX)(result);
 
 	print_asm_template1();
 }
