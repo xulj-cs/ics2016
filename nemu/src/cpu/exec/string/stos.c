@@ -1,5 +1,4 @@
 #include "cpu/exec/helper.h"
-#include "cpu/reg.h"
 
 #define DATA_BYTE 1
 #include "stos-template.h"

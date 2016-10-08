@@ -1,5 +1,4 @@
 #include "cpu/exec/helper.h"
-#include "cpu/reg.h"
 #include "cpu/exec/eflags.h"
 
 #define DATA_BYTE 1
