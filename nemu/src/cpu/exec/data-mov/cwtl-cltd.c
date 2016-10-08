@@ -1,5 +1,4 @@
 #include "cpu/exec/helper.h"
-#include "cpu/reg.h"
 
 make_helper(cwtl){
 	if((int16_t)reg_w(R_EAX)<0)

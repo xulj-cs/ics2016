@@ -1,6 +1,5 @@
 #include "cpu/exec/helper.h"
 
-#include "cpu/reg.h"
 
 
 #define DATA_BYTE 2
