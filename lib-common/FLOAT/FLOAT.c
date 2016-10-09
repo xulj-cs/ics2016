@@ -1,9 +1,9 @@
 #include "FLOAT.h"
-
+#include <stdint.h>
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
 	//nemu_assert(0);
 	FLOAT result=((int64_t)a*b)>>16;
-	return FLOAT;
+	return result;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
@@ -63,7 +63,7 @@ FLOAT f2F(float a) {
 FLOAT Fabs(FLOAT a) {
 	//nemu_assert(0);
 
-	return a&((1<<31)-1);
+	return a&(((uint32_t)1<<31)-1);
 }
 
 /* Functions below are already implemented */
