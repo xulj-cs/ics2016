@@ -47,8 +47,8 @@ FLOAT f2F(float a) {
 	 */
 
 	//nemu_assert(0);
-	int32_t int_a;
-	asm volatile("movl 8(%%esp),%0":"=r"(int_a));
+	int32_t int_a=*(int *)&a;
+	//asm volatile("movl 8(%%esp),%0":"=r"(int_a));
 	uint8_t e=int_a>>23;
 	int32_t n=e-127;
 	uint32_t result=((int_a)&0x7fffff)|(1<<23);
