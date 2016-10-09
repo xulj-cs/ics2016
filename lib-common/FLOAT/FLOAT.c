@@ -65,8 +65,11 @@ FLOAT f2F(float a) {
 
 FLOAT Fabs(FLOAT a) {
 	//nemu_assert(0);
-
-	return a&(((uint32_t)1<<31)-1);
+	int32_t int_a=*(int *)&a;
+	if(int_a>=0)
+		return int_a&(((uint32_t)1<<31)-1);
+	else
+		return (-int_a)&(((uint32_t)1<<31)-1);
 }
 
 /* Functions below are already implemented */
