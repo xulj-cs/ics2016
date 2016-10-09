@@ -34,7 +34,7 @@ make_instr_helper(i_rm2r)
 #endif
 
 make_helper(concat(imul_rm2a_, SUFFIX)) {
-	Log("eip==0x%x\n",eip);
+	Log("eip==0x%x\n",cpu.eip);
 	int len = concat(decode_rm_, SUFFIX)(eip + 1);
 	int64_t src = (DATA_TYPE_S)op_src->val;
 	int64_t result = (DATA_TYPE_S)REG(R_EAX) * src;
