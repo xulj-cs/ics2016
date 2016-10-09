@@ -16,11 +16,11 @@ FLOAT_CFLAGS := -m32 -O2 -fno-builtin -I lib-common
 
 $(FLOAT_O):lib-common/FLOAT.h  lib-common/FLOAT/FLOAT.c
 	mkdir -p obj/lib-common 
-	$(CC) $(FLOAT_CFLAGS) -c lib-common/FLOAT/FLOAT.c #-o $@
+	$(CC) $(FLOAT_CFLAGS) -c# lib-common/FLOAT/FLOAT.c #-o $@
 	 
 $(FLOAT_VFPRINTF_O):lib-common/FLOAT.h lib-common/FLOAT/FLOAT_vfprintf.c
 	mkdir -p obj/lib-common
-	$(CC) $(FLOAT_CFLAGS) -c lib-common/FLOAT/FLOAT_vfprintf.c #-o $@
+	$(CC) $(FLOAT_CFLAGS) -c# lib-common/FLOAT/FLOAT_vfprintf.c #-o $@
 				
 
 
