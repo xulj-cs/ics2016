@@ -1,5 +1,6 @@
 #include "FLOAT.h"
 #include <stdint.h>
+
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
 	//nemu_assert(0);
 	FLOAT result=((int64_t)a*b)>>16;
@@ -46,9 +47,10 @@ FLOAT f2F(float a) {
 	 */
 
 	//nemu_assert(0);
-	uint8_t e=(*(int *)&a)>>23;
+/*	//uint32_t uint_a=swaddr_read(&a,4);
+	uint8_t e=uint_a>>23;
 	int32_t n=e-127;
-	uint32_t result=((*(int *)&a)&0x7fffff)|(1<<23);
+	uint32_t result=((uint_a)&0x7fffff)|(1<<23);
 	//result = result<<(n-7);
 	if(n>7)
 		result <<=(n-7);
@@ -56,8 +58,8 @@ FLOAT f2F(float a) {
 		result >>=(7-n);
 	if(a<0)
 		result = -result;
-
-	return result;
+*/
+	return 0;
 }
 
 FLOAT Fabs(FLOAT a) {
