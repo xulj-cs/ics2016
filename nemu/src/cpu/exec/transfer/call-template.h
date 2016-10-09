@@ -37,7 +37,7 @@ make_helper(concat3(instr,_rm_,SUFFIX)){
 							
 	print_asm(str(instr) " *%s",op_src->str);
 								
-	return len+1;
+	return 0;
 									
 									
 }
