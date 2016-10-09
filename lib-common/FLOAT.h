@@ -2,27 +2,30 @@
 #define __FLOAT_H__
 
 #include "trap.h"
-
+#define pow16 (1<<16)
 typedef int FLOAT;
-
+ 
 static inline int F2int(FLOAT a) {
-	nemu_assert(0);
-	return 0;
+	//nemu_assert(0);
+	if( a>=0 )
+		return a>>16;
+	else
+		return (a+pow16-1)>>16;
 }
 
 static inline FLOAT int2F(int a) {
-	nemu_assert(0);
-	return 0;
+	//nemu_assert(0);
+	return a<<16;
 }
 
 static inline FLOAT F_mul_int(FLOAT a, int b) {
-	nemu_assert(0);
-	return 0;
+	//nemu_assert(0);
+	return a*b;
 }
 
 static inline FLOAT F_div_int(FLOAT a, int b) {
-	nemu_assert(0);
-	return 0;
+	//nemu_assert(0);
+	return a/b;
 }
 
 FLOAT f2F(float);
