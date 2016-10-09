@@ -23,16 +23,21 @@ static void do_execute(){    //for imm
 make_instr_helper(i)
 
 make_helper(concat3(instr,_rm_,SUFFIX)){
-	    int len = concat( decode_rm_,SUFFIX)(eip+1);
+	    
+	int len = concat( decode_rm_,SUFFIX)(eip+1);
+	
+	reg_l(R_ESP) -= DATA_BYTE;
+	MEM_W(reg_l(R_ESP),cpu.eip + 1 + len);
 		
-		cpu.eip = op_src->val;
 			
-		if(DATA_BYTE == 2)
-			cpu.eip = cpu.eip & 0x0000ffff;
+	cpu.eip = op_src->val;
+			
+	if(DATA_BYTE == 2)
+		cpu.eip = cpu.eip & 0x0000ffff;
 							
-		print_asm(str(instr) " *%s",op_src->str);
+	print_asm(str(instr) " *%s",op_src->str);
 								
-		return len+1;
+	return len+1;
 									
 									
 }
