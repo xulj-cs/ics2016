@@ -46,7 +46,7 @@ FLOAT f2F(float a) {
 	 */
 
 	//nemu_assert(0);
-	uint8_t e=*(int *)&a>>23;
+	uint8_t e=(*(int *)&a)>>23;
 	int32_t n=e-127;
 	uint32_t result=((*(int *)&a)&0x7fffff)|(1<<23);
 	//result = result<<(n-7);
