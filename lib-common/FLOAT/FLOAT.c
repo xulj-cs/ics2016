@@ -47,7 +47,7 @@ FLOAT f2F(float a) {
 	 */
 
 	//nemu_assert(0);
-	uint32_t uint_a;
+	/*uint32_t uint_a;
 	asm volatile("movl 8(%%esp),%0":"=r"(uint_a));
 	uint8_t e=uint_a>>23;
 	int32_t n=e-127;
@@ -59,7 +59,8 @@ FLOAT f2F(float a) {
 		result >>=(7-n);
 	if(a<0)
 		result = -result;
-	return result;
+	return result;*/
+	return 0;
 }
 
 FLOAT Fabs(FLOAT a) {
