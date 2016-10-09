@@ -24,7 +24,7 @@ make_instr_helper(i)
 
 make_helper(concat3(instr,_rm_,SUFFIX)){
 	    
-	int len = concat( decode_rm_,SUFFIX)(eip+1);
+	int len = concat( decode_rm_,SUFFIX)(eip);
 	
 	reg_l(R_ESP) -= DATA_BYTE;
 	MEM_W(reg_l(R_ESP),cpu.eip + 1 + len);
