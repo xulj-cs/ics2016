@@ -16,12 +16,12 @@
 */
 static void do_execute( ){
 	//DATA_TYPE op_dest_val=MEM_R(op_dest);
-	DATA_TYPE op_dest_val;
+//	DATA_TYPE op_dest_val;
 //	if (op_dest->type==OP_TYPE_REG)
-	{
-		op_dest_val=REG(op_dest->reg);
-	}
-	DATA_TYPE result=op_dest_val & op_src -> val;
+//	{
+//		op_dest_val=REG(op_dest->reg);
+//	}
+	DATA_TYPE result=op_dest -> val & op_src -> val;
 	cpu.OF = cpu.CF = 0;
 	cpu.ZF = ! result;
 	cpu.SF = MSB(result);
