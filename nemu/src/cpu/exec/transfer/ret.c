@@ -30,7 +30,7 @@ make_helper(ret_near_i_w){
 #define DATA_BYTE 4
 make_helper(ret_near_l){
 	cpu.eip=MEM_R(reg_l(R_ESP));
-	Log("eip==0x%x\n",cpu.eip);	
+	//Log("eip==0x%x\n",cpu.eip);	
 	reg_l(R_ESP) += DATA_BYTE;
 
 	print_asm(str(ret));
