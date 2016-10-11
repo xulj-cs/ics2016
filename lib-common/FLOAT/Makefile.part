@@ -9,7 +9,7 @@ $(FLOAT): $(FLOAT_A_OBJ)
 	ar r $@ $^
 
 # TODO: complete the following rules
-FLOAT_CFLAGS := -m32 -O2 -fno-builtin -I lib-common
+FLOAT_CFLAGS := -m32 -O2 -fno-builtin -I lib-common -I include
 
 # vpath %.h lib-common
 # vpath %.c lib-common/FLOAT
