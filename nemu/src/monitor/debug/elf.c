@@ -86,7 +86,7 @@ swaddr_t addrVar(char *s,bool * isExist)
 {
 	int i;
 	for(i=0;i<nr_symtab_entry;i++){
-		if((symtab[i].st_info & 0xff) != STT_OBJECT)
+		if((symtab[i].st_info & 0xf) != STT_OBJECT)
 			continue;
 		if(strcmp(s,&strtab[symtab[i].st_name])==0)
 			return symtab[i].st_value;
