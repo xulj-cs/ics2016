@@ -1,5 +1,6 @@
 #include "cpu/exec/helper.h"
-#include "cpu/decode/modrm.h"
+#include "cpu/reg.h"
+
 #define DATA_BYTE 2
 #include "movsx-template.h"
 #undef DATA_BYTE
