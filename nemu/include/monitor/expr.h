@@ -3,7 +3,7 @@
 
 #include "common.h"
 enum {
-	NOTYPE = 256,EQ,NUM_DEC,NUM_HEX	,REG,N_EQ,AND,OR,NOT,NEG,DEREF
+	NOTYPE = 256,EQ,NUM_DEC,NUM_HEX	,REG,N_EQ,AND,OR,NOT,NEG,DEREF, VAR
 };
 uint32_t expr(char *, bool *);
 typedef struct token{

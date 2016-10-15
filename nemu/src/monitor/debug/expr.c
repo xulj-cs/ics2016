@@ -1,6 +1,7 @@
 #include "nemu.h"
 #include "cpu/reg.h"
 #include "monitor/expr.h"
+#include "monitor/elf.h"
 #include <stdlib.h>
 
 /* We use the POSIX regex functions to process regular expressions.
@@ -43,7 +44,8 @@ static struct rule {
 	{"==", EQ},				//equal
 	{"&&",AND},				//and
 	{"\\|\\|",OR},				//or
-	{"!",NOT},				//not	
+	{"!",NOT},				//not
+	{"[a-zA-Z_][a-zA-Z0-9_]*",VAR},  //variable	
 
 };
 
@@ -170,7 +172,7 @@ bool check_parenthese(int p,int q)
 
 bool is_operator(int type)
 {
-	if(type==NUM_DEC||type==NUM_HEX||type==REG)
+	if(type==NUM_DEC||type==NUM_HEX||type==REG||type==VAR)
 		return false;
 	return true;
 }
@@ -266,7 +268,7 @@ unsigned eval(int p,int q,bool *success)
 				if(strcmp((const char *)&tokens[p].str[1],"ip")==0)
 					return (uint16_t)cpu.eip;
 				panic("error");
-	
+			case VAR:return addrVar(tokens[p].str,success);
 			default:panic("error");
 		 }
 	}

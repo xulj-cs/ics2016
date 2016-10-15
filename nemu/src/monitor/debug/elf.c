@@ -1,7 +1,7 @@
 #include "common.h"
 #include <stdlib.h>
 #include <elf.h>
-
+#include <string.h>
 char *exec_file = NULL;
 
 static char *strtab = NULL;
@@ -81,3 +81,19 @@ void load_elf_tables(int argc, char *argv[]) {
 	fclose(fp);
 }
 
+
+swaddr_t addrVar(char *s,bool * isExist)
+{
+	int i;
+	for(i=0;i<nr_symtab_entry;i++){
+		if((symtab[i].st_info & 0xff) != STT_OBJECT)
+			continue;
+		if(strcmp(s,&strtab[symtab[i].st_name])==0)
+			return symtab[i].st_value;
+	
+	
+	}
+	
+	*isExist=false;
+	return 0;
+}
