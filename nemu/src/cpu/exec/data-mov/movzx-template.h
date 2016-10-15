@@ -7,9 +7,9 @@
 //	print_asm_template2();
 //}
 
-make_helper ( concat(movzx_rmb2r_,SUFFIX )){
+make_helper ( concat(movzx_rmb2r_,SUFFIX)){
 	
-	op_src->size = 1;
+	/*op_src->size = 1;
 	ModR_M m;
 	m.val = instr_fetch(eip+1,1);
 	op_dest->type = OP_TYPE_REG;
@@ -37,13 +37,21 @@ make_helper ( concat(movzx_rmb2r_,SUFFIX )){
 
 	print_asm(str(movzb)str(SUFFIX) " %s,%s",op_src->str,op_dest->str);
 
-	return 1+len; 
+	return 1+len; */
+	int len=concat(decode_rm2r_,SUFFIX)(eip+1);
+	OPERAND_W(op_dest,(DATA_TYPE)(uint8_t)op_src->val);
+	if(op_src->type==OP_TYPE_REG)
+		print_asm(str(movzb) str(SUFFIX) " %%%s,%s",regsb[op_src->reg],op_dest->str);
+	else
+		print_asm(str(movzb) str(SUFFIX) " %s,%s",op_src->str,op_dest->str);
+
+	return len+1;
+
 }
 
 #if DATA_BYTE == 4
 make_helper(movzx_rmw2r_l){
-	
-	op_src->size = 2;
+/*	op_src->size = 2;
 	ModR_M m;
 	m.val = instr_fetch(eip+1,1);
 	op_dest->type = OP_TYPE_REG;
@@ -70,10 +78,23 @@ make_helper(movzx_rmw2r_l){
 
 	print_asm(str(movzw)str(SUFFIX) " %s,%s",op_src->str,op_dest->str);
 	return 1+len; 
-	
+*/
+	int len=concat(decode_rm2r_,SUFFIX)(eip+1);
+	OPERAND_W(op_dest,(DATA_TYPE)(uint16_t)op_src->val);
+	if(op_src->type==OP_TYPE_REG)
+		print_asm(str(movzb) str(SUFFIX) " %%%s,%s",regsw[op_src->reg],op_dest->str);
+	else
+		print_asm(str(movzb) str(SUFFIX) " %s,%s",op_src->str,op_dest->str);
+
+	return len+1;
+		
 	
 }
 #endif
+
+
+
+
 
 #include "cpu/exec/template-end.h"
 
