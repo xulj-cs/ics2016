@@ -210,20 +210,20 @@ static int cmd_d(char *args)
 
 static int cmd_bt(char *args){
 	int n=0;
-	uint32_t head=cpu.ebp;
-	//swaddr_t eip=cpu.eip;
-	while(head){
+	uint32_t ebp=cpu.ebp;
+	swaddr_t eip=cpu.eip;
+	while(ebp){
 	//	Log("%x\n",cpu.ebp);	
 		printf("#%d %x in %s (%x,%x,%x,%x)\n",n,\
-										   swaddr_read(head+4,4),\
-											getFuncName(swaddr_read(head+4,4)),\
-											swaddr_read(head+8,4),\
-											swaddr_read(head+12,4),\
-											swaddr_read(head+16,4),\
-											swaddr_read(head+20,4)\
+										   swaddr_read(eip,4),\
+											getFuncName(eip),\
+											swaddr_read(ebp+8,4),\
+											swaddr_read(ebp+12,4),\
+											swaddr_read(ebp+16,4),\
+											swaddr_read(ebp+20,4)\
 											);
-	//	eip=swaddr_read(head+4,4);
-		head=swaddr_read(head,4);
+		eip=swaddr_read(ebp+4,4);
+		ebp=swaddr_read(ebp,4);
 		
 		n++;
 	
