@@ -1,5 +1,6 @@
 #include "common.h"
 #include "memory.h"
+
 #include <string.h>
 #include <elf.h>
 
@@ -41,7 +42,7 @@ uint32_t loader() {
 	
 	/* Load each program segment */
 	//panic("please implement me");
-	ph = &buf[elf->e_phoff];
+	ph = (void *) &buf[elf->e_phoff];
 	int i;
 	for(i=0;i<elf->e_phnum ;i++ ) {
 		/* Scan the program header table, load each segment into memory */
@@ -50,12 +51,13 @@ uint32_t loader() {
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
-			 swaddr_write(ph->p_vaddr,buf[ph->p_offset],ph->p_filesz);
-			 
+//			 swaddr_write(ph->p_vaddr,buf[ph->p_offset],ph->p_filesz);
+			uint8_t *p=(void *)ph->p_vaddr;
+			strncpy((char*)p,(const char *)&buf[ph->p_offset],ph->p_filesz);			
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-			memset(ph->p_vaddr+ph->p_filesz,0,ph->p_memsz-ph->p_filesz);
+//			memset(ph->p_vaddr+ph->p_filesz,0,ph->p_memsz-ph->p_filesz);
 
 
 #ifdef IA32_PAGE
@@ -65,7 +67,7 @@ uint32_t loader() {
 			if(cur_brk < new_brk) { max_brk = cur_brk = new_brk; }
 #endif
 		}
-	ph=(uint8_t*)ph + elf->e_phentsize;
+	ph=(void *)((uint8_t*)ph + elf->e_phentsize);
 	}
 
 	volatile uint32_t entry = elf->e_entry;
