@@ -41,10 +41,10 @@ uint32_t loader() {
 	//elf->e_phoff;
 	//elf->e_phentsize;
 	//elf->e_phnum;
-/*	nemu_assert(elf->e_phoff==52);
+	nemu_assert(elf->e_phoff==52);
 	nemu_assert(elf->e_phentsize==32);
 	nemu_assert(elf->e_phnum==3);	
-	*/
+	
 	/* Load each program segment */
 	//panic("please implement me");
 	ph = (void *) &buf[elf->e_phoff];
@@ -68,7 +68,7 @@ uint32_t loader() {
 //			ramdisk_write(&buf[ph->p_offset],ph->p_vaddr,ph->p_filesz);
 //			nemu_assert(0);
 //			nemu_assert(ph->p_vaddr==0x800000);
-			memcpy((void *)(ph->p_vaddr),&buf[ph->p_offset+1],ph->p_filesz);
+			memcpy((void *)(ph->p_vaddr),&buf[ph->p_offset],ph->p_filesz);
 			nemu_assert(0);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
