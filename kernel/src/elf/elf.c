@@ -53,6 +53,7 @@ uint32_t loader() {
 	nemu_assert(ph->p_filesz==0x27a8);
 
 //	nemu_assert(0);
+	memset((void *)0x800000,0,elf->e_phentsize*elf->e_phnum);
 	int i;
 	for(i=0;i<elf->e_phnum ;i++ ) {
 		/* Scan the program header table, load each segment into memory */
@@ -67,7 +68,7 @@ uint32_t loader() {
 //			ramdisk_write(&buf[ph->p_offset],ph->p_vaddr,ph->p_filesz);
 //			nemu_assert(0);
 			nemu_assert(ph->p_vaddr==0x800000);
-//			memcpy((void *)1,&buf[ph->p_offset],ph->p_filesz);
+			memcpy((void *)1,&buf[ph->p_offset],ph->p_filesz);
 			nemu_assert(0);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
