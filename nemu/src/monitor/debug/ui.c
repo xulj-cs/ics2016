@@ -216,7 +216,7 @@ static int cmd_bt(char *args){
 	//	Log("%x\n",cpu.ebp);	
 		printf("#%d %x in %s (%x,%x,%x,%x)\n",n,\
 										   swaddr_read(head+4,4),\
-											getFuncName(head+4),\
+											getFuncName(swaddr_read(head+4,4)),\
 											swaddr_read(head+8,4),\
 											swaddr_read(head+12,4),\
 											swaddr_read(head+16,4),\
