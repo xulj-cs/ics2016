@@ -48,10 +48,10 @@ uint32_t loader() {
 	/* Load each program segment */
 	//panic("please implement me");
 	ph = (void *) &buf[elf->e_phoff];
-	nemu_assert(ph->p_offset==0);
+/*	nemu_assert(ph->p_offset==0);
 	nemu_assert(ph->p_vaddr==0x800000);
 	nemu_assert(ph->p_filesz==0x27a8);
-
+*/
 //	nemu_assert(0);
 //	memset((void *)0x800000,0,elf->e_phentsize*elf->e_phnum);
 	int i;
