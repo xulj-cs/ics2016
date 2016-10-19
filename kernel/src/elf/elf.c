@@ -41,15 +41,17 @@ uint32_t loader() {
 	//elf->e_phoff;
 	//elf->e_phentsize;
 	//elf->e_phnum;
-	nemu_assert(elf->e_phoff==52);
+/*	nemu_assert(elf->e_phoff==52);
 	nemu_assert(elf->e_phentsize==32);
 	nemu_assert(elf->e_phnum==3);	
+	*/
 	/* Load each program segment */
 	//panic("please implement me");
 	ph = (void *) &buf[elf->e_phoff];
-	nemu_assert(ph->p_offset==0);
+/*	nemu_assert(ph->p_offset==0);
 	nemu_assert(ph->p_vaddr==0x800000);
 	nemu_assert(ph->p_filesz==0x1a8);
+*/
 	int i;
 	for(i=0;i<elf->e_phnum ;i++ ) {
 		/* Scan the program header table, load each segment into memory */
