@@ -67,11 +67,11 @@ uint32_t loader() {
 //			ramdisk_write(&buf[ph->p_offset],ph->p_vaddr,ph->p_filesz);
 			nemu_assert(0);
 			nemu_assert(ph->p_vaddr==0x800000);
-			memcpy((void *)/*ph->p_vaddr*/0x800000,&buf[ph->p_offset],ph->p_filesz);
+			memcpy((void *)1,&buf[ph->p_offset],ph->p_filesz);
+			nemu_assert(0);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-			nemu_assert(0);
 			memset((void *)ph->p_vaddr+ph->p_filesz,0,ph->p_memsz-ph->p_filesz);
 
 
