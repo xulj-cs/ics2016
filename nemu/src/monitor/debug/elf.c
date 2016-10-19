@@ -104,7 +104,7 @@ char * getFuncName(swaddr_t eip){
 	for(i=0;i<nr_symtab_entry;i++){
 		if((symtab[i].st_info & 0xf) != STT_FUNC)
 			continue;
-		if(symtab[i].st_value <= eip && eip <= symtab[i].st_value + symtab[i].st_size)
+		if(symtab[i].st_value <= eip && eip < symtab[i].st_value + symtab[i].st_size)
 		return &strtab[symtab[i].st_name];	
 	
 	}
