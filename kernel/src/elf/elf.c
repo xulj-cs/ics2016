@@ -68,7 +68,7 @@ uint32_t loader() {
 //			ramdisk_write(&buf[ph->p_offset],ph->p_vaddr,ph->p_filesz);
 //			memcpy((void *)(ph->p_vaddr),&buf[ph->p_offset],ph->p_filesz);
 			memcpy((void *)ph->p_vaddr,(void *)(ELF_OFFSET_IN_DISK+ph->p_offset),ph->p_filesz);
-
+//			ATTENTION:BUGS HERE!!!!!	bugs here!!!after the implementation of the device
 //			nemu_assert(0);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
