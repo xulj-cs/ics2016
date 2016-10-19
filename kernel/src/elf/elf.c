@@ -52,6 +52,7 @@ uint32_t loader() {
 	nemu_assert(ph->p_vaddr==0x800000);
 	nemu_assert(ph->p_filesz==0x1a8);
 */
+	nemu_assert(0);
 	int i;
 	for(i=0;i<elf->e_phnum ;i++ ) {
 		/* Scan the program header table, load each segment into memory */
