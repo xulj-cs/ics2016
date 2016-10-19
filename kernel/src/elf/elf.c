@@ -80,6 +80,7 @@ uint32_t loader() {
 		}
 		//ph=(void *)((uint8_t*)ph + elf->e_phentsize);
 		ph++;
+		nemu_assert(0);
 	}
 	nemu_assert(0);
 	volatile uint32_t entry = elf->e_entry;
