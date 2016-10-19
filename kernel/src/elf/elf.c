@@ -65,7 +65,7 @@ uint32_t loader() {
 //			uint8_t *p=(void *)ph->p_vaddr;
 //			strncpy((char*)p,(const char *)&buf[ph->p_offset],ph->p_filesz);					
 //			ramdisk_write(&buf[ph->p_offset],ph->p_vaddr,ph->p_filesz);
-			nemu_assert(0);
+		//	nemu_assert(0);
 			memcpy((void *)ph->p_vaddr,&buf[ph->p_offset],ph->p_filesz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
