@@ -41,19 +41,22 @@ uint32_t loader() {
 	//elf->e_phoff;
 	//elf->e_phentsize;
 	//elf->e_phnum;
-	nemu_assert(elf->e_phoff==52);
+/*	nemu_assert(elf->e_phoff==52);
 	nemu_assert(elf->e_phentsize==32);
 	nemu_assert(elf->e_phnum==3);	
-	
+*/	
 	/* Load each program segment */
 	//panic("please implement me");
+
 	ph = (void *) &buf[elf->e_phoff];
+
 /*	nemu_assert(ph->p_offset==0);
 	nemu_assert(ph->p_vaddr==0x800000);
 	nemu_assert(ph->p_filesz==0x27a8);
 */
 //	nemu_assert(0);
 //	memset((void *)0x800000,0,elf->e_phentsize*elf->e_phnum);
+
 	int i;
 	for(i=0;i<elf->e_phnum ;i++ ) {
 		/* Scan the program header table, load each segment into memory */
@@ -68,9 +71,12 @@ uint32_t loader() {
 //			ramdisk_write(&buf[ph->p_offset],ph->p_vaddr,ph->p_filesz);
 //			nemu_assert(0);
 //			nemu_assert(&buf[ph->p_offset]!=(uint8_t)0x8000000);
+//
 //			nemu_assert(ph->p_offset==0);
+
 			memcpy((void *)(ph->p_vaddr),&buf[ph->p_offset],ph->p_filesz);
-			nemu_assert(0);
+
+//			nemu_assert(0);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
@@ -84,8 +90,8 @@ uint32_t loader() {
 			if(cur_brk < new_brk) { max_brk = cur_brk = new_brk; }
 #endif
 		}
-		//ph=(void *)((uint8_t*)ph + elf->e_phentsize);
-		ph++;
+		ph=(void *)((uint8_t*)ph + elf->e_phentsize);
+		//ph++;
 //		nemu_assert(0);
 	}
 //	nemu_assert(0);
