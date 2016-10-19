@@ -66,7 +66,7 @@ uint32_t loader() {
 //			uint8_t *p=(void *)ph->p_vaddr;
 //			strncpy((char*)p,(const char *)&buf[ph->p_offset],ph->p_filesz);					
 //			ramdisk_write(&buf[ph->p_offset],ph->p_vaddr,ph->p_filesz);
-//			nemu_assert(0);
+			nemu_assert(0);
 			nemu_assert(ph->p_vaddr==0x800000);
 			memcpy((void *)1,&buf[ph->p_offset],ph->p_filesz);
 			nemu_assert(0);
