@@ -67,7 +67,7 @@ uint32_t loader() {
 //			strncpy((char*)p,(const char *)&buf[ph->p_offset],ph->p_filesz);					
 //			ramdisk_write(&buf[ph->p_offset],ph->p_vaddr,ph->p_filesz);
 //			nemu_assert(0);
-//			nemu_assert(ph->p_vaddr==0x800000);
+			nemu_assert(&buf[ph->p_offset]!=(uint8_t)0x800000);
 			memcpy((void *)(ph->p_vaddr),&buf[ph->p_offset],ph->p_filesz);
 			nemu_assert(0);
 			/* TODO: zero the memory region 
