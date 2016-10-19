@@ -1,6 +1,7 @@
 #include "monitor/monitor.h"
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
+#include "monitor/elf.h"
 #include "nemu.h"
 #include "cpu/reg.h"
 #include "common.h"
@@ -210,17 +211,20 @@ static int cmd_d(char *args)
 static int cmd_bt(char *args){
 	int n=0;
 	uint32_t head=cpu.ebp;
+	swaddr_t eip=cpu.eip;
 	while(head){
 	//	Log("%x\n",cpu.ebp);	
 		printf("#%d %x in %s (%x,%x,%x,%x)\n",n,\
 										   swaddr_read(head+4,4),\
-											"func",\
+											getFuncName(eip),\
 											swaddr_read(head+8,4),\
 											swaddr_read(head+12,4),\
 											swaddr_read(head+16,4),\
 											swaddr_read(head+20,4)\
 											);
+		eip=swaddr_read(head+4,4);
 		head=swaddr_read(head,4);
+		
 		n++;
 	
 	}
