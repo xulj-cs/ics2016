@@ -10,6 +10,8 @@
 void ide_read(uint8_t *, uint32_t, uint32_t);
 #else
 void ramdisk_read(uint8_t *, uint32_t, uint32_t);
+void ramdisk_write(uint8_t *, uint32_t, uint32_t);
+
 #endif
 
 #define STACK_SIZE (1 << 20)
@@ -47,7 +49,7 @@ uint32_t loader() {
 	ph = (void *) &buf[elf->e_phoff];
 	nemu_assert(ph->p_offset==0);
 	nemu_assert(ph->p_vaddr==0x800000);
-	nemu_assert(ph->p_filesz==0xa8);
+	nemu_assert(ph->p_filesz==0x1a8);
 	int i;
 	for(i=0;i<elf->e_phnum ;i++ ) {
 		/* Scan the program header table, load each segment into memory */
@@ -56,13 +58,14 @@ uint32_t loader() {
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
-//			 swaddr_write(ph->p_vaddr,buf[ph->p_offset],ph->p_filesz);
-			uint8_t *p=(void *)ph->p_vaddr;
-			strncpy((char*)p,(const char *)&buf[ph->p_offset],ph->p_filesz);			
+//			swaddr_write(ph->p_vaddr,buf[ph->p_offset],ph->p_filesz);
+//			uint8_t *p=(void *)ph->p_vaddr;
+//			strncpy((char*)p,(const char *)&buf[ph->p_offset],ph->p_filesz);					
+			ramdisk_write(&buf[ph->p_offset],ph->p_vaddr,ph->p_filesz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-			//memset((void *)ph->p_vaddr+ph->p_filesz,0,ph->p_memsz-ph->p_filesz);
+			memset((void *)ph->p_vaddr+ph->p_filesz,0,ph->p_memsz-ph->p_filesz);
 
 
 #ifdef IA32_PAGE
