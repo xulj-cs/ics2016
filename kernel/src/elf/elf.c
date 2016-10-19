@@ -35,11 +35,13 @@ uint32_t loader() {
 	const uint32_t elf_magic = 0x464c457f;
 	uint32_t *p_magic = (void *)buf;
 	nemu_assert(*p_magic == elf_magic);
-	
+
 	//elf->e_phoff;
 	//elf->e_phentsize;
 	//elf->e_phnum;
-	
+	nemu_assert(elf->e_phoff==52);
+	nemu_assert(elf->e_phentsize==32);
+	nemu_assert(elf->e_phnum==3);	
 	/* Load each program segment */
 	//panic("please implement me");
 	ph = (void *) &buf[elf->e_phoff];
@@ -67,7 +69,7 @@ uint32_t loader() {
 			if(cur_brk < new_brk) { max_brk = cur_brk = new_brk; }
 #endif
 		}
-	ph=(void *)((uint8_t*)ph + elf->e_phentsize);
+		ph=(void *)((uint8_t*)ph + elf->e_phentsize);
 	}
 
 	volatile uint32_t entry = elf->e_entry;
