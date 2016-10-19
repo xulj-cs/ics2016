@@ -73,7 +73,7 @@ uint32_t loader() {
 //			nemu_assert(&buf[ph->p_offset]!=(uint8_t)0x8000000);
 //
 //			nemu_assert(ph->p_offset==0);
-
+			nemu_assert((uint32_t)buf==0x8000000);
 			memcpy((void *)(ph->p_vaddr),&buf[ph->p_offset],ph->p_filesz);
 
 //			nemu_assert(0);
