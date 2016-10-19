@@ -177,7 +177,7 @@ static int cmd_w(char *args)
 
 	int i=0;
 	for(;i<nr_token;i++)
-	{
+{
 		if(tokens[i].type==DEREF||tokens[i].type==REG)
 			break;
 	}
@@ -206,6 +206,27 @@ static int cmd_d(char *args)
 
 	return 0;
 }
+
+static int cmd_bt(char *args){
+	int n=0;
+	uint32_t head=cpu.ebp;
+	while(head){
+	
+		printf("#%d %x in %s (%x,%x,%x,%x)\n",n,\
+										   swaddr_read(head+4,4),\
+											"func",\
+											swaddr_read(head+8,4),\
+											swaddr_read(head+12,4),\
+											swaddr_read(head+16,4),\
+											swaddr_read(head+20,4)\
+											);
+		head=swaddr_read(head,4);
+		n++;
+	
+	}
+	return 0;
+
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -222,6 +243,7 @@ static struct {
 	{ "p", "Calculate the value of expression", cmd_p},
 	{ "w", "Set the watchpoint", cmd_w},
 	{ "d", "Delete the watchpoint",cmd_d},
+	{ "bt", "Print the stack frame chain",cmd_bt},
 	/* TODO: Add more commands */
 
 };
