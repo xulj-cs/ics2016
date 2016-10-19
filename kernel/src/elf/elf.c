@@ -47,7 +47,7 @@ uint32_t loader() {
 	ph = (void *) &buf[elf->e_phoff];
 	nemu_assert(ph->p_offset==0);
 	nemu_assert(ph->p_vaddr==0x800000);
-	nemu_assert(ph->p_filesz==0x1a8);
+	nemu_assert(ph->p_filesz==0xa8);
 	int i;
 	for(i=0;i<elf->e_phnum ;i++ ) {
 		/* Scan the program header table, load each segment into memory */
