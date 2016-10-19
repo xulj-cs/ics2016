@@ -211,7 +211,7 @@ static int cmd_bt(char *args){
 	int n=0;
 	uint32_t head=cpu.ebp;
 	while(head){
-	
+		Log("%x\n",cpu.ebp);	
 		printf("#%d %x in %s (%x,%x,%x,%x)\n",n,\
 										   swaddr_read(head+4,4),\
 											"func",\
