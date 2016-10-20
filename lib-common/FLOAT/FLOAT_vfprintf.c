@@ -213,7 +213,7 @@ static void modify_ppfs_setargs() {
 	}
 #endif
 	uint16_t *p=(void *)((uint32_t)&_vfprintf_internal+0x5d6);
-	*p=0x0aeb;
+	*p=0x30eb;
 }
 
 void init_FLOAT_vfprintf() {
