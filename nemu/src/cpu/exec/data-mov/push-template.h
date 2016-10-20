@@ -27,8 +27,8 @@ static void do_execute(){
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 
 make_instr_helper(r)
-//make_instr_helper(rm)   //in fact only can be m
-
+make_instr_helper(rm)   //in fact only can be m
+/*
 make_helper(concat(push_rm_,SUFFIX)){
 
 	int len=concat(decode_rm_,SUFFIX)(eip+1);
@@ -46,7 +46,7 @@ make_helper(concat(push_rm_,SUFFIX)){
 	return len+1;
 
 }
-
+*/
 #endif
 
 make_instr_helper(si)

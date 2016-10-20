@@ -17,8 +17,38 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 */
 
 	char buf[80];
-	int len = sprintf(buf, "0x%08x", f);
-	return __stdio_fwrite(buf, len, stream);
+	int len=0;
+	if((f>>31)&1)			//neg
+	{	
+		f = -f;
+		buf[0]='-';
+		len++;
+	}
+
+	int32_t a=(int32_t)f>>16;
+	len += sprintf(&buf[len],"%d",a);
+	
+	buf[len]='.';
+	len++;
+	int i;
+	int t=5;
+	int sum=0;
+	for(i=32;i>=17;i--){
+		sum	+=((f>>(32-i))&1)*t;
+//		printf("%d\t%d\n",i,sum);
+		t<<=1;
+	}
+	//sum =(sum*100000)/(1<<15);
+	sum = (sum*625)/(1<<11);
+//	printf("%d\n",sum);
+	for(i=len+6;i>=len+1;i--){
+		buf[i]=sum%10+48;
+		sum/=10;
+	}
+
+
+	//int len = sprintf(buf, "0x%08x", f);
+	return __stdio_fwrite(buf, len+6, stream);
 }
 
 static void modify_vfprintf() {
@@ -72,7 +102,7 @@ static void modify_vfprintf() {
 	//*(uint8_t *)(p2+1)=(uint8_t)0x30;//*(p2+2)=(uint8_t)0xc0;		//	fstp ...--> push *%eax
 //	*(p2-1)=(uint8_t)0x08;							//	sub 0xc ...-->	sub 0x8 ...
 */
-	*p2 = 0xc030ff08;
+	*p2 = 0x9032ff08;
 	*p1 += (uint32_t)&format_FLOAT-(uint32_t)&_fpmaxtostr;
 
 }
