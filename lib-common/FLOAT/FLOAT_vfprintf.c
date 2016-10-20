@@ -48,7 +48,7 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 		sum/=10;
 	}
 //	printf("%d\n",len);
-	
+	buf[len+7]='\0';
 	//int len = sprintf(buf, "0x%08x", f);
 	return __stdio_fwrite(buf, len+7, stream);
 }
