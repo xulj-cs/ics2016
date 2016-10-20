@@ -211,12 +211,12 @@ static void modify_ppfs_setargs() {
 		++p;
 	}
 #endif
-
+	uint16_t *p=(void *)((uint32_t)&_vfprintf_internal+0x5d6);
+	*p=0x30eb;
 }
 
 void init_FLOAT_vfprintf() {
 	//mprotect((void *)(((uint32_t)&_vfprintf_internal+0x306-100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
-	//printf("%x",(uint32_t)&_vfprintf_internal+0x306-100);
 	modify_vfprintf();
 	modify_ppfs_setargs();
 }
