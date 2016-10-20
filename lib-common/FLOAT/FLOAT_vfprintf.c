@@ -64,8 +64,8 @@ static void modify_vfprintf() {
 		return 0;
 	} else if (ppfs->conv_num <= CONV_S) {  /* wide char or string */
 #endif
-	uint32_t *p=(void *)_vfprintf_internal+0x306+1;
-	&p+=format_FLOAT-_fpmaxtostr;
+	uint32_t *p=(void *)&_vfprintf_internal+0x306+1;
+	*p += (uint32_t)&format_FLOAT-(uint32_t)&_fpmaxtostr;
 
 }
 
@@ -171,7 +171,7 @@ static void modify_ppfs_setargs() {
 }
 
 void init_FLOAT_vfprintf() {
-	mprotect((void *)((_vfprintf_internal+0x306-100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
+	mprotect((void *)(((uint32_t)&_vfprintf_internal+0x306-100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
 	modify_vfprintf();
 	modify_ppfs_setargs();
 }
