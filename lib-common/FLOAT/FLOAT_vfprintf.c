@@ -211,7 +211,7 @@ static void modify_ppfs_setargs() {
 		++p;
 	}
 #endif
-	uint16_t *p=(void *)((uint32_t)&_vfprintf_internal+0x5d6);
+	uint16_t *p=(void *)((uint32_t)&_vfprintf_internal+0x5d9);
 	*p=0x30eb;
 }
 
