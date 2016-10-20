@@ -32,25 +32,25 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	buf[len]='.';
 	len++;
 	int i;
-	int t=5;
+	int t=1;
 	int sum=0;
 	for(i=32;i>=17;i--){
 		sum	+=((f>>(32-i))&1)*t;
 //		printf("%d\t%d\n",i,sum);
 		t<<=1;
 	}
-	//sum =(sum*100000)/(1<<15);
+	//sum =(sum*1000000)/(1<<16);
 //	printf("%d",sum);
-	sum = (sum*3125)/(1<<10);
+	sum = (sum*5*3125)/(1<<10);
 //	printf("sum==%d\n",sum);
-	for(i=len+6;i>=len+1;i--){
+	for(i=len+5;i>=len;i--){
 		buf[i]=sum%10+48;
 		sum/=10;
 	}
 //	printf("%d\n",len);
-	buf[len+7]='\0';
+	buf[len+6]='\0';
 	//int len = sprintf(buf, "0x%08x", f);
-	return __stdio_fwrite(buf, len+8, stream);
+	return __stdio_fwrite(buf, len+7, stream);
 }
 
 static void modify_vfprintf() {
