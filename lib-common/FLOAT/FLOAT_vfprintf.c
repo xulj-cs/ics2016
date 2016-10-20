@@ -66,11 +66,14 @@ static void modify_vfprintf() {
 #endif	
 	uint32_t *p1=(void *)((uint32_t)&_vfprintf_internal+0x306+1);		//p1->call + 1
 	
-	uint8_t *p2=(void*)((uint32_t)p1-11);	//	p2->fstp	
-	*p2='c';
-/*	*p2=(uint8_t)0xff;*(p2+1)=(uint8_t)0x30;*(p2+2)=(uint8_t)0xc0;		//	fstp ...--> push *%eax
-	*(p2-1)=(uint8_t)0x08;							//	sub 0xc ...-->	sub 0x8 ...
-*/	*p1 += (uint32_t)&format_FLOAT-(uint32_t)&_fpmaxtostr;
+	uint32_t *p2=(void*)((uint32_t)p1-12);	//	p2->fstp	
+/*	printf("%x%x\n",(uint32_t)p2,(uint32_t)(p2+1));	
+	*p2=(uint8_t)0xff;//
+	//*(uint8_t *)(p2+1)=(uint8_t)0x30;//*(p2+2)=(uint8_t)0xc0;		//	fstp ...--> push *%eax
+//	*(p2-1)=(uint8_t)0x08;							//	sub 0xc ...-->	sub 0x8 ...
+*/
+	*p2 = 0xc030ff08;
+	*p1 += (uint32_t)&format_FLOAT-(uint32_t)&_fpmaxtostr;
 
 }
 
@@ -177,6 +180,7 @@ static void modify_ppfs_setargs() {
 
 void init_FLOAT_vfprintf() {
 	mprotect((void *)(((uint32_t)&_vfprintf_internal+0x306-100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
+	//printf("%x",(uint32_t)&_vfprintf_internal+0x306-100);
 	modify_vfprintf();
 	modify_ppfs_setargs();
 }
