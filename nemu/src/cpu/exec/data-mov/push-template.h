@@ -27,7 +27,25 @@ static void do_execute(){
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 
 make_instr_helper(r)
-make_instr_helper(rm)   //in fact only can be m
+//make_instr_helper(rm)   //in fact only can be m
+
+make_helper(concat(push_rm_,SUFFIX)){
+
+	int len=concat(decode_rm_,SUFFIX)(eip+1);
+	if(op_src->type==OP_TYPE_REG)
+	{	
+		op_src->val=MEM_R(op_src->val);
+
+		reg_l(R_ESP) -=DATA_BYTE;
+		MEM_W(reg_l(R_ESP),op_src->val);
+	
+		print_asm(str(instr) str(SUFFIX) " *%s",op_src->str);
+	}
+	else
+		do_execute();
+	return len+1;
+
+}
 
 #endif
 
