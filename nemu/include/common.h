@@ -1,6 +1,6 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
-volatile static int dummy;
+//volatile static int dummy = 0;
 #define USE_RAMDISK
 
 /* You will define this macro in PA4 */
