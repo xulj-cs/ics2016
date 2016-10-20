@@ -98,7 +98,11 @@ static void modify_vfprintf() {
 #endif	
 	uint32_t *p1=(void *)((uint32_t)&_vfprintf_internal+0x306+1);		//p1->call + 1
 	
-	uint32_t *p2=(void*)((uint32_t)p1-12);	//	p2->fstp	
+	uint32_t *p2=(void*)((uint32_t)p1-0xc);	//	p2->fstp
+	uint16_t *p3=(void*)((uint32_t)p1-0x1f);
+	*p3=0x9090;
+	p3=p3-4;
+	*p3=0x9090;	
 /*	printf("%x%x\n",(uint32_t)p2,(uint32_t)(p2+1));	
 	*p2=(uint8_t)0xff;//
 	//*(uint8_t *)(p2+1)=(uint8_t)0x30;//*(p2+2)=(uint8_t)0xc0;		//	fstp ...--> push *%eax
