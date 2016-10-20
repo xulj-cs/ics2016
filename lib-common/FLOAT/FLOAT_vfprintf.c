@@ -15,7 +15,8 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 *         0x00010000    "1.000000"
 	 *         0x00013333    "1.199996"
 	 */
-
+	if(f==0x80000000)
+		return __stdio_fwrite("-0.000000",9,stream);
 	char buf[80];
 	int len=0;
 	if((f>>31)&1)			//neg
@@ -39,16 +40,17 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 		t<<=1;
 	}
 	//sum =(sum*100000)/(1<<15);
-	sum = (sum*625)/(1<<11);
-//	printf("%d\n",sum);
+//	printf("%d",sum);
+	sum = (sum*3125)/(1<<10);
+//	printf("sum==%d\n",sum);
 	for(i=len+6;i>=len+1;i--){
 		buf[i]=sum%10+48;
 		sum/=10;
 	}
-
-
+//	printf("%d\n",len);
+	
 	//int len = sprintf(buf, "0x%08x", f);
-	return __stdio_fwrite(buf, len+6, stream);
+	return __stdio_fwrite(buf, len+7, stream);
 }
 
 static void modify_vfprintf() {
