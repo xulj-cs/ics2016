@@ -64,7 +64,7 @@ static void modify_vfprintf() {
 		return 0;
 	} else if (ppfs->conv_num <= CONV_S) {  /* wide char or string */
 #endif	
-	uint8_t *p1=(void *)((uint32_t)&_vfprintf_internal+0x306+1);		//next byte of call
+	uint32_t *p1=(void *)((uint32_t)&_vfprintf_internal+0x306+1);		//next byte of call
 	//uint8_t *p2=p1-11;		
 	//*p2=0xff;*(p2+1)=0x30;*(p2+2)=0xc0;
 	*p1 += (uint32_t)&format_FLOAT-(uint32_t)&_fpmaxtostr;
