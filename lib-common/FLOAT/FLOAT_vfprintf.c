@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "FLOAT.h"
+#include <sys/mman.h> 
 
 extern char _vfprintf_internal;
 extern char _fpmaxtostr;
@@ -63,6 +64,8 @@ static void modify_vfprintf() {
 		return 0;
 	} else if (ppfs->conv_num <= CONV_S) {  /* wide char or string */
 #endif
+	uint32_t *p=(void *)_vfprintf_internal+0x306+1;
+	&p+=format_FLOAT-_fpmaxtostr;
 
 }
 
@@ -168,6 +171,7 @@ static void modify_ppfs_setargs() {
 }
 
 void init_FLOAT_vfprintf() {
+	mprotect((void *)((_vfprintf_internal+0x306-100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
 	modify_vfprintf();
 	modify_ppfs_setargs();
 }
