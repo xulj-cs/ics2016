@@ -91,8 +91,8 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 			for(j=0;j<Size_of_Cache_Block;j++,dram_addr++){
 			
 				Log("%x,%x",Cache[set][i].block[j],dram_read(dram_addr,1)&0xff);
-				dram_write(dram_addr,1,Cache[set][i].block[j]&0xff);
-				Log("%x",dram_read(dram_addr,1));
+				dram_write(dram_addr,1,Cache[set][i].block[j]);
+				Log("%x",dram_read(dram_addr,1)&0xff);
 			
 			}
 		}
