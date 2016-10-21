@@ -23,6 +23,7 @@
 #define init_cache concat(init_cache_,TYPE)
 #define block_write concat(block_write_,TYPE)
 #define cache_write concat(cache_write_,TYPE)
+#define ui_cache_read concat(ui_cache_read_,TYPE)
 
 #define Num_of_Block (Size_of_Cache/Size_of_Cache_Block)
 #define Num_of_Set (Num_of_Block/Num_of_Way)
@@ -122,31 +123,19 @@ void block_read(hwaddr_t addr,void *data){
 	if(!FindWay(set, tag, &way))
 	{
 		//dram -->> cache;
+#ifdef l1
+		block_read_L2(addr,data);
+		return;
+#else
 		way = load_block(addr,set);
+
+#endif
 	}
 	memcpy(data, Cache[set][way].block , Size_of_Cache_Block);
 	
 }
 void ui_cache_read(char *args){
 
-	if(args==NULL){
-		int i,j;
-		for(i=0;i<Num_of_Set;i++)
-			for(j=0;j<Num_of_Way;j++){
-				if(Cache[i][j].valid){
-					int k;	
-					for(k=0;k<Size_of_Cache_Block;k++){
-						printf("%02x",Cache[i][j].block[k]);
-					}
-
-#ifdef Write_Back					
-					printf("the dirty bit is %x",Cache[i][j].dirty);	
-#endif	
-					printf("\n");
-				}
-			}
-		return ;	
-	}
 	uint32_t addr;
 	sscanf(args,"0x%x",&addr);
 	int set=(addr/Size_of_Set) % Num_of_Set;
@@ -154,8 +143,13 @@ void ui_cache_read(char *args){
 	int way;
 	if(!FindWay(set, tag, &way))
 	{
-		printf("No This Cache\n");
-		return ;
+#ifdef l1
+	ui_cache_read_L2(args);
+	return ;
+#else
+	printf("No This Cache\n");
+	return ;
+#endif
 	}
 	printf("The Cache :");
 	int i;
@@ -168,7 +162,6 @@ void ui_cache_read(char *args){
 	printf("\n");
 	
 }
-//void init_cache();
 uint32_t cache_read(hwaddr_t addr, size_t len){
 	
 	uint32_t offset=addr & (Size_of_Cache_Block - 1);
@@ -191,7 +184,6 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 //		Log("error!!");	
 //	Log("\n");
 
-//	init_cache();
 	return unalign_rw(temp+offset, 4);
 }
 void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
@@ -203,12 +195,17 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 	len=offset+len>Size_of_Cache_Block?Size_of_Cache_Block-offset:len;
 	if(!FindWay(set, tag, &way))
 	{
+#ifdef l1
+		block_write_L2(addr,len,pdata);
+		return ;
+#else
 #ifdef Not_Write_Allocate
 		return;
 #else	//Write_Allocate
 		way = load_block(addr,set);		
 #endif
-	
+
+#endif
 	}
 /*		int i;
 		for(i=0;i<len;i++){
@@ -271,6 +268,7 @@ void init_cache(){
 #undef init_cache
 #undef block_write
 #undef cache_write
+#undef ui_cache_read
 
 #undef Num_of_Block
 #undef Num_of_Set
