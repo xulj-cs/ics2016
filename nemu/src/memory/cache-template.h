@@ -30,7 +30,7 @@
 
 typedef struct{
 	uint8_t block[Size_of_Cache_Block];
-	int tag;
+	uint32_t tag;
 	bool valid;
 #ifdef Write_Back
 	bool dirty;
@@ -40,7 +40,7 @@ typedef struct{
 //Cache_Block Cache_Set[Num_of_Way]; 
 Cache_Block Cache[Num_of_Set][Num_of_Way];
 
-bool FindWay(int set, int tag, int *way){
+bool FindWay(int set, uint32_t tag, int *way){
 
 	int i;
 	for(i=0;i<Num_of_Way;i++){
@@ -79,7 +79,7 @@ int load_block(hwaddr_t addr, int set){
 	
 	}
 	Cache[set][i].valid=true;
-	Cache[set][i].tag=(addr%Size_of_Set)/Size_of_Cache_Block;//here
+	Cache[set][i].tag=addr;
 	//	memcpy(Cache[set][i].block, addr, Size_of_Cache_Block);
 	uint32_t start= ( addr/Size_of_Cache_Block )*Size_of_Cache_Block;
 //	uint32_t end= (addr/Size_of_Cache_Block + 1)*Size_of_Cache_Block;
@@ -100,7 +100,7 @@ void block_read(hwaddr_t addr,void *data){
 
 	
 	int set=(addr/Size_of_Set) % Num_of_Set;
-	int tag=(addr%Size_of_Set)/Size_of_Cache_Block;
+	uint32_t tag=addr;
 	int way;
 	if(tag==4&&set==5){
 		Log("0x%x",addr);	
@@ -118,7 +118,7 @@ void ui_cache_read(char *args){
 	uint32_t addr;
 	sscanf(args,"0x%x",&addr);
 	int set=(addr/Size_of_Set) % Num_of_Set;
-	int tag=(addr%Size_of_Set)/Size_of_Cache_Block;
+	uint32_t tag=addr;
 	int way;
 	if(!FindWay(set, tag, &way))
 	{
@@ -164,7 +164,7 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 
 	uint32_t offset=addr & (Size_of_Cache_Block-1);
 	int set=(addr/Size_of_Set) % Num_of_Set;
-	int tag=(addr%Size_of_Set)/Size_of_Cache_Block;
+	uint32_t tag=addr;
 	int way;
 	len=offset+len>Size_of_Cache_Block?Size_of_Cache_Block-offset:len;
 	if(!FindWay(set, tag, &way))
