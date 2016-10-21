@@ -63,7 +63,7 @@ bool FindWay(int set, uint32_t tag, int *way){
 
 
 }
-int load_block(hwaddr_t addr, int set){
+int load_block(hwaddr_t addr, int set){		//dram-->>cache
 	
 	int i;
 	for(i=0;i<Num_of_Way;i++){
@@ -76,8 +76,22 @@ int load_block(hwaddr_t addr, int set){
 		i = 0;	//how to random??
 		Cache[set][i].valid=false;
 #ifdef Write_Back
-		if(Cache[set][i].dirty)
-			dram_write()
+		if(Cache[set][i].dirty){
+	
+			//cache -- >> dram
+			uint8_t temp[Size_of_Cache_Block];
+			//block_read(Cache[set][i].tag,temp);
+			memcpy(temp, Cache[set][i].block , Size_of_Cache_Block);
+			//updata the darm
+			uint32_t dram_addr = ( Cache[set][i].tag/Size_of_Cache_Block )*Size_of_Cache_Block;
+			int j;
+			for(j=0;j<Size_of_Cache_Block;j++,dram_addr++){
+			
+				dram_write(dram_addr,1,Cache[set][i].block[j]);
+			
+			}
+		}
+			
 		Cache[set][i].dirty=false;
 #endif
 	
@@ -178,6 +192,8 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 	{
 #ifdef Not_Write_Allocate
 		return;
+#else	//Write_Allocate
+		way = load_block(addr,set);		
 #endif
 	
 	}
@@ -222,8 +238,13 @@ void init_cache(){
 	
 	int i,j;
 	for(i=0;i<Num_of_Set;i++)
-		for(j=0;j<Num_of_Way;j++)
+		for(j=0;j<Num_of_Way;j++){
+		
 			Cache[i][j].valid=false;
+#ifdef Write_Back
+			Cache[i][j].dirty=false;
+#endif
+		}
 }
 #undef Cache
 #undef Cache_Block
