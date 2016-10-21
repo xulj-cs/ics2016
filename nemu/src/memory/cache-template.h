@@ -207,7 +207,7 @@ void cache_write(hwaddr_t addr, size_t len, uint32_t data){
 		int t=Size_of_Cache_Block-offset;//have write
 //		len-t;
 		block_write(addr+t,len-t,(void *)((uint8_t *)&data+t));
-		Log("error!!");
+//		Log("error!!");
 	
 	}
 
