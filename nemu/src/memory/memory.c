@@ -19,6 +19,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 		Log("%x,%x",t1,t2);
 	}
 */
+	Log("%x",addr);
 	Log("%x",cache_read(addr,len) & (~0u >> ((4 - len) << 3)));
 	return cache_read(addr, len) & (~0u >> ((4 - len) << 3));
 #else
