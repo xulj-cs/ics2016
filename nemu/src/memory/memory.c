@@ -1,6 +1,8 @@
 #include "common.h"
 
+#define HAS_CACHE
 uint32_t dram_read(hwaddr_t, size_t);
+uint32_t cache_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 
 /* Memory accessing interfaces */
@@ -15,9 +17,9 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 
-#ifdef HAS_CACHE
-	cache_write(addr, len, data);
-#endif
+//#ifdef HAS_CACHE
+//	cache_write(addr, len, data);
+//#endif
 	dram_write(addr, len, data);
 }
 

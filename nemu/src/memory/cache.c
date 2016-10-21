@@ -22,3 +22,8 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 #undef Write_Through
 #undef Not_Write_Allocate
 
+
+uint32_t cache_read(hwaddr_t addr, size_t len){
+	
+	return cache_read_L1(addr, len);
+}
