@@ -79,7 +79,7 @@ int load_block(hwaddr_t addr, int set){
 	
 	}
 	Cache[set][i].valid=true;
-	Cache[set][i].tag=(addr/Size_of_Set)/Size_of_Cache_Block;//here
+	Cache[set][i].tag=(addr%Size_of_Set)/Size_of_Cache_Block;//here
 		
 	//	memcpy(Cache[set][i].block, addr, Size_of_Cache_Block);
 	uint32_t start= ( addr/Size_of_Cache_Block )*Size_of_Cache_Block;
