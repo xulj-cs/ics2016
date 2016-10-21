@@ -82,7 +82,7 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 			uint32_t dram_addr = ( Cache[set][i].tag/Size_of_Cache_Block )*Size_of_Cache_Block;
 			if(dram_addr==0x7ffef80)
 			{
-				Log("here");
+				Log("%d,%d",set,i);
 				int k;
 				for(k=0;k<64;k++){
 					Log("%d:%02x",k,Cache[set][i].block[k]);
@@ -227,7 +227,7 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 */
 		if(Cache[set][way].tag/64*64==0x7ffef80)
 		{
-			Log("%x,%d,%d",*pdata,len,offset);
+			Log("%d,%d,%x,%d,%d",set,way,*pdata,len,offset);
 		}
 		memcpy(Cache[set][way].block+offset, pdata, len);
 /*		for(i=0;i<len;i++){
