@@ -139,6 +139,7 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 	}
 	else{
 		memcpy(Cache[set][way].block+offset, pdata, len);
+		Log("%d",len);
 #ifdef Write_Back
 		Cache[set][way].dirty=true;
 #endif
