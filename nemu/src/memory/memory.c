@@ -12,8 +12,8 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 #ifdef HAS_CACHE
 //	if(addr==0x801200)
 //		Log("%x",dram_read(addr,4));
-	Log("addr:%x,len:%x",addr,len);
-	Log("dram:%x,cache:%x",dram_read(addr,len) & (~0u >> ((4 - len) << 3)),cache_read(addr,len) & (~0u >> ((4 - len) << 3)));
+//	Log("addr:%x,len:%x",addr,len);
+//	Log("dram:%x,cache:%x",dram_read(addr,len) & (~0u >> ((4 - len) << 3)),cache_read(addr,len) & (~0u >> ((4 - len) << 3)));
 	return cache_read(addr, len) & (~0u >> ((4 - len) << 3));
 #else
 //	if(addr==0x801200)
@@ -32,10 +32,10 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 //	Log("%x",cache_read(addr,4));
 //	Log("%x,%x",dram_read(addr,4),data);
 	
-	Log("dram:%x,cache:%x",dram_read(addr,len),cache_read(addr,len));
-	Log("data:%x,%x",len,data);
+//	Log("dram:%x,cache:%x",dram_read(addr,len),cache_read(addr,len));
+//	Log("data:%x,%x",len,data);
 	cache_write(addr, len, data);
-	Log("dram:%x,cache:%x",dram_read(addr,len),cache_read(addr,len));
+//	Log("dram:%x,cache:%x",dram_read(addr,len),cache_read(addr,len));
 #else
 //	if(addr==0x801200)
 //		Log("%x,%x",dram_read(addr,4),data);
