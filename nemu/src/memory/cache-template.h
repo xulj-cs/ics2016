@@ -129,6 +129,22 @@ void block_read(hwaddr_t addr,void *data){
 }
 void ui_cache_read(char *args){
 
+	if(args==NULL){
+		int i,j;
+		for(i=0;i<Num_of_Set;i++)
+			for(j=0;j<Num_of_Way;j++){
+				if(Cache[i][j].valid){
+					int k;	
+					for(k=0;k<Size_of_Cache_Block;k++){
+						printf("%02x",Cache[i][j].block[k]);
+					}
+#ifdef Write_Back					
+					printf("the dirty bit is %x",Cache[i][j].dirty);	
+#endif	
+				}
+			}
+	
+	}
 	uint32_t addr;
 	sscanf(args,"0x%x",&addr);
 	int set=(addr/Size_of_Set) % Num_of_Set;
@@ -144,7 +160,9 @@ void ui_cache_read(char *args){
 	for(i=0;i<Size_of_Cache_Block;i++){
 		printf("%02x",Cache[set][way].block[i]);
 	}
-//	printf("the dirty bit is %x",Cache[set][way].dirty);	
+#ifdef Write_Back
+	printf("the dirty bit is %x",Cache[set][way].dirty);	
+#endif
 	printf("\n");
 	
 }
