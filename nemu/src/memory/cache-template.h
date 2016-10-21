@@ -104,10 +104,9 @@ void block_read(hwaddr_t addr,void *data){
 		way = load_block(addr,set);
 	}
 	else{
-	
+	Log("here!!!");
+	}	
 	memcpy(data, Cache[set][way].block , Size_of_Cache_Block);
-	Log("here!!");
-	}
 	
 }
 //void init_cache();
