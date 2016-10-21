@@ -101,6 +101,7 @@ void block_read(hwaddr_t addr,void *data){
 	{
 		//dram -->> cache;
 		way = load_block(addr,set);
+		Log("notFind");
 	}
 
 	memcpy(data, Cache[set][way].block , Size_of_Cache_Block);
