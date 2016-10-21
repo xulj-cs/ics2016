@@ -88,7 +88,7 @@ int load_block(hwaddr_t addr, int set){
 		
 //		memcpy( &(Cache[set][i].block+j) , dram_read(addr,len))
 		Cache[set][i].block[j] = dram_read(start, 1) & 0xff;
-		if(set==4&&Cache[set][i].tag==5){
+		if(set==5&&Cache[set][i].tag==4){
 			Log("0x%x,start:0x%x",addr,start);
 			Log("%02x",Cache[set][i].block[j]);
 			Log("%02x",dram_read(start,1)&0xff);
@@ -102,9 +102,9 @@ void block_read(hwaddr_t addr,void *data){
 	int set=(addr/Size_of_Set) % Num_of_Set;
 	int tag=(addr%Size_of_Set)/Size_of_Cache_Block;
 	int way;
-	if(tag==4&&set==5){
-		Log("0x%x",addr);	
-	}
+//	if(tag==4&&set==5){
+//		Log("0x%x",addr);	
+//	}
 	if(!FindWay(set, tag, &way))
 	{
 		//dram -->> cache;
