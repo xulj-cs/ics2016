@@ -142,6 +142,7 @@ void ui_cache_read(char *args){
 					printf("the dirty bit is %x",Cache[i][j].dirty);	
 #endif	
 				}
+				printf("\n");
 			}
 		return ;	
 	}
