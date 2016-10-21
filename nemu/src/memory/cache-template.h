@@ -75,6 +75,7 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 	//	Replace
 		i = 0;	//how to random??
 		Cache[set][i].valid=false;
+		Log("here1");
 #ifdef Write_Back
 		if(Cache[set][i].dirty){
 			Log("here");	
