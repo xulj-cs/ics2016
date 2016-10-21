@@ -133,14 +133,14 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 	if(!FindWay(set, tag, &way))
 	{
 #ifdef Not_Write_Allocate
-		Log("hah");
 		return;
 #endif
 	
 	}
 	else{
+		Log("%x,%x,%x",Cache[set][way].block[offset],*pdata,len);
 		memcpy(Cache[set][way].block+offset, pdata, len);
-		Log("%d",len);
+		Log("%x,%x,%x",Cache[set][way].block[offset],*pdata,len);
 #ifdef Write_Back
 		Cache[set][way].dirty=true;
 #endif
