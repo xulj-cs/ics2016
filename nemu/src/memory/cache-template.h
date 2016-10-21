@@ -85,7 +85,7 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 				Log("here");
 				int k;
 				for(k=0;k<64;k++){
-					Log("%02x",Cache[set][i].block[k]);
+					Log("%d:%02x",k,Cache[set][i].block[k]);
 				}
 			}
 			int j;
