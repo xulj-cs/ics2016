@@ -35,6 +35,8 @@ typedef struct {
 		uint16_t ip;
 		uint32_t eip;
 	};
+
+	//eflags 
 	struct{
 		uint32_t CF:1;
 	//	uint32_t bit_2nd:1;
@@ -47,6 +49,22 @@ typedef struct {
 		uint32_t DF:1;
 		uint32_t OF:1;
 	 };
+	struct{
+		uint16_t length;
+		lnaddr_t addr;
+	}GDTR;
+   	
+	struct{
+		uint32_t PE:1;
+	}CR0;
+	
+	//segment regs
+	struct{
+
+		uint16_t selector;
+		uint64_t descriptor;
+	} CS,SS,DS,ES;
+
 
 } CPU_state;
 
