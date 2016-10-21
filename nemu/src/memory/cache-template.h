@@ -77,7 +77,7 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 		Cache[set][i].valid=false;
 #ifdef Write_Back
 		if(Cache[set][i].dirty){
-	
+			Log("here");	
 			//cache -- >> dram
 			uint8_t temp[Size_of_Cache_Block];
 			//block_read(Cache[set][i].tag,temp);
