@@ -75,13 +75,11 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 	//	Replace
 		i = 0;	//how to random??
 		Cache[set][i].valid=false;
-		Log("here1");
 #ifdef Write_Back
 		if(Cache[set][i].dirty){
 			//cache -- >> dram
 			
 			uint32_t dram_addr = ( Cache[set][i].tag/Size_of_Cache_Block )*Size_of_Cache_Block;
-			Log("%x,%x",Cache[set][i].tag,dram_addr);
 			int j;
 			for(j=0;j<Size_of_Cache_Block;j++,dram_addr++){
 			
