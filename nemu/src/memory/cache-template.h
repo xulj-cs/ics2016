@@ -46,10 +46,10 @@ bool FindWay(int set, uint32_t tag, int *way){
 	for(i=0;i<Num_of_Way;i++){
 		if( !Cache[set][i].valid )
 			continue;
-	uint32_t start= (	Cache[set][i].tag/Size_of_Cache_Block + 1)*Size_of_Cache_Block;
-	uint32_t end= (	Cache[set][i].tag/Size_of_Cache_Block + 1)*Size_of_Cache_Block;
-	if( start<=tag && tag<end )	
-		break;
+		uint32_t start= (	Cache[set][i].tag/Size_of_Cache_Block )*Size_of_Cache_Block;
+		uint32_t end= (	Cache[set][i].tag/Size_of_Cache_Block + 1)*Size_of_Cache_Block;
+		if( start<=tag && tag<end )	
+			break;
 	}
 	*way=i;
 	if( i == Num_of_Way){
