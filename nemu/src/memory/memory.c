@@ -12,6 +12,8 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 #ifdef HAS_CACHE
 	return cache_read(addr, len) & (~0u >> ((4 - len) << 3));
 #endif
+	if(addr==0x801200)
+		Log("%x",dram_read(addr,4));
 	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 }
 
