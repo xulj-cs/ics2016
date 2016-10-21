@@ -74,7 +74,6 @@ int load_block(hwaddr_t addr, int set){
 			dram_write()
 		Cache[set][i].dirty=false;
 #endif
-		Log("replace");
 	
 	}
 	Cache[set][i].valid=true;
