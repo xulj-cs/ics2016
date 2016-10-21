@@ -21,6 +21,8 @@
 #define load_block concat(load_block_,TYPE)
 #define cache_read concat(cache_read_,TYPE)
 #define init_cache concat(init_cache_,TYPE)
+#define load_write concat(load_write_,TYPE)
+#define cache_write concat(cache_write_,TYPE)
 
 #define Num_of_Block (Size_of_Cache/Size_of_Cache_Block)
 #define Num_of_Set (Num_of_Block/Num_of_Way)
@@ -105,7 +107,7 @@ void block_read(hwaddr_t addr,void *data){
 	memcpy(data, Cache[set][way].block , Size_of_Cache_Block);
 	
 }
-void init_cache();
+//void init_cache();
 uint32_t cache_read(hwaddr_t addr, size_t len){
 	
 	uint32_t offset=addr & (Size_of_Cache_Block - 1);
@@ -118,10 +120,47 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 		block_read(addr+Size_of_Cache_Block , temp+Size_of_Cache_Block);
 	
 	}
-	init_cache();
+//	init_cache();
 	return unalign_rw(temp+offset, 4);
 }
+void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 
+	uint32_t offset=addr & (Size_of_Cache_Block-1);
+	int set=(addr/Size_of_Set) % Num_of_Set;
+	int tag=(addr%Size_of_Set)/Size_of_Cache_Block;
+	int way;
+	len=offset+len>Size_of_Cache_Block?Size_of_Cache_Block-offset:len;
+	if(!FindWay(set, tag, &way))
+	{
+#ifdef Not_Write_Allocate
+		return;
+#endif
+	
+	}
+	else{
+		memcpy(Cache[set][way].block+offset, pdata, len);
+#ifdef Write_Back
+		Cache[set][way].dirty=true;
+#endif
+	}
+	
+
+}
+void cache_write(hwaddr_t addr, size_t len, uint32_t data){
+#ifdef Write_Through
+	dram_write(addr, len, data);
+#endif
+	uint32_t offset=addr & (Size_of_Cache_Block -1);
+	block_write(addr, len, &data);
+	if(offset + len >Size_of_Cache_Block){
+		int t=Size_of_Cache_Block-offset;//have write
+//		len-t;
+		block_write(addr+t,len-t,(void *)((uint8_t *)&data+t));
+	
+	}
+
+	
+}
 void init_cache(){
 	
 	int i,j;
@@ -137,6 +176,8 @@ void init_cache(){
 #undef load_block
 #undef cache_read
 #undef init_cache
+#undef load_write
+#undef cache_write
 
 #undef Num_of_Block
 #undef Num_of_Set

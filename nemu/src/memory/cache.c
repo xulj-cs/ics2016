@@ -27,7 +27,10 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 	
 	return cache_read_L1(addr, len);
 }
-
+void cache_write(hwaddr_t addr, size_t len, uint32_t data){
+	
+	cache_write_L1(addr, len, data);
+}
 void init_cache(){
 	init_cache_L1();
 }
