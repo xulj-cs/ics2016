@@ -20,6 +20,7 @@
 #define block_read concat(block_read_,TYPE)
 #define load_block concat(load_block_,TYPE)
 #define cache_read concat(cache_read_,TYPE)
+#define init_cache concat(init_cache_,TYPE)
 
 #define Num_of_Block (Size_of_Cache/Size_of_Cache_Block)
 #define Num_of_Set (Num_of_Block/Num_of_Way)
@@ -119,7 +120,13 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 	return unalign_rw(temp+offset, 4);
 }
 
-
+void init_cache(){
+	
+	int i,j;
+	for(i=0;i<Num_of_Set;i++)
+		for(j=0;j<Num_of_Way;j++)
+			Cache[i][j].valid=false;
+}
 #undef Cache
 #undef Cache_Block
 
@@ -127,6 +134,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 #undef block_read
 #undef load_block
 #undef cache_read
+#undef init_cache
 
 #undef Num_of_Block
 #undef Num_of_Set
