@@ -82,12 +82,12 @@ int load_block(hwaddr_t addr, int set){
 		
 	//	memcpy(Cache[set][i].block, addr, Size_of_Cache_Block);
 	uint32_t start= ( addr/Size_of_Cache_Block )*Size_of_Cache_Block;
-	uint32_t end= (addr/Size_of_Cache_Block + 1)*Size_of_Cache_Block;
+//	uint32_t end= (addr/Size_of_Cache_Block + 1)*Size_of_Cache_Block;
 	int j;
-	for(j=start;j<end;j++){
+	for(j=0;j<Size_of_Cache_Block;j++,start++){
 		
 //		memcpy( &(Cache[set][i].block+j) , dram_read(addr,len))
-		Cache[set][i].block[j] = dram_read(addr+j, 1) & 0xff;
+		Cache[set][i].block[j] = dram_read(start, 1) & 0xff;
 	}
 	return i;
 }
