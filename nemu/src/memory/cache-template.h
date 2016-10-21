@@ -116,6 +116,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 	if(offset + len > Size_of_Cache_Block){
 	
 		block_read(addr+Size_of_Cache_Block , temp+Size_of_Cache_Block);
+		Log("unalign");
 	
 	}
 
