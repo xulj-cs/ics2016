@@ -107,7 +107,7 @@ void block_read(hwaddr_t addr,void *data){
 	memcpy(data, Cache[set][way].block , Size_of_Cache_Block);
 	
 }
-void init_cache();
+//void init_cache();
 uint32_t cache_read(hwaddr_t addr, size_t len){
 	
 	uint32_t offset=addr & (Size_of_Cache_Block - 1);
@@ -130,7 +130,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 //		Log("error!!");	
 //	Log("\n");
 
-	init_cache();
+//	init_cache();
 	return unalign_rw(temp+offset, 4);
 }
 void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
