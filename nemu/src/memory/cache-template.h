@@ -21,7 +21,7 @@
 #define load_block concat(load_block_,TYPE)
 #define cache_read concat(cache_read_,TYPE)
 #define init_cache concat(init_cache_,TYPE)
-#define load_write concat(load_write_,TYPE)
+#define block_write concat(block_write_,TYPE)
 #define cache_write concat(cache_write_,TYPE)
 
 #define Num_of_Block (Size_of_Cache/Size_of_Cache_Block)
@@ -176,7 +176,7 @@ void init_cache(){
 #undef load_block
 #undef cache_read
 #undef init_cache
-#undef load_write
+#undef block_write
 #undef cache_write
 
 #undef Num_of_Block
