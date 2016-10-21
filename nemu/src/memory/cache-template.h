@@ -82,12 +82,16 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 			uint8_t temp[Size_of_Cache_Block];
 			//block_read(Cache[set][i].tag,temp);
 			memcpy(temp, Cache[set][i].block , Size_of_Cache_Block);
-			//updata the darm
+			//updata the dram
+			
 			uint32_t dram_addr = ( Cache[set][i].tag/Size_of_Cache_Block )*Size_of_Cache_Block;
+			Log("%x,%x",Cache[set][i].tag,dram_addr);
 			int j;
 			for(j=0;j<Size_of_Cache_Block;j++,dram_addr++){
 			
+				Log("%x,%x",Cache[set][i].block[j],dram_read(dram_addr,1));
 				dram_write(dram_addr,1,Cache[set][i].block[j]);
+				Log("%x",dram_read(dram_addr,1));
 			
 			}
 		}
