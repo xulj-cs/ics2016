@@ -13,7 +13,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 //	if(addr==0x801200)
 //		Log("%x",dram_read(addr,4));
 	Log("addr:%x,len:%x",addr,len);
-	Log("dram:%x,cache:%x",dram_read(addr,len),cache_read(addr,len));
+	Log("dram:%x,cache:%x",dram_read(addr,len) & (~0u >> ((4 - len) << 3)),cache_read(addr,len) & (~0u >> ((4 - len) << 3)));
 	return cache_read(addr, len) & (~0u >> ((4 - len) << 3));
 #else
 //	if(addr==0x801200)
