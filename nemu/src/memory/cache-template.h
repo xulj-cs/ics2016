@@ -217,6 +217,7 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 		}
 		Log("\n\n");
 */
+		Log("here3");
 #ifdef Write_Back
 		Cache[set][way].dirty=true;
 		Log("here2");
