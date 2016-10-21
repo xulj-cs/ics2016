@@ -107,7 +107,7 @@ void block_read(hwaddr_t addr,void *data){
 }
 uint32_t cache_read(hwaddr_t addr, size_t len){
 	if(addr==0x801200)
-		Log("here");
+		Log("%x",dram_read(addr,4));
 	uint32_t offset=addr & (Size_of_Cache_Block - 1);
 	uint8_t temp[2*Size_of_Cache_Block];
 
