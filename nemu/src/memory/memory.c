@@ -24,6 +24,8 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 //#ifdef HAS_CACHE
 //	cache_write(addr, len, data);
 //#endif
+	if(addr==0x801200)
+		Log("%x,%x",dram_read(addr,4),data);
 	dram_write(addr, len, data);
 }
 
