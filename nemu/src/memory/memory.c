@@ -1,6 +1,6 @@
 #include "common.h"
 
-//#define HAS_CACHE
+#define HAS_CACHE
 uint32_t dram_read(hwaddr_t, size_t);
 uint32_t cache_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
@@ -10,6 +10,8 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 
 #ifdef HAS_CACHE
+	if(addr==0x801200)
+		Log("%x",dram_read(addr,4));
 	return cache_read(addr, len) & (~0u >> ((4 - len) << 3));
 #endif
 	if(addr==0x801200)
