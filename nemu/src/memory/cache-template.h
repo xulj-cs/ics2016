@@ -204,7 +204,6 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 #endif
 	
 	}
-	else{
 /*		int i;
 		for(i=0;i<len;i++){
 			Log("%x",Cache[set][way].block[offset+i]);
@@ -223,7 +222,6 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 		Cache[set][way].dirty=true;
 		Log("here2");
 #endif
-	}
 	
 
 }
