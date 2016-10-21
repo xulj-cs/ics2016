@@ -20,7 +20,7 @@ typedef union {
 		uint32_t bank	: BANK_WIDTH;
 		uint32_t rank	: RANK_WIDTH;
 	};
-	uint32_t addr;
+	uint32_t addr;	//4 3 10 10
 } dram_addr;
 
 
@@ -32,6 +32,7 @@ typedef union {
 #define HW_MEM_SIZE (1 << (COL_WIDTH + ROW_WIDTH + BANK_WIDTH + RANK_WIDTH))
 
 uint8_t dram[NR_RANK][NR_BANK][NR_ROW][NR_COL];
+			//16*3*1024*1024B=48MB
 uint8_t *hw_mem = (void *)dram;
 
 typedef struct {
