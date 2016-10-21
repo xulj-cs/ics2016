@@ -112,15 +112,15 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 	
 	uint32_t offset=addr & (Size_of_Cache_Block - 1);
 	uint8_t temp[2*Size_of_Cache_Block];
-
 	block_read(addr, temp);
-
+	
+	uint32_t *p=(void *)0x801200;
+	Log("%x",*p);
 	if(offset + len > Size_of_Cache_Block){
 	
 		block_read(addr+Size_of_Cache_Block , temp+Size_of_Cache_Block);
 	
 	}
-	uint32_t *p=(void *)0x801200;
 	Log("%x",*p);
 //	init_cache();
 	return unalign_rw(temp+offset, 4);
