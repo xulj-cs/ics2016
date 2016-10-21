@@ -95,7 +95,7 @@ void block_read(hwaddr_t addr,void *data){
 
 	
 	int set=(addr/Size_of_Set) % Num_of_Set;
-	int tag=(addr/Size_of_Set)/Size_of_Cache_Block;
+	int tag=(addr%Size_of_Set)/Size_of_Cache_Block;
 	int way;
 	if(!FindWay(set, tag, &way))
 	{
