@@ -80,15 +80,10 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 			//cache -- >> dram
 			
 			uint32_t dram_addr = ( Cache[set][i].tag/Size_of_Cache_Block )*Size_of_Cache_Block;
-			if(dram_addr==0x7ffef80){
+			if(dram_addr==0x7ffef80)
 				Log("here");
-				int k;
-				for(k=0;k<64;k++){
-					Log("%02x",Cache[set][i].block[k]);
-				}
-			}
 			int j;
-			for(j=1;j<Size_of_Cache_Block;j++,dram_addr++){
+			for(j=0;j<Size_of_Cache_Block;j++,dram_addr++){
 			
 	//			Log("%x,%x",Cache[set][i].block[j],dram_read(dram_addr,1)&0xff);
 				dram_write(dram_addr,1,Cache[set][i].block[j]);
