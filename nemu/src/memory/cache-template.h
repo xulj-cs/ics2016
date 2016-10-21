@@ -106,6 +106,27 @@ void block_read(hwaddr_t addr,void *data){
 	memcpy(data, Cache[set][way].block , Size_of_Cache_Block);
 	
 }
+void ui_cache_read(char *args){
+
+	uint32_t addr;
+	sscanf(args,"0x%x",&addr);
+	int set=(addr/Size_of_Set) % Num_of_Set;
+	int tag=(addr%Size_of_Set)/Size_of_Cache_Block;
+	int way;
+	if(!FindWay(set, tag, &way))
+	{
+		printf("No this cache\n");
+		return ;
+	}
+	printf("the cache :");
+	int i;
+	for(i=0;i<Size_of_Cache_Block;i++){
+		printf("%02x",Cache[set][way].block[i]);
+	}
+//	printf("the dirty bit is %x",Cache[set][way].dirty);	
+	printf("\n");
+	
+}
 //void init_cache();
 uint32_t cache_read(hwaddr_t addr, size_t len){
 	

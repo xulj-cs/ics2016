@@ -11,6 +11,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 void cpu_exec(uint32_t);
+void ui_cache_read(char *);
 //int  exec(swaddr_t);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -231,6 +232,11 @@ static int cmd_bt(char *args){
 	return 0;
 
 }
+
+static int cmd_cache(char * args){
+	ui_cache_read(args);
+	return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -248,6 +254,7 @@ static struct {
 	{ "w", "Set the watchpoint", cmd_w},
 	{ "d", "Delete the watchpoint",cmd_d},
 	{ "bt", "Print the stack frame chain",cmd_bt},
+	{ "cache", "Print the cache infomation",cmd_cache},
 	/* TODO: Add more commands */
 
 };
