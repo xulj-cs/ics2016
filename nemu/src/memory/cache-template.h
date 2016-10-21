@@ -79,7 +79,7 @@ int load_block(hwaddr_t addr, int set){
 	
 	}
 	Cache[set][i].valid=true;
-	Cache[set][i].tag=(addr%Size_of_Set)/Size_of_Cache_Block;
+	Cache[set][i].tag=(addr%Size_of_Set)/Size_of_Cache_Block;//here
 		
 	//	memcpy(Cache[set][i].block, addr, Size_of_Cache_Block);
 	uint32_t start= ( addr/Size_of_Cache_Block )*Size_of_Cache_Block;
@@ -147,17 +147,19 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 	
 	}
 	else{
-		int i;
+/*		int i;
 		for(i=0;i<len;i++){
 			Log("%x",Cache[set][way].block[offset+i]);
 		}
 
 		Log("before :%x,%x",*pdata,len);
+*/
 		memcpy(Cache[set][way].block+offset, pdata, len);
-		for(i=0;i<len;i++){
+/*		for(i=0;i<len;i++){
 			Log("%x",Cache[set][way].block[offset+i]);
 		}
 		Log("\n\n");
+*/
 #ifdef Write_Back
 		Cache[set][way].dirty=true;
 #endif
