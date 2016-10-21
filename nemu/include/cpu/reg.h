@@ -54,8 +54,12 @@ typedef struct {
 		lnaddr_t Base;
 	}GDTR;
    	
-	struct{
-		uint32_t PE:1;
+	union{
+		struct{
+			uint32_t PE:1;
+		};
+		uint32_t val;
+
 	}CR0;
 	
 	//segment regs
