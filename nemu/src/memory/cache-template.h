@@ -133,6 +133,7 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 	if(!FindWay(set, tag, &way))
 	{
 #ifdef Not_Write_Allocate
+		Log("hah");
 		return;
 #endif
 	
