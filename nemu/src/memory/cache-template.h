@@ -227,7 +227,7 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 */
 		if(Cache[set][way].tag/64*64==0x7ffef80)
 		{
-			Log("%x,%d",*pdata,len);
+			Log("%x,%d,%d",*pdata,len,offset);
 		}
 		memcpy(Cache[set][way].block+offset, pdata, len);
 /*		for(i=0;i<len;i++){
