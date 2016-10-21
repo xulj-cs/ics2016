@@ -109,9 +109,7 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 	for(j=0;j<Size_of_Cache_Block;j++,start++){
 		
 //		memcpy( &(Cache[set][i].block+j) , dram_read(addr,len))
-	//	Log("before");
 		Cache[set][i].block[j] = dram_read(start, 1) & 0xff;
-	//	Log("af");
 /*		if(Cache[set][i].tag==0x801404){
 			Log("0x%x,start:0x%x",addr,start);
 			Log("%02x",Cache[set][i].block[j]);
@@ -120,6 +118,7 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 		}
 */
 	}
+	Log("here");
 	return i;
 }
 void block_read(hwaddr_t addr,void *data){
