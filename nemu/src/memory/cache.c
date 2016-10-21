@@ -10,10 +10,10 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 #define Size_of_Cache_Block (64)
 #define Size_of_Cache (64*1024)
 #define Num_of_Way (8)
-#define Write_Through
-#define Not_Write_Allocate
-//#define Write_Back
-//#define Write_Allocate
+//#define Write_Through
+//#define Not_Write_Allocate
+#define Write_Back
+#define Write_Allocate
 
 #include "cache-template.h"
 
@@ -21,10 +21,10 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 #undef Size_of_Cache_Block
 #undef Size_of_Cache
 #undef Num_of_Way
-#undef Write_Through
-#undef Not_Write_Allocate
-//#undef Write_Back
-//#undef Write_Allocate
+//#undef Write_Through
+//#undef Not_Write_Allocate
+#undef Write_Back
+#undef Write_Allocate
 
 
 uint32_t cache_read(hwaddr_t addr, size_t len){
