@@ -74,7 +74,7 @@ int load_block(hwaddr_t addr, int set){
 			dram_write()
 		Cache[set][i].dirty=false;
 #endif
-
+		Log("replace");
 	
 	}
 	Cache[set][i].valid=true;
@@ -101,7 +101,6 @@ void block_read(hwaddr_t addr,void *data){
 	{
 		//dram -->> cache;
 		way = load_block(addr,set);
-		Log("notFind");
 	}
 
 	memcpy(data, Cache[set][way].block , Size_of_Cache_Block);
