@@ -92,13 +92,13 @@ int load_block(hwaddr_t addr, int set){
 		
 //		memcpy( &(Cache[set][i].block+j) , dram_read(addr,len))
 		Cache[set][i].block[j] = dram_read(start, 1) & 0xff;
-		if(Cache[set][i].tag==0x801404){
+/*		if(Cache[set][i].tag==0x801404){
 			Log("0x%x,start:0x%x",addr,start);
 			Log("%02x",Cache[set][i].block[j]);
 			Log("%02x",dram_read(start,1)&0xff);
 			Log("0x%x",dram_read(addr,4));
 		}
-
+*/
 	}
 	return i;
 }
