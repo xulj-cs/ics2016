@@ -189,6 +189,7 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 }
 void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 
+	Log("hre4");
 	uint32_t offset=addr & (Size_of_Cache_Block-1);
 	int set=(addr/Size_of_Set) % Num_of_Set;
 	uint32_t tag=addr;
