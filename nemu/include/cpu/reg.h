@@ -50,8 +50,8 @@ typedef struct {
 		uint32_t OF:1;
 	 };
 	struct{
-		uint16_t length;
-		lnaddr_t addr;
+		uint16_t Limit;
+		lnaddr_t Base;
 	}GDTR;
    	
 	struct{
