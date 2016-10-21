@@ -148,6 +148,7 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 		for(i=0;i<len;i++){
 			Log("%x",Cache[set][way].block[offset+i]);
 		}
+		Log("\n\n");
 #ifdef Write_Back
 		Cache[set][way].dirty=true;
 #endif
