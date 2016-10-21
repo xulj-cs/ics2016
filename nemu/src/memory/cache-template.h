@@ -219,7 +219,7 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 */
 #ifdef Write_Back
 		Cache[set][way].dirty=true;
-		Log("here");
+		Log("here2");
 #endif
 	}
 	
