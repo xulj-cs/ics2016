@@ -81,6 +81,7 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 			
 			uint32_t dram_addr = ( Cache[set][i].tag/Size_of_Cache_Block )*Size_of_Cache_Block;
 			if(dram_addr==0x7ffef80){
+				Log("here");
 				int k;
 				for(k=0;k<64;k++){
 					Log("%02x",Cache[set][i].block[k]);
