@@ -138,11 +138,12 @@ void ui_cache_read(char *args){
 					for(k=0;k<Size_of_Cache_Block;k++){
 						printf("%02x",Cache[i][j].block[k]);
 					}
+
 #ifdef Write_Back					
 					printf("the dirty bit is %x",Cache[i][j].dirty);	
 #endif	
+					printf("\n");
 				}
-				printf("\n");
 			}
 		return ;	
 	}
