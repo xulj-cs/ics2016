@@ -102,9 +102,9 @@ void block_read(hwaddr_t addr,void *data){
 	int set=(addr/Size_of_Set) % Num_of_Set;
 	int tag=(addr%Size_of_Set)/Size_of_Cache_Block;
 	int way;
-//	if(tag==4&&set==5){
-//		
-//	}
+	if(tag==4&&set==5){
+		Log("0x%x",addr);	
+	}
 	if(!FindWay(set, tag, &way))
 	{
 		//dram -->> cache;
