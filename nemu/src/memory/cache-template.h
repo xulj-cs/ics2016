@@ -78,7 +78,6 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 		Log("here1");
 #ifdef Write_Back
 		if(Cache[set][i].dirty){
-			Log("here");	
 			//cache -- >> dram
 			
 			uint32_t dram_addr = ( Cache[set][i].tag/Size_of_Cache_Block )*Size_of_Cache_Block;
@@ -86,9 +85,9 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 			int j;
 			for(j=0;j<Size_of_Cache_Block;j++,dram_addr++){
 			
-				Log("%x,%x",Cache[set][i].block[j],dram_read(dram_addr,1)&0xff);
+	//			Log("%x,%x",Cache[set][i].block[j],dram_read(dram_addr,1)&0xff);
 				dram_write(dram_addr,1,Cache[set][i].block[j]);
-				Log("%x",dram_read(dram_addr,1)&0xff);
+	//			Log("%x",dram_read(dram_addr,1)&0xff);
 			
 			}
 		}
@@ -99,23 +98,17 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 	}
 	Cache[set][i].valid=true;
 	Cache[set][i].tag=addr;
-	//	memcpy(Cache[set][i].block, addr, Size_of_Cache_Block);
+
 	uint32_t start= ( addr/Size_of_Cache_Block )*Size_of_Cache_Block;
 //	uint32_t end= (addr/Size_of_Cache_Block + 1)*Size_of_Cache_Block;
 	int j;
 	for(j=0;j<Size_of_Cache_Block;j++,start++){
 		
-//		memcpy( &(Cache[set][i].block+j) , dram_read(addr,len))
 		Cache[set][i].block[j] = dram_read(start, 1) & 0xff;
-/*		if(Cache[set][i].tag==0x801404){
-			Log("0x%x,start:0x%x",addr,start);
-			Log("%02x",Cache[set][i].block[j]);
-			Log("%02x",dram_read(start,1)&0xff);
-			Log("0x%x",dram_read(addr,4));
-		}
-*/
+	
 	}
-	Log("here");
+
+	
 	return i;
 }
 void block_read(hwaddr_t addr,void *data){
@@ -185,7 +178,6 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 }
 void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 
-	Log("hre4");
 	uint32_t offset=addr & (Size_of_Cache_Block-1);
 	int set=(addr/Size_of_Set) % Num_of_Set;
 	uint32_t tag=addr;
@@ -213,10 +205,8 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 		}
 		Log("\n\n");
 */
-		Log("here3");
 #ifdef Write_Back
 		Cache[set][way].dirty=true;
-		Log("here2");
 #endif
 	
 
