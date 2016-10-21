@@ -21,7 +21,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 
-//#ifdef HAS_CACHE
+#ifdef HAS_CACHE
 	
 //	if(addr==0x801200)
 //		Log("%x,%x",dram_read(addr,4),data);
@@ -29,13 +29,13 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 //	Log("%x",cache_read(addr,4));
 //	Log("%x,%x",dram_read(addr,4),data);
 	
-//	cache_write(addr, len, data);
+	cache_write(addr, len, data);
 //#else
 //	if(addr==0x801200)
 //		Log("%x,%x",dram_read(addr,4),data);
 //	Log("%x,%x",dram_read(addr,4),data);
 	dram_write(addr, len, data);
-//#endif
+#endif
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
