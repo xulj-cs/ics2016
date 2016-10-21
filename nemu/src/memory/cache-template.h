@@ -115,10 +115,10 @@ void ui_cache_read(char *args){
 	int way;
 	if(!FindWay(set, tag, &way))
 	{
-		printf("No this cache\n");
+		printf("No This Cache\n");
 		return ;
 	}
-	printf("the cache :");
+	printf("The Cache :");
 	int i;
 	for(i=0;i<Size_of_Cache_Block;i++){
 		printf("%02x",Cache[set][way].block[i]);
