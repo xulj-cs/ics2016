@@ -138,9 +138,16 @@ void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 	
 	}
 	else{
-		Log("before :%x,%x,%x",Cache[set][way].block[offset],*pdata,len);
+		int i;
+		for(i=0;i<len;i++){
+			Log("%x",Cache[set][way].block[offset+i]);
+		}
+
+		Log("before :%x,%x",*pdata,len);
 		memcpy(Cache[set][way].block+offset, pdata, len);
-		Log("after :%x",Cache[set][way].block[offset]);
+		for(i=0;i<len;i++){
+			Log("%x",Cache[set][way].block[offset+i]);
+		}
 #ifdef Write_Back
 		Cache[set][way].dirty=true;
 #endif
