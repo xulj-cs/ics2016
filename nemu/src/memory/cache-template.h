@@ -143,7 +143,7 @@ void ui_cache_read(char *args){
 #endif	
 				}
 			}
-	
+		return ;	
 	}
 	uint32_t addr;
 	sscanf(args,"0x%x",&addr);
