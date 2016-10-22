@@ -10,26 +10,27 @@ void cache_write(hwaddr_t, size_t, uint32_t);
 
 lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
 
-    uint16_t index;
+    SegDesc temp;
 	uint8_t	RPL; 
     switch (sreg){
-        case 0x2E:index = cpu.CS.selector.INDEX;RPL=cpu.CS.selector.RPL; Assert(cpu.CS.selector.TI==0,"no LDTR");break;
-        case 0x36:index = cpu.SS.selector.INDEX;RPL=cpu.SS.selector.RPL; Assert(cpu.SS.selector.TI==0,"no LDTR");break;
-        case 0x3E:index = cpu.DS.selector.INDEX;RPL=cpu.DS.selector.RPL; Assert(cpu.DS.selector.TI==0,"no LDTR");break;
-        case 0x26:index = cpu.ES.selector.INDEX;RPL=cpu.ES.selector.RPL; Assert(cpu.ES.selector.TI==0,"no LDTR");break;
+        case 0x2E:temp = cpu.CS.descriptor;RPL=cpu.CS.selector.RPL; Assert(cpu.CS.selector.TI==0,"no LDTR");break;
+        case 0x36:temp = cpu.SS.descriptor;RPL=cpu.SS.selector.RPL; Assert(cpu.SS.selector.TI==0,"no LDTR");break;
+        case 0x3E:temp = cpu.DS.descriptor;RPL=cpu.DS.selector.RPL; Assert(cpu.DS.selector.TI==0,"no LDTR");break;
+        case 0x26:temp = cpu.ES.descriptor;RPL=cpu.ES.selector.RPL; Assert(cpu.ES.selector.TI==0,"no LDTR");break;
 	    default:panic("no this seg_regs");
 	}
 
-	int max_index = cpu.GDTR.Limit / sizeof(SegDesc) - 1;
+/*	int max_index = cpu.GDTR.Limit / sizeof(SegDesc) - 1;
 	if(index > max_index)
 		panic("Index out of range");
 	
 	SegDesc *gdt_addr =(void *) cpu.GDTR.Base;
-	SegDesc temp = gdt_addr[index];
-
+*/
+	
 	if(temp.privilege_level<cpu.CS.selector.RPL || temp.privilege_level<RPL)
 		panic("Permission denied");
-    Assert(temp.present==1,"not in the memory");
+    
+	Assert(temp.present==1,"not in the memory");
  
  	uint32_t limit=temp.limit_15_0+(temp.limit_19_16<<16);
 	if(temp.granularity)
