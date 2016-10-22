@@ -15,6 +15,6 @@ make_helper(std){
 make_helper(cld){
 
 	cpu.DF = 0;
-	print_asm(str(std));
+	print_asm(str(cld));
 	return 1;
 }
