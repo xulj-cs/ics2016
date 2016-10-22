@@ -60,10 +60,12 @@ void cpu_exec(volatile uint32_t n) {
 
 		/* Execute one instruction, including instruction fetch,
 		 * instruction decode, and the actual execution. */
+		if(cpu.eip==0x100d88)
+			Log("here3");
 		int instr_len = exec(cpu.eip);
 		
 		if(cpu.eip==0x100d88)
-			Log("here3");
+			Log("here4");
 		cpu.eip += instr_len;
 		if(cpu.eip==0x100d88)
 			Log("here");
