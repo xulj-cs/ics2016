@@ -104,4 +104,5 @@ void restart() {
 	cpu.CS.descriptor.limit_15_0=0xffff;
 	cpu.CS.descriptor.limit_19_16=0xf;
 	cpu.CS.descriptor.present=1;
+	cpu.CS.descriptor.granularity=1;
 }
