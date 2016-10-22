@@ -36,8 +36,6 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
 	if(temp.granularity)
 		limit *= 4*1024;
 
-	Log("%x",limit);
-	Log("%x",addr);
  	if(limit<addr+len)
 		panic("Address out of range");
  
@@ -109,7 +107,6 @@ uint32_t swaddr_read(swaddr_t addr, size_t len , uint8_t sreg) {
 	if(cpu.cr0.protect_enable==0 )
 		return lnaddr_read(addr,len);
 	
-	Log("here");
 	lnaddr_t lnaddr = seg_translate(addr,len,sreg);	
 	return lnaddr_read(lnaddr, len);
 }
