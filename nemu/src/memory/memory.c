@@ -54,7 +54,6 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
 
 hwaddr_t page_translate(lnaddr_t addr){
 
-//	Log("%x,%x",cpu.eip,addr);
 	
 	int pdir_idx,ptab_idx,offset;
 	pdir_idx = addr >> 22;
@@ -64,13 +63,7 @@ hwaddr_t page_translate(lnaddr_t addr){
 
 	hwaddr_t pdir_base = cpu.cr3.page_directory_base << 12;
 	PDE temp1;
-
-/*	Log("%x",pdir_base);
-	Log("%x",hwaddr_read(pdir_base,4));
-	Log("%x",hwaddr_read(pdir_base+4,4));
-
-	Log("%x",hwaddr_read(pdir_base+8,4));
-*/
+	
 	temp1.val = hwaddr_read(pdir_base + pdir_idx*4, 4);
 	Assert(temp1.present==1,"not in the memory");
 
@@ -87,7 +80,7 @@ hwaddr_t page_translate(lnaddr_t addr){
 void ui_page(char * args){
 	uint32_t addr;
 	sscanf(args, "0x%x", &addr);
-	Log("%x",addr);
+	
 	if(cpu.cr0.protect_enable && cpu.cr0.paging){
 	
 		int pdir_idx,ptab_idx,offset;
