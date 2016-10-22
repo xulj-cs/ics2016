@@ -100,7 +100,7 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 	
 	}
 	Cache[set][i].valid=true;
-	Cache[set][i].tag=addr;
+	Cache[set][i].tag= (addr / Size_of_Cache_Block ) / Num_of_Set; 
 
 	uint32_t start= ( addr/Size_of_Cache_Block )*Size_of_Cache_Block;
 //	uint32_t end= (addr/Size_of_Cache_Block + 1)*Size_of_Cache_Block;
