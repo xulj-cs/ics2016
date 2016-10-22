@@ -76,7 +76,7 @@ hwaddr_t page_translate(lnaddr_t addr){
 */
 
 	int offset = addr << 20 >> 20;	
-
+//	PTE temp = read_tlb(addr);
 	hwaddr_t hwaddr = ( read_tlb(addr).page_frame << 12 )+ offset;
 
 	return hwaddr;		

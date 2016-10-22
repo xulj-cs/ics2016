@@ -16,6 +16,11 @@ typedef struct{
 
 TLB tlb[Num_of_PTE];
 
+void init_tlb(){
+	int i;
+	for(i = 0; i<Num_of_PTE;i++)
+		tlb[i].valid = false;
+}
 
 bool FindWay(int tag, int *way){
 
@@ -84,3 +89,4 @@ PTE read_tlb(lnaddr_t addr){
 	}
 	return tlb[way].pte;
 }
+
