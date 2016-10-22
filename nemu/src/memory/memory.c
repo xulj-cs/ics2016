@@ -63,10 +63,10 @@ hwaddr_t page_translate(lnaddr_t addr){
 	PDE temp1;
 
 	Log("%x",pdir_base);
-	Log("%x",hwaddr_read(pdir_base,4));
-	Log("%x",hwaddr_read(pdir_base+4,4));
+//	Log("%x",hwaddr_read(pdir_base,4));
+//	Log("%x",hwaddr_read(pdir_base+4,4));
 
-	Log("%x",hwaddr_read(pdir_base+8,4));
+//	Log("%x",hwaddr_read(pdir_base+8,4));
 
 	temp1.val = hwaddr_read(pdir_base + pdir_idx*4, 4);
 	Assert(temp1.present==1,"not in the memory");
