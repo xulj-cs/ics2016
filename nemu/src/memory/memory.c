@@ -62,6 +62,7 @@ hwaddr_t page_translate(lnaddr_t addr){
 	hwaddr_t pdir_base = cpu.cr3.page_directory_base;
 	PDE temp1;
 
+	Log("%x",*(uint32_t *)pdir_base);
 	Log("%x",hwaddr_read(pdir_base,4));
 	Log("%x",hwaddr_read(pdir_base+4,4));
 
