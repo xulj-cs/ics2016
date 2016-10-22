@@ -9,6 +9,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 void cache_write(hwaddr_t, size_t, uint32_t);
 
 uint32_t hwaddr_read(hwaddr_t, size_t);
+PTE read_tlb(lnaddr_t );
 
 lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
 
@@ -55,7 +56,8 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
 hwaddr_t page_translate(lnaddr_t addr){
 
 	
-	int pdir_idx,ptab_idx,offset;
+/*
+    int pdir_idx,ptab_idx,offset;
 	pdir_idx = addr >> 22;
 	ptab_idx = addr << 10 >> 22;
 	offset = addr << 20 >> 20;	
@@ -71,8 +73,11 @@ hwaddr_t page_translate(lnaddr_t addr){
 	PTE temp2 ;
 	temp2.val = hwaddr_read(ptab_base + ptab_idx*4, 4);
 	Assert(temp2.present==1,"not in the memory");
+*/
 
-	hwaddr_t hwaddr = ( temp2.page_frame << 12 )+ offset;
+	int offset = addr << 20 >> 20;	
+
+	hwaddr_t hwaddr = ( read_tlb(addr).page_frame << 12 )+ offset;
 
 	return hwaddr;		
 
