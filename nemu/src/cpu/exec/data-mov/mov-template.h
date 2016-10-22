@@ -40,6 +40,7 @@ make_helper(mov_r2cr){
 		panic("no this CR");
 	Log("here!");
 	print_asm(str(instr) " %s,%%cr%d",op_src->str,op_src2->reg);
+	Log("here!");
 	return len+1;
 }
 
