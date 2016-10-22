@@ -7,7 +7,7 @@
 make_helper(concat(leave_,SUFFIX)){
 	reg_l(R_ESP)=reg_l(R_EBP);
 	
-	REG(R_EBP)= MEM_R( reg_l(R_ESP) ) ;
+	REG(R_EBP)= MEM_R( reg_l(R_ESP),SS ) ;
 
 	reg_l(R_ESP) +=DATA_BYTE;
 
@@ -23,7 +23,7 @@ make_helper(concat(leave_,SUFFIX)){
 make_helper(concat(leave_,SUFFIX)){
 	reg_l(R_ESP)=reg_l(R_EBP);
 	
-	REG(R_EBP)=MEM_R(reg_l(R_ESP));
+	REG(R_EBP)=MEM_R(reg_l(R_ESP),SS);
 
 	reg_l(R_ESP) +=DATA_BYTE;
 

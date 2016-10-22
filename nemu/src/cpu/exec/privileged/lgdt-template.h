@@ -5,8 +5,8 @@
 static void do_execute(){
 	swaddr_t addr=op_src->addr;
 	
-	cpu.GDTR.Limit=swaddr_read(addr,2);
-	cpu.GDTR.Base=(swaddr_t)swaddr_read((swaddr_t)((uint8_t *)addr+2),DATA_BYTE);
+	cpu.GDTR.Limit=swaddr_read(addr,2,DS);
+	cpu.GDTR.Base=(swaddr_t)swaddr_read((swaddr_t)((uint8_t *)addr+2),DATA_BYTE,DS);
 	
 	print_asm_template1();
 }

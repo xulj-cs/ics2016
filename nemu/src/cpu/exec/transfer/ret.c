@@ -1,11 +1,11 @@
 #include "cpu/exec/helper.h"
 
 
-#define MEM_R(addr) swaddr_read(addr,DATA_BYTE)
+#define MEM_R(addr,sreg) swaddr_read(addr,DATA_BYTE,sreg)
 
 #define DATA_BYTE 2
 make_helper(ret_near_w){
-	cpu.ip=MEM_R(reg_l(R_ESP));
+	cpu.ip=MEM_R(reg_l(R_ESP),SS);
 	cpu.eip = cpu.eip & 0x0000ffff;
 	reg_l(R_ESP) += DATA_BYTE;
 	print_asm(str(ret));
@@ -14,7 +14,7 @@ make_helper(ret_near_w){
 
 make_helper(ret_near_i_w){
 	//ret_near_w(eip);
-	cpu.ip=MEM_R(reg_l(R_ESP));
+	cpu.ip=MEM_R(reg_l(R_ESP),SS);
 	cpu.eip = cpu.eip & 0x0000ffff;
 	reg_l(R_ESP) += DATA_BYTE;
 	
@@ -29,7 +29,7 @@ make_helper(ret_near_i_w){
 
 #define DATA_BYTE 4
 make_helper(ret_near_l){
-	cpu.eip=MEM_R(reg_l(R_ESP));
+	cpu.eip=MEM_R(reg_l(R_ESP),SS);
 	//Log("eip==0x%x\n",cpu.eip);	
 	reg_l(R_ESP) += DATA_BYTE;
 
@@ -39,7 +39,7 @@ make_helper(ret_near_l){
 
 make_helper(ret_near_i_l){
 	//	ret_near_l(eip);
-	cpu.eip=MEM_R(reg_l(R_ESP));
+	cpu.eip=MEM_R(reg_l(R_ESP),SS);
 	
 	reg_l(R_ESP) += DATA_BYTE;
 

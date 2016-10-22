@@ -3,13 +3,13 @@
 #define instr scas
 
 make_helper(concat(scas_,SUFFIX)){
-	DATA_TYPE  result = REG(R_EAX) -  MEM_R( reg_l(R_EDI) ) ;
+	DATA_TYPE  result = REG(R_EAX) -  MEM_R( reg_l(R_EDI),ES ) ;
 	
-	cpu.OF=concat(OF_,SUFFIX)( REG(R_EAX),MEM_R( reg_l(R_EDI) ),'-' );
+	cpu.OF=concat(OF_,SUFFIX)( REG(R_EAX),MEM_R( reg_l(R_EDI),ES ),'-' );
 	cpu.SF=MSB(result);
 	cpu.ZF=!result;
 	cpu.PF=concat(PF_,SUFFIX)(result);
-	cpu.CF=concat(CF_,SUFFIX)( REG(R_EAX),MEM_R( reg_l(R_EDI)), '-' );
+	cpu.CF=concat(CF_,SUFFIX)( REG(R_EAX),MEM_R( reg_l(R_EDI),ES), '-' );
 
 	if(!cpu.DF){
 		reg_l(R_EDI)+=DATA_BYTE;

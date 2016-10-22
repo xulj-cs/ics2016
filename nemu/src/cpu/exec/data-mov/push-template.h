@@ -7,20 +7,20 @@ static void do_execute(){
 		
 		if(ops_decoded.is_operand_size_16){
 			reg_l(R_ESP) -= 2;
-			swaddr_write(reg_l(R_ESP),2,op_src->val);
+			swaddr_write(reg_l(R_ESP),2,op_src->val,SS);
 
 		}
 		else
 		{
 			reg_l(R_ESP) -= 4;
-			swaddr_write(reg_l(R_ESP),4,op_src->val);
+			swaddr_write(reg_l(R_ESP),4,op_src->val,SS);
 		}
 		
 	}
 	else
 
 		reg_l(R_ESP) -= DATA_BYTE;
-	MEM_W(reg_l(R_ESP),op_src->val);
+	MEM_W(reg_l(R_ESP),op_src->val,SS);
 
 	print_asm_template1();
 }

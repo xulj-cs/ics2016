@@ -304,7 +304,7 @@ unsigned eval(int p,int q,bool *success)
 				case NOT:return ! value;
 				case NEG:return -1*value;
 				case DEREF:
-					return swaddr_read((uint32_t)value,4);
+					return swaddr_read((uint32_t)value,4,DS);
 				default: panic("error");
 			}
 		

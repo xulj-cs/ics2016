@@ -135,7 +135,7 @@ static int cmd_x(char *args)
 		if(!success)
 			return 0;
 		printf("0x%x:\t",add);
-		printf("0x%08x\t\n",swaddr_read(add,4));
+		printf("0x%08x\t\n",swaddr_read(add,4,DS));
 	}
 	else
 	{
@@ -151,7 +151,7 @@ static int cmd_x(char *args)
 			printf("0x%x:\t",add);
 			for(col=1;col<=4&&4*row+col<=n;col++)
 			{
-				printf("0x%08x\t",swaddr_read(add,4));
+				printf("0x%08x\t",swaddr_read(add,4,DS));
 				add+=4;
 			}
 			col=1;
@@ -218,13 +218,13 @@ static int cmd_bt(char *args){
 		printf("#%d %x in %s (%x,%x,%x,%x)\n",n,\
 										    eip,\
 											getFuncName(eip),\
-											swaddr_read(ebp+8,4),\
-											swaddr_read(ebp+12,4),\
-											swaddr_read(ebp+16,4),\
-											swaddr_read(ebp+20,4)\
+											swaddr_read(ebp+8,4,SS),\
+											swaddr_read(ebp+12,4,SS),\
+											swaddr_read(ebp+16,4,SS),\
+											swaddr_read(ebp+20,4,SS)\
 											);
-		eip=swaddr_read(ebp+4,4);
-		ebp=swaddr_read(ebp,4);
+		eip=swaddr_read(ebp+4,4,SS);
+		ebp=swaddr_read(ebp,4,SS);
 		
 		n++;
 	

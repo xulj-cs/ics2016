@@ -5,7 +5,7 @@
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 static void do_execute(){    //for imm
 	reg_l(R_ESP) -= DATA_BYTE;
-	MEM_W(reg_l(R_ESP),cpu.eip + 1 + DATA_BYTE);
+	MEM_W(reg_l(R_ESP),cpu.eip + 1 + DATA_BYTE,SS);
 	
 	if(DATA_BYTE == 2)
 		cpu.eip=(cpu.eip+op_src->val) & 0x0000ffff;
@@ -27,7 +27,7 @@ make_helper(concat3(instr,_rm_,SUFFIX)){
 	int len = concat( decode_rm_,SUFFIX)(eip+1);
 	
 	reg_l(R_ESP) -= DATA_BYTE;
-	MEM_W(reg_l(R_ESP),cpu.eip + 1 + len);
+	MEM_W(reg_l(R_ESP),cpu.eip + 1 + len,SS);
 		
 			
 	cpu.eip = op_src->val;
