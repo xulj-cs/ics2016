@@ -17,6 +17,18 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  */
 
 typedef struct {
+		union{
+			struct{
+				uint16_t RPL:2;
+				uint16_t TI:1;
+				uint16_t INDEX:13;
+			};
+			uint16_t val;
+		}selector;
+		SegDesc descriptor;
+} Sreg;
+
+typedef struct {
 	union{
 		union {
 		uint32_t _32;
@@ -66,20 +78,11 @@ typedef struct {
 */
 	CR0 cr0;	
 	//segment regs
-	struct{
 
-		 union {
-			struct{
-				uint16_t RPL:2;
-				uint16_t TI:1;
-				uint16_t INDEX:13;
-			};
-			uint16_t val;
-		
-		}selector;
-		SegDesc descriptor;
-	} CS,SS,DS,ES;
-
+	union{
+		Sreg sreg[4];
+		struct {Sreg  ES,CS,SS,DS; };
+	};
 
 } CPU_state;
 
