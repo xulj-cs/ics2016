@@ -106,6 +106,8 @@ void ui_page(char * args){
 
 		hwaddr_t ptab_base = temp1.page_frame << 12;
 		PTE temp2 ;
+		temp2.val = hwaddr_read(ptab_base + ptab_idx*4, 4);
+
 		if(temp2.present==0){
 			printf("not in the memory2\n");
 			return ;
