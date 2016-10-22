@@ -98,6 +98,7 @@ void restart() {
 
 	/* Reset the CR0. */
 	cpu.cr0.protect_enable=0;
+	cpu.cr0.paging=0;
 
 	/* Initialize CS */
 	cpu.CS.descriptor.base_15_0=cpu.CS.descriptor.base_23_16=cpu.CS.descriptor.base_31_24=0;
