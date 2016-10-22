@@ -5,6 +5,7 @@ make_helper(ljmp){
 	uint32_t temp1=swaddr_read(eip+1,4,CS);
 	uint16_t temp2=swaddr_read(eip+1+4,2,CS);
 	Log("here1");
+	Log("%x,%x",temp1,temp2);
 	cpu.CS.selector.val=temp2;
 
 	Assert(cpu.CS.selector.TI==0,"no LGTR");
