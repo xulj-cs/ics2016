@@ -4,7 +4,7 @@
 make_helper(std){
 
 	cpu.DF = 1;
-	print_asm_template1();
+	print_asm(str(std));
 	return 1;
 }
 
@@ -15,6 +15,6 @@ make_helper(std){
 make_helper(cld){
 
 	cpu.DF = 0;
-	print_asm_template1();
+	print_asm(str(std));
 	return 1;
 }
