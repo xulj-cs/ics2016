@@ -30,6 +30,8 @@ make_helper(concat(mov_moffs2a_, SUFFIX)) {
 #if DATA_BYTE == 4
 make_helper(mov_r2cr){
 	int len=decode_rm_l(eip+1);
+	Assert(op_src->type == OP_TYPE_REG,"mod!=3");
+
 	if(op_src2->reg==0)
 		cpu.cr0.val=op_src->val;
 	else if(op_src2->reg==3)
@@ -42,6 +44,8 @@ make_helper(mov_r2cr){
 
 make_helper(mov_cr2r){
 	int len=decode_rm_l(eip+1);
+	Assert(op_src->type == OP_TYPE_REG,"mod!=3");
+	
 	if(op_src2->reg==0)
 		reg_l(op_src->reg)=cpu.cr0.val;
 	else if(op_src2->reg==3)
