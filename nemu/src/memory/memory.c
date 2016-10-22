@@ -35,6 +35,9 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
  	uint32_t limit=temp.limit_15_0+(temp.limit_19_16<<16);
 	if(temp.granularity)
 		limit *= 4*1024;
+
+	Log("%x",limit);
+	Log("%x",addr);
  	if(limit<addr+len)
 		panic("Address out of range");
  
