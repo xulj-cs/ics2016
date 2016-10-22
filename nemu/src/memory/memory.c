@@ -59,24 +59,24 @@ hwaddr_t page_translate(lnaddr_t addr){
 	ptab_idx = addr << 10 >> 22;
 	offset = addr << 20 >> 20;	
 	
-	hwaddr_t pdir_base = cpu.cr3.page_directory_base;
+	hwaddr_t pdir_base = cpu.cr3.page_directory_base << 12;
 	PDE temp1;
 
-	Log("%x",pdir_base);
+/*	Log("%x",pdir_base);
 	Log("%x",hwaddr_read(pdir_base,4));
 	Log("%x",hwaddr_read(pdir_base+4,4));
 
 	Log("%x",hwaddr_read(pdir_base+8,4));
-
+*/
 	temp1.val = hwaddr_read(pdir_base + pdir_idx*4, 4);
 	Assert(temp1.present==1,"not in the memory");
 
-	hwaddr_t ptab_base = temp1.page_frame;
+	hwaddr_t ptab_base = temp1.page_frame << 12;
 	PTE temp2 ;
 	temp2.val = hwaddr_read(ptab_base + ptab_idx*4, 4);
 	Assert(temp2.present==1,"not in the memory");
 
-	hwaddr_t hwaddr = temp2.page_frame + offset;
+	hwaddr_t hwaddr = ( temp2.page_frame << 12 )+ offset;
 
 	return hwaddr;		
 
