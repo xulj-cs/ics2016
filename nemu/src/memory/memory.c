@@ -18,17 +18,23 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
         case 0x26:index = cpu.ES.selector.INDEX; Assert(cpu.ES.selector.TI==0,"TI");break;
 	    default:panic("no this seg_regs");
 	}
-	int max = cpu.GDTR.Limit / sizeof(SegDesc);
-	if(index >= max)
+
+	int max_index = cpu.GDTR.Limit / sizeof(SegDesc) - 1;
+	if(index > max_index)
 		panic("index out of range");
+	
 	SegDesc *gdt_addr =(void *) cpu.GDTR.Base;
 	SegDesc temp = gdt_addr[index];
 
     Assert(temp.present==1,"not in the memory");
-    uint32_t limit=temp.limit_15_0+(temp.limit_19_16<<16);
-    if(limit<addr+len)
+ 
+ 	uint32_t limit=temp.limit_15_0+(temp.limit_19_16<<16);
+	if(temp.granularity)
+		limit *= 4*1024;
+ 	if(limit<addr+len)
 		panic("address out of range");
-    uint32_t base = temp.base_15_0+(temp.base_23_16<<16)+(temp.base_31_24<<24);
+ 
+ 	uint32_t base = temp.base_15_0+(temp.base_23_16<<16)+(temp.base_31_24<<24);
     uint32_t offset = addr;
     return base+offset;
 								
