@@ -9,7 +9,7 @@ make_helper(ljmp){
 
 	Assert(cpu.CS.selector.TI==0,"no LGTR");
 
-	int max_index = cpu.GDTR.Limit / sizeof(SegDesc) -1;
+	int max_index = ( cpu.GDTR.Limit+1 ) / sizeof(SegDesc) -1;
 	Log("%d",sizeof(SegDesc));
 	Log("%d",cpu.GDTR.Limit);
 	Log("%d",max_index);
