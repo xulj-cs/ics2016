@@ -8,6 +8,9 @@ uint32_t cache_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 void cache_write(hwaddr_t, size_t, uint32_t);
 
+uint32_t hwaddr_read(hwaddr_t, size_t);
+void hwaddr_write(hwaddr_t, size_t, uint32_t);
+
 lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
 
     SegDesc temp;
@@ -58,7 +61,21 @@ hwaddr_t page_translate(lnaddr_t addr){
 	ptab_idx = addr << 10 >> 22;
 	offset = addr << 20 >> 20;	
 	Log("%x,%x,%x",pdir_idx,ptab_idx,offset);
-	return 0;
+	
+	hwaddr_t pdir_base = cpu.cr3.page_directory_base;
+	PDE temp1;
+	temp1.val = hwaddr_read(pdir_base + pdir_idx*4, 4);
+	Assert(temp1.present==1,"not in the memory");
+
+	hwaddr_t ptab_base = temp1.page_frame;
+	PTE temp2 ;
+	temp2.val = hwaddr_read(ptab_base + ptab_idx*4, 4);
+	Assert(temp2.present==1,"not in the memory");
+
+	hwaddr_t hwaddr = temp2.page_frame + offset;
+
+	return hwaddr;		
+
 }
 /* Memory accessing interfaces */
 
