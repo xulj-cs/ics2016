@@ -15,7 +15,6 @@ make_helper(ljmp){
 	if(index > max_index)
 		panic("Index out of range");
 
-	Log("%d",index);
 	uint8_t temp[8];
 	int j;
 	for(j=0;j<8;j++){
@@ -25,7 +24,6 @@ make_helper(ljmp){
 	memcpy(&cpu.CS.descriptor,temp,8);
 	cpu.eip=temp1;
 
-	print_asm(str(ljmp) "%x,%x",temp2,temp1);
-	Log("here3");
+	print_asm(str(ljmp) " 0x%x,0x%x",temp2,temp1);
 	return 0;
 }
