@@ -109,7 +109,7 @@ void ui_page(char * args){
 
 		hwaddr_t hwaddr = ( temp2.page_frame << 12 )+ offset;
 
-		printf("hwaddr:0x%x\n",hwaddr);
+		printf("hwaddr: 0x%x\n",hwaddr);
 	}
 	else{
 		printf("not in the paging model\n");
