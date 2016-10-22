@@ -54,6 +54,7 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
 
 hwaddr_t page_translate(lnaddr_t addr){
 
+Log("addr:%x",addr);
 	int pdir_idx,ptab_idx,offset;
 	pdir_idx = addr >> 22;
 	ptab_idx = addr << 10 >> 22;
@@ -96,14 +97,14 @@ void ui_page(char * args){
 
 		temp1.val = hwaddr_read(pdir_base + pdir_idx*4, 4);
 		if(temp1.present==0){
-			printf("not in the memory");
+			printf("not in the memory\n");
 			return ;
 		}
 
 		hwaddr_t ptab_base = temp1.page_frame << 12;
 		PTE temp2 ;
 		if(temp2.present==0){
-			printf("not in the memory");
+			printf("not in the memory\n");
 			return ;
 		}
 		temp2.val = hwaddr_read(ptab_base + ptab_idx*4, 4);
@@ -113,7 +114,7 @@ void ui_page(char * args){
 		printf("hwaddr:0x%x",hwaddr);
 	}
 	else{
-		printf("not in the paging model");
+		printf("not in the paging model\n");
 
 	}
 			
