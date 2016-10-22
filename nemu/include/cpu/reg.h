@@ -78,7 +78,6 @@ typedef struct {
 	}CR0;
 */
 	CR0 cr0;
-	CR3 cr3;	
 	//segment regs
 
 	union{

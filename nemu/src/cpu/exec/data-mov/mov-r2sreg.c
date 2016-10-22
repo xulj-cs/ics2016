@@ -12,7 +12,7 @@ make_helper(mov_r2sreg){
 	
 	Assert(cpu.sreg[m.reg].selector.TI==0,"no LGTR");
 		
-	uint32_t base=cpu.GDTR.Base;
+	lnaddr_t base=cpu.GDTR.Base;
 	int max_index = ( cpu.GDTR.Limit+1 ) / sizeof(SegDesc) -1;
     int index = cpu.sreg[m.reg].selector.INDEX;
     if(index > max_index)
@@ -21,7 +21,7 @@ make_helper(mov_r2sreg){
     uint8_t temp[8];
     int j;
     for(j=0;j<8;j++){
-        temp[j]=swaddr_read(base+index*8+j , 1 , CS);
+        temp[j]=lnaddr_read(base+index*8+j , 1);
     }
 									
     memcpy(&cpu.sreg[m.reg].descriptor,temp,8);
