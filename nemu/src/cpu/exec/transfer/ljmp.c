@@ -20,10 +20,9 @@ make_helper(ljmp){
 	int j;
 	for(j=0;j<8;j++){
 		temp[j]=swaddr_read(base+index*8+j , 1 , CS);
-		Log("%x",temp[j]);
 	}
 
-	Log("here2");
+	memcpy(&cpu.CS.descriptor,temp,8);
 	cpu.eip=temp1;
 
 	print_asm(str(ljmp) "%x,%x",temp2,temp1);
