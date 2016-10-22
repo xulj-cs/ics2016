@@ -31,7 +31,7 @@
 
 typedef struct{
 	uint8_t block[Size_of_Cache_Block];
-	uint32_t tag;
+	int tag;
 	bool valid;
 #ifdef Write_Back
 	bool dirty;
@@ -41,15 +41,17 @@ typedef struct{
 //Cache_Block Cache_Set[Num_of_Way]; 
 Cache_Block Cache[Num_of_Set][Num_of_Way];
 
-bool FindWay(int set, uint32_t tag, int *way){
+bool FindWay(int set, int tag, int *way){
 
 	int i;
 	for(i=0;i<Num_of_Way;i++){
 		if( !Cache[set][i].valid )
 			continue;
-		uint32_t start= (	Cache[set][i].tag/Size_of_Cache_Block )*Size_of_Cache_Block;
+/*		uint32_t start= (	Cache[set][i].tag/Size_of_Cache_Block )*Size_of_Cache_Block;
 		uint32_t end= (	Cache[set][i].tag/Size_of_Cache_Block + 1)*Size_of_Cache_Block;
 		if( start<=tag && tag<end )	
+*/
+		if( Cache[set][i].tag == tag )
 			break;
 	}
 	*way=i;
@@ -115,8 +117,10 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 void block_read(hwaddr_t addr,void *data){
 
 	
-	int set=(addr/Size_of_Set) % Num_of_Set;
-	uint32_t tag=addr;
+//	int set=(addr/Size_of_Set) % Num_of_Set;
+//	uint32_t tag=addr;
+	int set = (addr /Size_of_Cache_Block) % Num_of_Set;
+	int tag = (addr /Size_of_Cache_Block) / Num_of_Set;
 	int way;
 /*	if(tag==4&&set==5){
 		Log("0x%x",addr);	
@@ -140,8 +144,10 @@ void ui_cache_read(char *args){
 
 	uint32_t addr;
 	sscanf(args,"0x%x",&addr);
-	int set=(addr/Size_of_Set) % Num_of_Set;
-	uint32_t tag=addr;
+//	int set=(addr/Size_of_Set) % Num_of_Set;
+//	uint32_t tag=addr;
+	int set = (addr /Size_of_Cache_Block) % Num_of_Set;
+	int tag = (addr /Size_of_Cache_Block) / Num_of_Set;
 	int way;
 	if(!FindWay(set, tag, &way))
 	{
@@ -191,8 +197,10 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 void block_write(hwaddr_t addr, size_t len, uint32_t* pdata){
 
 	uint32_t offset=addr & (Size_of_Cache_Block-1);
-	int set=(addr/Size_of_Set) % Num_of_Set;
-	uint32_t tag=addr;
+//	int set=(addr/Size_of_Set) % Num_of_Set;
+//	uint32_t tag=addr;
+	int set = (addr /Size_of_Cache_Block) % Num_of_Set;
+	int tag = (addr /Size_of_Cache_Block) / Num_of_Set;
 	int way;
 	len=offset+len>Size_of_Cache_Block?Size_of_Cache_Block-offset:len;
 	if(!FindWay(set, tag, &way))
