@@ -4,22 +4,25 @@ make_helper(ljmp){
 
 	uint32_t temp1=swaddr_read(eip+1,4,CS);
 	uint16_t temp2=swaddr_read(eip+1+4,2,CS);
-	Log("here1");
-	Log("%x,%x",temp1,temp2);
+
 	cpu.CS.selector.val=temp2;
 
 	Assert(cpu.CS.selector.TI==0,"no LGTR");
 
+	uint32_t base=cpu.GDTR.Base;
 	int max_index = ( cpu.GDTR.Limit+1 ) / sizeof(SegDesc) -1;
-	Log("%d",sizeof(SegDesc));
-	Log("%d",cpu.GDTR.Limit);
-	Log("%d",max_index);
-	if(cpu.CS.selector.INDEX > max_index)
+	int index = cpu.CS.selector.INDEX;
+	if(index > max_index)
 		panic("Index out of range");
 
-	SegDesc *gdt_addr = (void *)cpu.GDTR.Base;
-	Log("%x",cpu.GDTR.Base);
-	cpu.CS.descriptor=gdt_addr[cpu.CS.selector.INDEX];
+	Log("%d",index);
+	uint8_t temp[8];
+	int j;
+	for(j=0;j<8;j++){
+		temp[j]=swaddr_read(base+index*8+j , 1 , CS);
+		Log("%x",temp[j]);
+	}
+
 	Log("here2");
 	cpu.eip=temp1;
 
