@@ -50,6 +50,16 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
 								
 }
 
+hwaddr_t page_translate(lnaddr_t addr){
+
+	Log("%x",addr);
+	int pdir_idx,ptab_idx,offset;
+	pdir_idx = addr >> 22;
+	ptab_idx = addr << 10 >> 22;
+	offset = addr << 20 >> 20;	
+	Log("%x,%x,%x",pdir_idx,ptab_idx,offset);
+	return 0;
+}
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
@@ -97,11 +107,31 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
-	return hwaddr_read(addr, len);
+#ifdef DEBUG
+	assert(len == 1 || len == 2 || len == 4);
+#endif
+	if(cpu.cr0.protect_enable && cpu.cr0.paging){
+	
+		hwaddr_t hwaddr = page_translate(addr);
+		return hwaddr_read(hwaddr,len);
+	}
+	else
+		return hwaddr_read(addr, len);
+
 }
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
-	hwaddr_write(addr, len, data);
+
+#ifdef DEBUG
+	assert(len == 1 || len == 2 || len == 4);
+#endif
+	if(cpu.cr0.protect_enable && cpu.cr0.paging){
+	
+		hwaddr_t hwaddr = page_translate(addr);
+		hwaddr_write(hwaddr,len,data);
+	}
+	else
+		hwaddr_write(addr, len, data);
 }
 
 uint32_t swaddr_read(swaddr_t addr, size_t len , uint8_t sreg) {
