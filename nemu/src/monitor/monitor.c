@@ -11,6 +11,7 @@ void init_regex();
 void init_wp_pool();
 void init_ddr3();
 void init_cache();
+void init_tlb();
 
 FILE *log_fp = NULL;
 
@@ -106,4 +107,7 @@ void restart() {
 	cpu.CS.descriptor.limit_19_16=0xf;
 	cpu.CS.descriptor.present=1;
 	cpu.CS.descriptor.granularity=1;
+
+	/* Initialize TLB */
+	init_tlb();
 }
