@@ -55,15 +55,14 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
 
 hwaddr_t page_translate(lnaddr_t addr){
 
-	Log("%x",addr);
 	int pdir_idx,ptab_idx,offset;
 	pdir_idx = addr >> 22;
 	ptab_idx = addr << 10 >> 22;
 	offset = addr << 20 >> 20;	
-	Log("%x,%x,%x",pdir_idx,ptab_idx,offset);
 	
 	hwaddr_t pdir_base = cpu.cr3.page_directory_base;
 	PDE temp1;
+	Log("%x",hwaddr_read(pdir_base,4));
 	temp1.val = hwaddr_read(pdir_base + pdir_idx*4, 4);
 	Assert(temp1.present==1,"not in the memory");
 
