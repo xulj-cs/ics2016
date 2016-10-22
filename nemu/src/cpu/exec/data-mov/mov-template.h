@@ -38,7 +38,8 @@ make_helper(mov_r2cr){
 		cpu.cr3.val=op_src->val;
 	else
 		panic("no this CR");
-//	print_asm(str(instr) " %s,%%cr%d",op_src->str,op_src2->reg);
+	Log("here!");
+	print_asm(str(instr) " %s,%%cr%d",op_src->str,op_src2->reg);
 	return len+1;
 }
 
