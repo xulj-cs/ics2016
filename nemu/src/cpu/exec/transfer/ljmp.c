@@ -14,7 +14,7 @@ make_helper(ljmp){
 		panic("Index out of range");
 
 	SegDesc *gdt_addr = (void *)cpu.GDTR.Base;
-
+	Log("%x",cpu.GDTR.Base);
 	cpu.CS.descriptor=gdt_addr[cpu.CS.selector.INDEX];
 	Log("here2");
 	cpu.eip=temp1;
