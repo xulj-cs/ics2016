@@ -12,14 +12,18 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
 
     SegDesc temp;
 	uint8_t	RPL; 
-    switch (sreg){
+  /*  switch (sreg){
         case 0x2E:temp = cpu.CS.descriptor;RPL=cpu.CS.selector.RPL; break;
         case 0x36:temp = cpu.SS.descriptor;RPL=cpu.SS.selector.RPL; break;
         case 0x3E:temp = cpu.DS.descriptor;RPL=cpu.DS.selector.RPL; break;
         case 0x26:temp = cpu.ES.descriptor;RPL=cpu.ES.selector.RPL; break;
 	    default:panic("no this seg_regs");
 	}
+ */
+	Assert(0<=sreg&&sreg<=3,"no this sreg");
 
+	temp = cpu.sreg[sreg].descriptor;
+	RPL = cpu.sreg[sreg].selector.RPL;
 /*	int max_index = cpu.GDTR.Limit / sizeof(SegDesc) - 1;
 	if(index > max_index)
 		panic("Index out of range");
