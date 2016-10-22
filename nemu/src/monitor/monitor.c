@@ -98,4 +98,9 @@ void restart() {
 
 	/* Reset the CR0. */
 	cpu.cr0.protect_enable=0;
+
+	/* Initialize CS */
+	cpu.CS.descriptor.base_15_0=cpu.CS.descriptor.base_23_16=cpu.CS.descriptor.base_31_24=0;
+	cpu.CS.descriptor.limit_15_0=0xffff;
+	cpu.CS.descriptor.limit_19_16=0xf;
 }
