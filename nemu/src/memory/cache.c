@@ -9,7 +9,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 /*the impletation of Cache_L2*/
 #define TYPE L2
 #define l2
-#define Size_of_Cache_Block (64)
+#define Size_of_Block (64)
 #define Size_of_Cache (4*1024*1024)
 #define Num_of_Way (16)
 #define Write_Back
@@ -19,7 +19,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 
 #undef TYPE
 #undef l2
-#undef Size_of_Cache_Block
+#undef Size_of_Block
 #undef Size_of_Cache
 #undef Num_of_Way
 #undef Write_Back
@@ -28,7 +28,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 /*the impletation of Cache_L1*/
 #define TYPE L1
 #define l1
-#define Size_of_Cache_Block (64)
+#define Size_of_Block (64)
 #define Size_of_Cache (64*1024)
 #define Num_of_Way (8)
 #define Write_Through
@@ -38,7 +38,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 
 #undef TYPE
 #undef l1
-#undef Size_of_Cache_Block
+#undef Size_of_Block
 #undef Size_of_Cache
 #undef Num_of_Way
 #undef Write_Through
