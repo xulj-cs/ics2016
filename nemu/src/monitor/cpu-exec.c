@@ -65,7 +65,7 @@ void cpu_exec(volatile uint32_t n) {
 		if(cpu.eip==0x100d85)
 			Log("here2");
 		cpu.eip += instr_len;
-		if(cpu.eip==0x100d85)
+		if(cpu.eip==0x100d88)
 			Log("here");
 
 #ifdef DEBUG
