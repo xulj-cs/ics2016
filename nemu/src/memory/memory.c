@@ -54,11 +54,14 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
 
 hwaddr_t page_translate(lnaddr_t addr){
 
+	Log("%x,%x",cpu.eip,addr);
+	
 	int pdir_idx,ptab_idx,offset;
 	pdir_idx = addr >> 22;
 	ptab_idx = addr << 10 >> 22;
 	offset = addr << 20 >> 20;	
 	
+
 	hwaddr_t pdir_base = cpu.cr3.page_directory_base << 12;
 	PDE temp1;
 
