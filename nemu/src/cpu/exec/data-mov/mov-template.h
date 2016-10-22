@@ -32,7 +32,6 @@ make_helper(mov_r2cr){
 	int len=decode_rm_l(eip+1);
 	cpu.cr0.val=op_src->val;
 	print_asm(str(instr) " %s,CR",op_src->str);
-	Log("here");
 	return len+1;
 }
 
