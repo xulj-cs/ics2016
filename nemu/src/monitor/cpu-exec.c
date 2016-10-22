@@ -60,15 +60,15 @@ void cpu_exec(volatile uint32_t n) {
 
 		/* Execute one instruction, including instruction fetch,
 		 * instruction decode, and the actual execution. */
-		if(cpu.eip==0x100d88)
-			Log("here3");
+//		if(cpu.eip==0x100d88)
+//			Log("here3");
 		int instr_len = exec(cpu.eip);
 		
-		if(cpu.eip==0x100d88)
-			Log("here4");
+//		if(cpu.eip==0x100d88)
+//			Log("here4");
 		cpu.eip += instr_len;
-		if(cpu.eip==0x100d88)
-			Log("here");
+//		if(cpu.eip==0x100d88)
+//			Log("here");
 
 #ifdef DEBUG
 		print_bin_instr(eip_temp, instr_len);
@@ -78,7 +78,6 @@ void cpu_exec(volatile uint32_t n) {
 			printf("%s\n", asm_buf);
 		}
 		
-			Log("here2");
 #endif
 
 		/* TODO: check watchpoints here. */
