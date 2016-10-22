@@ -34,8 +34,11 @@ make_helper(mov_r2cr){
 
 	if(op_src2->reg==0)
 		cpu.cr0.val=op_src->val;
-	else if(op_src2->reg==3)
+	else if(op_src2->reg==3){
+	
 		cpu.cr3.val=op_src->val;
+		init_tlb();
+	}
 	else
 		panic("no this CR");
 	print_asm(str(instr) " %s,%%cr%d",op_src->str,op_src2->reg);
