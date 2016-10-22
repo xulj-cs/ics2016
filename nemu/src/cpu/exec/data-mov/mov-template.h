@@ -30,16 +30,26 @@ make_helper(concat(mov_moffs2a_, SUFFIX)) {
 #if DATA_BYTE == 4
 make_helper(mov_r2cr){
 	int len=decode_rm_l(eip+1);
-	cpu.cr0.val=op_src->val;
-	print_asm(str(instr) " %s,%%cr0",op_src->str);
+	if(op_src2->reg==0)
+		cpu.cr0.val=op_src->val;
+	else if(op_src2->reg==3)
+		cpu.cr3.val=op_src->val;
+	else
+		panic("no this CR");
+	print_asm(str(instr) " %s,%%cr%d",op_src->str,op_src2->reg);
 	return len+1;
 }
 
 make_helper(mov_cr2r){
 	int len=decode_rm_l(eip+1);
-	reg_l(op_src->reg)=cpu.cr0.val;
-
-	print_asm(str(instr) " %%cr0,%s",op_src->str);
+	if(op_src2->reg==0)
+		reg_l(op_src->reg)=cpu.cr0.val;
+	else if(op_src2->reg==3)
+		reg_l(op_src->reg)=cpu.cr3.val;
+	else
+		panic("no this CR");
+		
+	print_asm(str(instr) " %%cr%d,%s",op_src2->reg,op_src->str);
 	return len+1;
 }
 #endif
