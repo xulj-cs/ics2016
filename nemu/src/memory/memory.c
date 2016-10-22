@@ -81,6 +81,44 @@ hwaddr_t page_translate(lnaddr_t addr){
 	return hwaddr;		
 
 }
+void ui_page(char * args){
+	uint32_t addr;
+	sscanf(args, "0x%x", &addr);
+	if(cpu.cr0.protect_enable && cpu.cr0.paging){
+	
+		int pdir_idx,ptab_idx,offset;
+		pdir_idx = addr >> 22;
+		ptab_idx = addr << 10 >> 22;
+		offset = addr << 20 >> 20;	
+	
+		hwaddr_t pdir_base = cpu.cr3.page_directory_base << 12;
+		PDE temp1;
+
+		temp1.val = hwaddr_read(pdir_base + pdir_idx*4, 4);
+		if(temp1.present==0){
+			printf("not in the memory");
+			return ;
+		}
+
+		hwaddr_t ptab_base = temp1.page_frame << 12;
+		PTE temp2 ;
+		if(temp2.present==0){
+			printf("not in the memory");
+			return ;
+		}
+		temp2.val = hwaddr_read(ptab_base + ptab_idx*4, 4);
+
+		hwaddr_t hwaddr = ( temp2.page_frame << 12 )+ offset;
+
+		printf("hwaddr:0x%x",hwaddr);
+	}
+	else{
+		printf("not in the paging model");
+
+	}
+			
+}
+
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {

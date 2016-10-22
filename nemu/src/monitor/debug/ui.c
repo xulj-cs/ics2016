@@ -12,6 +12,7 @@
 #include <readline/history.h>
 void cpu_exec(uint32_t);
 void ui_cache_read(char *);
+void ui_page(char *);
 //int  exec(swaddr_t);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -237,6 +238,11 @@ static int cmd_cache(char * args){
 	ui_cache_read(args);
 	return 0;
 }
+
+static int cmd_page (char * args){
+	ui_page(args);
+	return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -255,6 +261,7 @@ static struct {
 	{ "d", "Delete the watchpoint",cmd_d},
 	{ "bt", "Print the stack frame chain",cmd_bt},
 	{ "cache", "Print the cache infomation",cmd_cache},
+	{ "page", "Lnaddr to hwaddr", cmd_page},
 	/* TODO: Add more commands */
 
 };
