@@ -10,8 +10,9 @@ make_helper(ljmp){
 	Assert(cpu.CS.selector.TI==0,"no LGTR");
 
 	int max_index = cpu.GDTR.Limit / sizeof(SegDesc) -1;
-	Log("%x",cpu.GDTR.Limit);
-	Log("%x",max_index);
+	Log("%d",sizeof(SegDesc));
+	Log("%d",cpu.GDTR.Limit);
+	Log("%d",max_index);
 	if(cpu.CS.selector.INDEX > max_index)
 		panic("Index out of range");
 
