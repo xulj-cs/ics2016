@@ -26,6 +26,6 @@ make_helper(mov_r2sreg){
 									
     memcpy(&cpu.sreg[m.reg].descriptor,temp,8);
 
-	printf(str(mov) " %%%s,%%%s",regsl[m.R_M],sreg[m.reg]);
+	print_asm(str(mov) " %%%s,%%%s",regsl[m.R_M],sreg[m.reg]);
 	return 2;
 }
