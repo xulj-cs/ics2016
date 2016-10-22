@@ -47,5 +47,6 @@
 #include "transfer/jcc.h"
 #include "transfer/ret.h"
 #include "transfer/jmp.h"
+#include "transfer/ljmp.h"
 
 #include "privileged/lgdt.h"
