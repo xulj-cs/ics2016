@@ -102,6 +102,9 @@ uint32_t swaddr_read(swaddr_t addr, size_t len , uint8_t sreg) {
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
+	if(cpu.cr0.protect_enable==0 )
+		return lnaddr_read(addr,len);
+	
 	lnaddr_t lnaddr = seg_translate(addr,len,sreg);	
 	return lnaddr_read(lnaddr, len);
 }
