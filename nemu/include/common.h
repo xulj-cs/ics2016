@@ -23,7 +23,6 @@ typedef uint32_t swaddr_t;
 
 typedef uint16_t ioaddr_t;
 
-enum {CS=0x2e,SS=0x36,DS=0x3e,ES=0x26};
 #pragma pack (1)
 typedef union {
 	uint32_t _4;
