@@ -19,5 +19,7 @@ make_helper(ljmp){
 
 	cpu.eip=temp1;
 
+	print_asm(str(ljmp) "%x,%x",temp2,temp1);
+
 	return 0;
 }
