@@ -54,7 +54,6 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
 
 hwaddr_t page_translate(lnaddr_t addr){
 
-Log("addr:%x",addr);
 	int pdir_idx,ptab_idx,offset;
 	pdir_idx = addr >> 22;
 	ptab_idx = addr << 10 >> 22;
