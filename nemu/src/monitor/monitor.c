@@ -97,5 +97,5 @@ void restart() {
 	init_cache();
 
 	/* Reset the CR0. */
-	cpu.CR0.PE=0;
+	cpu.cr0.protect_enable=0;
 }

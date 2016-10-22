@@ -2,6 +2,8 @@
 #define __REG_H__
 
 #include "common.h"
+#include "x86-inc/cpu.h"
+#include "x86-inc/mmu.h"
 
 enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
 enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
@@ -54,19 +56,25 @@ typedef struct {
 		lnaddr_t Base;
 	}GDTR;
    	
-	union{
+/*	union{
 		struct{
 			uint32_t PE:1;
 		};
 		uint32_t val;
 
 	}CR0;
-	
+*/
+	CR0 cr0;	
 	//segment regs
 	struct{
 
-		uint16_t selector;
-		uint64_t descriptor;
+		 struct {
+			uint16_t RPL:2;
+			uint16_t TI:1;
+			uint16_t INDEX:13;
+		
+		}selector;
+		SegDesc descriptor;
 	} CS,SS,DS,ES;
 
 
