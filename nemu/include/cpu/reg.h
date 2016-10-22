@@ -68,6 +68,12 @@ typedef struct {
 		uint16_t Limit;
 		lnaddr_t Base;
 	}GDTR;
+
+	struct{
+		uint16_t Limit;
+		lnaddr_t Base;
+	}IDTR;
+
    	
 /*	union{
 		struct{

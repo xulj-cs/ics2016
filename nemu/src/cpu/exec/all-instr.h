@@ -52,3 +52,4 @@
 #include "transfer/ljmp.h"
 
 #include "privileged/lgdt.h"
+#include "privileged/lidt.h"
