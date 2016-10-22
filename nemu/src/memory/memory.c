@@ -13,10 +13,10 @@ lnaddr_t seg_translate(swaddr_t addr,size_t len ,uint8_t sreg){
     SegDesc temp;
 	uint8_t	RPL; 
     switch (sreg){
-        case 0x2E:temp = cpu.CS.descriptor;RPL=cpu.CS.selector.RPL; Assert(cpu.CS.selector.TI==0,"no LDTR");break;
-        case 0x36:temp = cpu.SS.descriptor;RPL=cpu.SS.selector.RPL; Assert(cpu.SS.selector.TI==0,"no LDTR");break;
-        case 0x3E:temp = cpu.DS.descriptor;RPL=cpu.DS.selector.RPL; Assert(cpu.DS.selector.TI==0,"no LDTR");break;
-        case 0x26:temp = cpu.ES.descriptor;RPL=cpu.ES.selector.RPL; Assert(cpu.ES.selector.TI==0,"no LDTR");break;
+        case 0x2E:temp = cpu.CS.descriptor;RPL=cpu.CS.selector.RPL; break;
+        case 0x36:temp = cpu.SS.descriptor;RPL=cpu.SS.selector.RPL; break;
+        case 0x3E:temp = cpu.DS.descriptor;RPL=cpu.DS.selector.RPL; break;
+        case 0x26:temp = cpu.ES.descriptor;RPL=cpu.ES.selector.RPL; break;
 	    default:panic("no this seg_regs");
 	}
 

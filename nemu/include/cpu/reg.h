@@ -68,10 +68,13 @@ typedef struct {
 	//segment regs
 	struct{
 
-		 struct {
-			uint16_t RPL:2;
-			uint16_t TI:1;
-			uint16_t INDEX:13;
+		 union {
+			struct{
+				uint16_t RPL:2;
+				uint16_t TI:1;
+				uint16_t INDEX:13;
+			};
+			uint16_t val;
 		
 		}selector;
 		SegDesc descriptor;
