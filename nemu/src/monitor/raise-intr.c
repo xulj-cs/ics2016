@@ -5,11 +5,24 @@
 
 extern jmp_buf jbuf;
 
-void push_eflags();
 
 void raise_intr(uint8_t NO){
 
-	push_eflags();
+	//push_eflags
+	cpu.esp -=1;
+	swaddr_write(cpu.esp,cpu.CF,1,SS);
+	cpu.esp -=1;
+	swaddr_write(cpu.esp,cpu.PF,1,SS);
+	cpu.esp -=1;
+	swaddr_write(cpu.esp,cpu.ZF,1,SS);
+	cpu.esp -=1;
+	swaddr_write(cpu.esp,cpu.SF,1,SS);
+	cpu.esp -=1;
+	swaddr_write(cpu.esp,cpu.IF,1,SS);
+	cpu.esp -=1;
+	swaddr_write(cpu.esp,cpu.DF,1,SS);
+	cpu.esp -=1;
+	swaddr_write(cpu.esp,cpu.OF,1,SS);
 
 	cpu.IF=0;
 	
