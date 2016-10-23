@@ -12,7 +12,7 @@ make_helper(_int){
 	raise_intr((uint8_t)op_src->val);
 
 	print_asm_template1();
-
+	Log("here");
 	return len+1;
 }
 
