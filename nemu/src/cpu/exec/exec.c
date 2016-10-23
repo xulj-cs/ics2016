@@ -229,6 +229,8 @@ helper_fun _2byte_opcode_table [256] = {
 };
 
 make_helper(exec) {
+	if(cpu.eip==0x8048ea6)
+		Log("here2");
 	ops_decoded.opcode = instr_fetch(eip, 1);
 	return opcode_table[ ops_decoded.opcode ](eip);
 }
