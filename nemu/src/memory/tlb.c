@@ -86,8 +86,6 @@ int load_pte(uint32_t addr){
 }
 PTE read_tlb(lnaddr_t addr){
 
-	if(addr==4)
-		assert(0);
 	int tag = addr >> 12;
 	int way;
 
