@@ -43,7 +43,7 @@ make_helper(iret){
 	cpu.esp+=1;
 	
 	print_asm(str(iret));
-	return 1;
+	return 0;
 	
 }
 
