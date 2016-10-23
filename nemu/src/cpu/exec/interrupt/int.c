@@ -13,6 +13,7 @@ make_helper(_int){
 
 	print_asm_template1();
 	Log("here");
+	//a bug here
 	return len+1;
 }
 
