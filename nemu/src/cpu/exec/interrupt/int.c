@@ -9,12 +9,13 @@ make_helper(_int){
 
 	int len = decode_i_b( eip+1 );
 	
+	cpu.eip = len + 1;
 	raise_intr((uint8_t)op_src->val);
 
 	print_asm_template1();
-	Log("here");
+	Log("reach here");
 	//a bug here
-	return len+1;
+	return 0;
 }
 
 
