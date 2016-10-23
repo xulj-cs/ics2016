@@ -9,8 +9,8 @@
 #include "data-mov/movzx.h"
 #include "data-mov/cwtl-cltd.h"
 #include "data-mov/mov-r2sreg.h"
-#include "data-mov/pushad.h"
-#include "data-mov/popad.h"
+#include "data-mov/pusha.h"
+#include "data-mov/popa.h"
 
 #include "arith/dec.h"
 #include "arith/inc.h"
