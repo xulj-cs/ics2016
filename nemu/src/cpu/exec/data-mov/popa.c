@@ -3,7 +3,7 @@
 make_helper(popa){
 
     int i;
-    for(i=0;i<8;i++){
+    for(i=7;i>=0;i--){
         if(i!=R_ESP)
 			reg_l(i)=swaddr_read( cpu.esp , 4, SS);
         cpu.esp +=4;
