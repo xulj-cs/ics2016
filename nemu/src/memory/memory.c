@@ -211,11 +211,6 @@ uint32_t swaddr_read(swaddr_t addr, size_t len , uint8_t sreg) {
 		return lnaddr_read(addr,len);
 	
 	lnaddr_t lnaddr = seg_translate(addr,len,sreg);	
-	if(lnaddr==4)
-	{
-		Log("%x",addr);
-		assert(0);
-	}	
 	return lnaddr_read(lnaddr, len);
 }
 
