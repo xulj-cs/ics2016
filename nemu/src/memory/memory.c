@@ -178,8 +178,6 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 		uint32_t offset = addr & 0xfff;
 		if(offset+len > 0x1000)
 			panic(" data cross the page boundary ");
-		if(addr==4)
-			assert(0);
 		hwaddr_t hwaddr = page_translate(addr);
 		return hwaddr_read(hwaddr,len);
 	}
@@ -213,6 +211,11 @@ uint32_t swaddr_read(swaddr_t addr, size_t len , uint8_t sreg) {
 		return lnaddr_read(addr,len);
 	
 	lnaddr_t lnaddr = seg_translate(addr,len,sreg);	
+	if(lnaddr==4)
+	{
+		Log("%x",addr);
+		assert(0);
+	}	
 	return lnaddr_read(lnaddr, len);
 }
 
