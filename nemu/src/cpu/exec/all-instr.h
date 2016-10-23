@@ -9,6 +9,8 @@
 #include "data-mov/movzx.h"
 #include "data-mov/cwtl-cltd.h"
 #include "data-mov/mov-r2sreg.h"
+#include "data-mov/pushad.h"
+#include "data-mov/popad.h"
 
 #include "arith/dec.h"
 #include "arith/inc.h"
@@ -53,3 +55,7 @@
 
 #include "privileged/lgdt.h"
 #include "privileged/lidt.h"
+
+#include "interrupt/int.h"
+#include "interrupt/cli.h"
+#include "interrupt/iret.h"

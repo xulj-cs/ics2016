@@ -16,14 +16,14 @@ make_helper(mov_r2sreg){
     int index = cpu.sreg[op_src2->reg].selector.INDEX;
     if(index > max_index)
         panic("Index out of range");
-						
-    uint8_t temp[8];
+	
+    uint8_t temp[sizeof(SegDesc)];
     int j;
-    for(j=0;j<8;j++){
-        temp[j]=lnaddr_read(base+index*8+j , 1);
+    for(j=0;j<sizeof(SegDesc);j++){
+        temp[j]=lnaddr_read(base+index*sizeof(SegDesc)+j , 1);
     }
 									
-    memcpy(&cpu.sreg[op_src2->reg].descriptor,temp,8);
+    memcpy(&cpu.sreg[op_src2->reg].descriptor,temp,sizeof(SegDesc));
 
 	print_asm(str(mov) " %%%s,%%%s",regsl[op_src->reg],sreg[op_src2->reg]);
 	return len+1;
