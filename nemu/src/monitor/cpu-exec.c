@@ -62,9 +62,6 @@ void cpu_exec(volatile uint32_t n) {
 		 * instruction decode, and the actual execution. */
 //		if(cpu.eip==0x100d88)
 //			Log("here3");
-		if(cpu.eip==0x8048ea6){
-			Log("here");
-		}
 		int instr_len = exec(cpu.eip);
 		
 //		if(cpu.eip==0x100d88)
