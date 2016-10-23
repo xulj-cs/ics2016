@@ -6,7 +6,6 @@
 make_helper(iret){
 
 	cpu.eip = swaddr_read(cpu.esp,4,SS);
-	Log("%x",cpu.eip);
 	cpu.esp +=4;
 
 	cpu.CS.selector.val=swaddr_read(cpu.esp,2,SS);
