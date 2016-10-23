@@ -34,7 +34,7 @@ void raise_intr(uint8_t NO){
 
 	lnaddr_t base=cpu.IDTR.Base;
 	int max_index = (cpu.IDTR.Limit+1) / sizeof(GateDesc) -1;
-	Assert(NO <= max_index,"Index out of range");
+	Assert(NO*4 <= max_index,"Index out of range");
 	
 	uint8_t temp[sizeof(GateDesc)];
     int i;
