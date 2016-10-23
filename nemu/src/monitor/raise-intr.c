@@ -10,27 +10,27 @@ void raise_intr(uint8_t NO){
 
 	//push_eflags
 	cpu.esp -=1;
-	swaddr_write(cpu.esp,cpu.CF,1,SS);
+	swaddr_write(cpu.esp,1,cpu.CF,SS);
 	cpu.esp -=1;
-	swaddr_write(cpu.esp,cpu.PF,1,SS);
+	swaddr_write(cpu.esp,1,cpu.PF,SS);
 	cpu.esp -=1;
-	swaddr_write(cpu.esp,cpu.ZF,1,SS);
+	swaddr_write(cpu.esp,1,cpu.ZF,SS);
 	cpu.esp -=1;
-	swaddr_write(cpu.esp,cpu.SF,1,SS);
+	swaddr_write(cpu.esp,1,cpu.SF,SS);
 	cpu.esp -=1;
-	swaddr_write(cpu.esp,cpu.IF,1,SS);
+	swaddr_write(cpu.esp,1,cpu.IF,SS);
 	cpu.esp -=1;
-	swaddr_write(cpu.esp,cpu.DF,1,SS);
+	swaddr_write(cpu.esp,1,cpu.DF,SS);
 	cpu.esp -=1;
-	swaddr_write(cpu.esp,cpu.OF,1,SS);
+	swaddr_write(cpu.esp,1,cpu.OF,SS);
 
 	cpu.IF=0;
 	
 	cpu.esp -=2;
-	swaddr_write(cpu.esp,cpu.CS.selector.val,2,SS);
+	swaddr_write(cpu.esp,2,cpu.CS.selector.val,SS);
 
 	cpu.esp -=4;
-	swaddr_write(cpu.esp,cpu.eip,4,SS);
+	swaddr_write(cpu.esp,4,cpu.eip,SS);
 
 	lnaddr_t base=cpu.IDTR.Base;
 	int max_index = (cpu.IDTR.Limit+1) / sizeof(GateDesc) -1;
