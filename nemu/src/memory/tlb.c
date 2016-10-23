@@ -68,7 +68,12 @@ int load_pte(uint32_t addr){
     PDE temp1;
 
     temp1.val = hwaddr_read(pdir_base + pdir_idx*4, 4);
-    Assert(temp1.present==1,"not in the memory");
+   // Assert(temp1.present==1,"not in the memory");
+	if(temp1.present==0){
+		Log("%x",addr);
+		panic("not");
+		
+	}
 
     hwaddr_t ptab_base = temp1.page_frame << 12;
     PTE temp2 ;
