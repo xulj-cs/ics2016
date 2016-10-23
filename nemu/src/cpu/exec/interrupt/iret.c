@@ -26,19 +26,19 @@ make_helper(iret){
     }
 
 	//pop_eflags
-	cpu.CF=swaddr_read(cpu.esp,1,SS);
-	cpu.esp+=1;
-	cpu.PF=swaddr_read(cpu.esp,1,SS);
-	cpu.esp+=1;
-	cpu.ZF=swaddr_read(cpu.esp,1,SS);
-	cpu.esp+=1;
-	cpu.SF=swaddr_read(cpu.esp,1,SS);
-	cpu.esp+=1;
-	cpu.IF=swaddr_read(cpu.esp,1,SS);
+	cpu.OF=swaddr_read(cpu.esp,1,SS);
 	cpu.esp+=1;
 	cpu.DF=swaddr_read(cpu.esp,1,SS);
 	cpu.esp+=1;
-	cpu.OF=swaddr_read(cpu.esp,1,SS);
+	cpu.IF=swaddr_read(cpu.esp,1,SS);
+	cpu.esp+=1;
+	cpu.SF=swaddr_read(cpu.esp,1,SS);
+	cpu.esp+=1;
+	cpu.ZF=swaddr_read(cpu.esp,1,SS);
+	cpu.esp+=1;
+	cpu.PF=swaddr_read(cpu.esp,1,SS);
+	cpu.esp+=1;
+	cpu.CF=swaddr_read(cpu.esp,1,SS);
 	cpu.esp+=1;
 	
 	print_asm(str(iret));
