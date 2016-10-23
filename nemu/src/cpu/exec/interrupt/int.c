@@ -9,7 +9,7 @@ make_helper(_int){
 
 	int len = decode_i_b( eip+1 );
 	
-	cpu.eip = len + 1;
+	cpu.eip += len + 1;
 	Log("%x",cpu.eip);
 	raise_intr((uint8_t)op_src->val);
 
