@@ -1,7 +1,7 @@
 #include "common.h"
 #include "memory.h"
 #include <string.h>
-
+#include "x86.h"
 #define VMEM_ADDR 0xa0000
 #define SCR_SIZE (320 * 200)
 
@@ -14,7 +14,12 @@ void create_video_mapping() {
 	 * [0xa0000, 0xa0000 + SCR_SIZE) for user program. You may define
 	 * some page tables to create this mapping.
 	 */
-	panic("please implement me");
+	// 0xa0000 == 0|160|0
+	PDE *pdir = get_updir();
+	PTE *ptable = (void *)((pdir->page_frame << 12) + 0xa0*sizeof(PTE));
+	ptable->page_frame = 0;
+	ptable->present = 1;
+//	panic("please implement me");
 }
 
 void video_mapping_write_test() {
