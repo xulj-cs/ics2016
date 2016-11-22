@@ -92,6 +92,7 @@ typedef struct {
 		Sreg sreg[4];
 		struct {Sreg  ES,CS,SS,DS; };
 	};
+	bool INTR;
 
 } CPU_state;
 
