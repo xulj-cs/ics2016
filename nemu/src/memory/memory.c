@@ -187,8 +187,22 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	if(cpu.cr0.protect_enable && cpu.cr0.paging){
 	
 		uint32_t offset = addr & 0xfff;
-		if(offset+len > 0x1000)
+		if(offset+len > 0x1000){
+		
+			int len1 = 0x1000 - offset;
+			int len2 = len - len1;
+			hwaddr_t hwaddr1 = page_translate(addr); 
+			hwaddr_t hwaddr2 = page_translate(addr+len1);
+			uint32_t data;	
+			uint32_t data1 = hwaddr_read(hwaddr1,len1);
+			uint32_t data2 = hwaddr_read(hwaddr2,len2);
+			memcpy(&data , &data1 , len1);
+			memcpy(((uint8_t*)&data) + len1 , &data2 , len2);
+			return data;
 			panic(" data cross the page boundary ");
+			
+
+		}
 		hwaddr_t hwaddr = page_translate(addr);
 		return hwaddr_read(hwaddr,len);
 	}
