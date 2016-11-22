@@ -71,7 +71,7 @@ int load_pte(uint32_t addr){
    // Assert(temp1.present==1,"not in the memory");
 	if(temp1.present==0){
 		Log("%x",addr);
-		panic("not");
+		panic("not in the memory");
 		
 	}
 
