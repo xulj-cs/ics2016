@@ -59,3 +59,6 @@
 #include "interrupt/int.h"
 #include "interrupt/cli.h"
 #include "interrupt/iret.h"
+
+#include "device/in.h"
+#include "device/out.h"
