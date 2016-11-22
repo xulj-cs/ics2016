@@ -63,3 +63,4 @@
 
 #include "device/in.h"
 #include "device/out.h"
+#include "device/hlt.h"
