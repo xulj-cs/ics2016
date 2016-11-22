@@ -18,7 +18,7 @@ void create_video_mapping() {
 	PDE *pdir = get_updir();
 	//pdir->page_frame = 0;
 	Log("%x",pdir);
-	//panic("??");
+	panic("??");
 	pdir->present = 1;
 	
 	PTE *ptable = (void *)((pdir->page_frame << 12) + 0xa0*sizeof(PTE));
