@@ -5,7 +5,7 @@
 static void do_execute(){
 
 	OPERAND_W(op_dest ,pio_read(op_src->val,DATA_BYTE));
-	print_asm(str(instr) " (%s),%s",op_src->str,op_dest->str);
+	print_asm(str(instr) str(SUFFIX) " (%s),%s",op_src->str,op_dest->str);
 
 }
 
