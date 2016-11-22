@@ -14,5 +14,5 @@
 #undef DATA_BYTE
 
 
-make_helper_v(in_i2r)
-make_helper_v(in_r2rm)
+make_helper_v(in_i2a)
+make_helper_v(in_d2a)
