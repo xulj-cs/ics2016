@@ -26,7 +26,7 @@ void create_video_mapping() {
 	int idx;
 	for(idx=0xa0;idx<=0xaf;idx+=0x1){
 		PTE *ptable = (void *)((pdir->page_frame << 12) + idx*sizeof(PTE));
-		ptable->page_frame = 0;
+		ptable->page_frame = idx;
 		ptable->present = 1;
 	}
 
