@@ -3,14 +3,12 @@
 
 #include <string.h>
 #include <elf.h>
-
 #define ELF_OFFSET_IN_DISK 0
 
 #ifdef HAS_DEVICE
 void ide_read(uint8_t *, uint32_t, uint32_t);
 #else
 void ramdisk_read(uint8_t *, uint32_t, uint32_t);
-//void ramdisk_write(uint8_t *, uint32_t, uint32_t);
 
 #endif
 
@@ -41,20 +39,11 @@ uint32_t loader() {
 	//elf->e_phoff;
 	//elf->e_phentsize;
 	//elf->e_phnum;
-/*	nemu_assert(elf->e_phoff==52);
-	nemu_assert(elf->e_phentsize==32);
-	nemu_assert(elf->e_phnum==3);	
-*/	
+
 	/* Load each program segment */
-	//panic("please implement me");
 
 	ph = (void *) &buf[elf->e_phoff];
 
-/*	nemu_assert(ph->p_offset==0);
-	nemu_assert(ph->p_vaddr==0x800000);
-	nemu_assert(ph->p_filesz==0x27a8);
-*/
-//	nemu_assert(0);
 //	memset((void *)0x800000,0,elf->e_phentsize*elf->e_phnum);
 
 	int i;
@@ -62,21 +51,22 @@ uint32_t loader() {
 		/* Scan the program header table, load each segment into memory */
 		if(ph->p_type == PT_LOAD) {
 			uint32_t hwaddr	= mm_malloc(ph->p_vaddr ,ph->p_memsz);
-//			mm_malloc(ph->p_vaddr ,ph->p_memsz);
-	//		Log("%x,%x",hwaddr,ph->p_vaddr);
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
-//			ramdisk_write(&buf[ph->p_offset],ph->p_vaddr,ph->p_filesz);
-//			memcpy((void *)(ph->p_vaddr),&buf[ph->p_offset],ph->p_filesz);
-//			memcpy((void *)ph->p_vaddr,(void *)(ELF_OFFSET_IN_DISK+ph->p_offset),ph->p_filesz);
-			memcpy((void *)hwaddr,(void *)(ELF_OFFSET_IN_DISK+ph->p_offset),ph->p_filesz);
+			//uint8_t *temp = malloc(ph->p_filesz*1);
+			int j;
+			for(j=0; j<ph->p_filesz; j++){
+				uint8_t temp;
+				ide_read(&temp,ph->p_offset+j,1);
+			//memcpy((void *)hwaddr,(void *)(ELF_OFFSET_IN_DISK+ph->p_offset),ph->p_filesz);
+				memcpy((void *)hwaddr+j,&temp,1);
+			}
 //			ATTENTION:BUGS HERE!!!!!	bugs here!!!after the implementation of the device
-//			nemu_assert(0);
+			//free(temp);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-	//		memset((void *)ph->p_vaddr+ph->p_filesz,0,ph->p_memsz-ph->p_filesz);
 			memset((void *)hwaddr+ph->p_filesz,0,ph->p_memsz-ph->p_filesz);
 
 
@@ -88,10 +78,7 @@ uint32_t loader() {
 #endif
 		}
 		ph=(void *)((uint8_t*)ph + elf->e_phentsize);
-		//ph++;
-//		nemu_assert(0);
 	}
-//	nemu_assert(0);
 	volatile uint32_t entry = elf->e_entry;
 
 #ifdef IA32_PAGE
