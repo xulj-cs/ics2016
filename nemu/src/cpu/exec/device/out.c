@@ -14,5 +14,5 @@
 #undef DATA_BYTE
 
 
-make_helper_v(out_a2i)
+//make_helper_v(out_a2i)
 make_helper_v(out_a2d)
