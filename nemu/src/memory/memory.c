@@ -208,8 +208,6 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 			panic(" data cross the page boundary ");
 	
 		hwaddr_t hwaddr = page_translate(addr);
-		if(addr==0xa0000)
-			Log("%x",hwaddr);
 		hwaddr_write(hwaddr,len,data);
 	}
 	else
