@@ -76,10 +76,6 @@ void i8259_raise_intr(int n) {
 	master.highest_irq = ffo_table[master.IRR & ~master.IMR];
 
 	do_i8259();
-	
-	   if(n==1)
-		Log("%d",intr_NO);
-	
 }
 
 /* CPU interface */
