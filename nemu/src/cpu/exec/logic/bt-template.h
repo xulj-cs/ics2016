@@ -4,7 +4,7 @@
 
 static void do_execute(){
 	
-	int offset = op_src->val;
+	int offset = op_src->val % (8*DATA_BYTE);
 	cpu.CF = op_dest->val<<(31-offset)>>offset;
 	print_asm_template2();
 	
