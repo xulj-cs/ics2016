@@ -9,8 +9,8 @@ make_helper(hlt){
 		if(cpu.INTR==0);
 			Log("intr=0");
 */
-		extern void device_update();
-		device_update();
+//		extern void device_update();
+//		device_update();
 		if(cpu.IF && cpu.INTR)
 			break;
 	}
