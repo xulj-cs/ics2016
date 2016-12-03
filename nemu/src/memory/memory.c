@@ -157,6 +157,8 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 
 	int port = is_mmio(addr);
 	if( port != -1){
+		if(len!=1 && len!=2 && len!=4)
+			Log("len");
 		mmio_write(addr, len, data ,port);
 		return ;
 	}
