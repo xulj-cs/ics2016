@@ -22,7 +22,7 @@ get_index(int keycode) {
 		if(keycode_array[i] == keycode)
 			return i;
 	}
-	assert(0);
+	//assert(0);
 	return -1;
 }
 static inline int
@@ -68,10 +68,17 @@ keyboard_event(void) {
 	/* TODO: Fetch the scancode and update the key states. */
 	int scan_code=in_byte(0x60);
 	
-	if(scan_code > 0x80)
-		release_key(get_index(scan_code-0x80));
-	else
-		press_key(get_index(scan_code));
+	if(scan_code > 0x80){
+		int index = get_index(scan_code-0x80);
+		if(index!=-1)
+			release_key(index);
+	}
+	else{
+		int index = get_index(scan_code);
+		if(index!=-1)
+			press_key(index);
+	
+	}
 	//assert(0);
 }
 

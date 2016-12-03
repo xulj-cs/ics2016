@@ -27,10 +27,10 @@ bool FindWay(int tag, int *way){
 	int i;
 	for(i=0;i<Num_of_PTE;i++){
 	
-		if(!tlb[i].valid)
-			continue;
+	//	if(!tlb[i].valid)
+	//		continue;
 		
-		if(tlb[i].tag == tag)
+		if(tlb[i].valid && tlb[i].tag == tag)
 			break;
 	}
 	*way = i;
@@ -49,9 +49,10 @@ int load_pte(uint32_t addr){
 	}
 	if( i == Num_of_PTE){
 	
-		srand((uint32_t)time(NULL));
+		//srand((uint32_t)time(NULL));
 
-		i = rand() % Num_of_PTE ;
+		//i = rand() % Num_of_PTE ;
+		i = time(NULL) & Num_of_PTE;
 		tlb[i].valid = false;
 		
 	}
