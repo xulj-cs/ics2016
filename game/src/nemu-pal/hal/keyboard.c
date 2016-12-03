@@ -96,11 +96,13 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 	 * Remember to enable interrupts before returning from the function.
 	 */
 	int i;
+	bool flag = false;
 	for(i=0; i<NR_KEYS; i++){
 		if(key_state[i] == KEY_STATE_PRESS){
 		
 			key_state[i] = KEY_STATE_WAIT_RELEASE;
 			key_press_callback( get_keycode(i) );
+			flag = true;
 			//sti();
 			//return true;
 
@@ -109,6 +111,7 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 		
 			key_state[i] = KEY_STATE_EMPTY;
 			key_release_callback( get_keycode(i) );
+			flag = true;
 			//sti();
 			//return true;
 
@@ -116,7 +119,7 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 	}
 	//assert(0);
 	sti();
-	if( i== NR_KEYS)
+	if( flag )
 		return true;
 	else
 		return false;
