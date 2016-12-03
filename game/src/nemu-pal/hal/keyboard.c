@@ -69,7 +69,7 @@ keyboard_event(void) {
 	int scan_code=in_byte(0x60);
 	
 	if(scan_code > 0x80)
-		release_key(get_index(scan_code));
+		release_key(get_index(scan_code-0x80));
 	else
 		press_key(get_index(scan_code));
 	//assert(0);
