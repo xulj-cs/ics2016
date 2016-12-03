@@ -157,8 +157,8 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 
 	int port = is_mmio(addr);
 	if( port != -1){
-		if(len!=1 && len!=2 && len!=4)
-			Log("%x",len);
+		//if(len!=1 && len!=2 && len!=4)
+		//	Log("%x",len);
 		mmio_write(addr, len, data ,port);
 		return ;
 	}
@@ -193,6 +193,44 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 		
 			/* maybe len1 == 3 or len2 == 3 */ 
 			int len1 = 0x1000 - offset;
+			if( len==4 && len1==1 ){
+				int len2 = 2;
+				int len3 = 1;
+				//1+2 in hwaddr2
+				hwaddr_t hwaddr1 = page_translate(addr); 
+				hwaddr_t hwaddr2 = page_translate(addr+len1);
+				
+				uint32_t data;
+				uint8_t  data1 = hwaddr_read(hwaddr1,len1);
+				uint16_t data2 = hwaddr_read(hwaddr2,len2);
+				uint8_t  data3 = hwaddr_read(hwaddr2+len2,len3);	
+			
+				memcpy(&data , &data1 , len1);
+				memcpy(((uint8_t*)&data) + len1 , &data2 , len2);
+				memcpy(((uint8_t*)&data) + len1 +len2, &data3 , len3);
+				
+				return data;
+			}
+			else if( len==4 && len1==3 ){
+				len1 = 1;
+				int len2 = 2;
+				int len3 = 1;
+				//1+2 in hwaddr1
+				hwaddr_t hwaddr1 = page_translate(addr); 
+				hwaddr_t hwaddr2 = page_translate(addr+len1+len2);
+				
+				uint32_t data;
+				uint8_t  data1 = hwaddr_read(hwaddr1,len1);
+				uint16_t data2 = hwaddr_read(hwaddr1+len1,len2);
+				uint8_t  data3 = hwaddr_read(hwaddr2,len3);	
+				
+				memcpy(&data , &data1 , len1);
+				memcpy(((uint8_t*)&data) + len1 , &data2 , len2);
+				memcpy(((uint8_t*)&data) + len1 +len2, &data3 , len3);
+				
+				return data;
+			}
+	
 			int len2 = len - len1;
 			hwaddr_t hwaddr1 = page_translate(addr); 
 			hwaddr_t hwaddr2 = page_translate(addr+len1);
@@ -241,7 +279,7 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 				memcpy(&data3, ((uint8_t*)&data) + len1+len2, len3);
 				hwaddr_write(hwaddr1,len1,data1);
 				hwaddr_write(hwaddr2,len2,data2);
-				hwaddr_write(hwaddr2,len3,data3);
+				hwaddr_write(hwaddr2+len2,len3,data3);
 				return ;
 			}
 			else if( len==4 && len1==3 ){
@@ -259,7 +297,7 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 				memcpy(&data2, ((uint8_t*)&data) + len1, len2);
 				memcpy(&data3, ((uint8_t*)&data) + len1+len2, len3);
 				hwaddr_write(hwaddr1,len1,data1);
-				hwaddr_write(hwaddr1,len2,data2);
+				hwaddr_write(hwaddr1+len1,len2,data2);
 				hwaddr_write(hwaddr2,len3,data3);
 				return ;
 			}
