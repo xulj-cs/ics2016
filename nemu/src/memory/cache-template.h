@@ -76,9 +76,10 @@ int load_block(hwaddr_t addr, int set){		//dram-->>cache
 	if( i == Num_of_Way ){
 		
 	//	Replace
-		srand((uint32_t)time(NULL));
+	//	srand((uint32_t)time(NULL));
 
-		i = rand()%Num_of_Way;	//how to random??
+	//	i = rand()%Num_of_Way;	//how to random??
+		i = time(NULL) & Num_of_Way;
 		Cache[set][i].valid=false;
 #ifdef Write_Back
 		if(Cache[set][i].dirty){
