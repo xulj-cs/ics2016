@@ -102,6 +102,7 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 		
 			key_state[i] = KEY_STATE_WAIT_RELEASE;
 			key_press_callback( get_keycode(i) );
+			Log("just press %x",i);
 			flag = true;
 			//sti();
 			//return true;
@@ -111,6 +112,7 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 		
 			key_state[i] = KEY_STATE_EMPTY;
 			key_release_callback( get_keycode(i) );
+			Log("just release %x",i);
 			flag = true;
 			//sti();
 			//return true;
