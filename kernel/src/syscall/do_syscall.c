@@ -22,6 +22,18 @@ static void sys_ioctl(TrapFrame *tf) {
 static void sys_write(TrapFrame *tf) {
 	tf->eax = fs_write(tf->ebx,(void *)tf->ecx,tf->edx );
 }
+static void sys_read(TrapFrame *tf) {
+	tf->eax = fs_read(tf->ebx,(void *)tf->ecx,tf->edx );
+}
+static void sys_lseek(TrapFrame *tf) {
+	tf->eax = fs_lseek(tf->ebx,tf->ecx,tf->edx );
+}
+static void sys_open(TrapFrame *tf) {
+	tf->eax = fs_open((const void*)tf->ebx,tf->ecx );
+}
+static void sys_close(TrapFrame *tf) {
+	tf->eax = fs_close(tf->ebx );
+}
 void do_syscall(TrapFrame *tf) {
 	switch(tf->eax) {
 		/* The `add_irq_handle' system call is artificial. We use it to
@@ -40,6 +52,10 @@ void do_syscall(TrapFrame *tf) {
 
 		/* TODO: Add more system calls. */
 		case SYS_write: sys_write(tf); break;
+		case SYS_open:sys_open(tf); break;
+		case SYS_read:sys_read(tf); break;
+		case SYS_lseek:sys_lseek(tf);break;
+		case SYS_close:sys_close(tf);break;
 		default: panic("Unhandled system call: id = %d, eip = 0x%08x", tf->eax, tf->eip);
 	}
 }
