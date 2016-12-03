@@ -191,6 +191,7 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 		uint32_t offset = addr & 0xfff;
 		if(offset+len > 0x1000){
 		
+			/* maybe len1 == 3 or len2 == 3 */ 
 			int len1 = 0x1000 - offset;
 			int len2 = len - len1;
 			hwaddr_t hwaddr1 = page_translate(addr); 
@@ -223,8 +224,45 @@ void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 	if(cpu.cr0.protect_enable && cpu.cr0.paging){
 		uint32_t offset = addr & 0xfff;
 		if(offset+len > 0x1000){
-		
+			/* maybe len1 == 3 or len2 == 3 */ 
 			int len1 = 0x1000 - offset;
+			if( len==4 && len1==1 ){
+				int len2 = 2;
+				int len3 = 1;
+				//1+2 in hwaddr2
+				hwaddr_t hwaddr1 = page_translate(addr); 
+				hwaddr_t hwaddr2 = page_translate(addr+len1);
+	
+				uint8_t  data1 = 0;
+				uint16_t data2 = 0;
+				uint8_t  data3 = 0;	
+				memcpy(&data1, &data , len1);
+				memcpy(&data2, ((uint8_t*)&data) + len1, len2);
+				memcpy(&data3, ((uint8_t*)&data) + len1+len2, len3);
+				hwaddr_write(hwaddr1,len1,data1);
+				hwaddr_write(hwaddr2,len2,data2);
+				hwaddr_write(hwaddr2,len3,data3);
+				return ;
+			}
+			else if( len==4 && len1==3 ){
+				len1 =1 ;
+				int len2 = 2;
+				int len3 = 1;
+				//1+2 in hwaddr1
+				hwaddr_t hwaddr1 = page_translate(addr); 
+				hwaddr_t hwaddr2 = page_translate(addr+len1+len2);
+	
+				uint8_t  data1 = 0;
+				uint16_t data2 = 0;
+				uint8_t  data3 = 0;
+				memcpy(&data1, &data , len1);
+				memcpy(&data2, ((uint8_t*)&data) + len1, len2);
+				memcpy(&data3, ((uint8_t*)&data) + len1+len2, len3);
+				hwaddr_write(hwaddr1,len1,data1);
+				hwaddr_write(hwaddr1,len2,data2);
+				hwaddr_write(hwaddr2,len3,data3);
+				return ;
+			}
 			int len2 = len - len1;
 			hwaddr_t hwaddr1 = page_translate(addr); 
 			hwaddr_t hwaddr2 = page_translate(addr+len1);
