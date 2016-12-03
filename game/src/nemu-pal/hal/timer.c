@@ -32,6 +32,11 @@ uint32_t SDL_GetTicks() {
 
 void SDL_Delay(uint32_t ms) {
 	/* TODO: Return from this function after waiting for `ms' milliseconds. */
-	jiffy -= HZ*ms/1000;
+	//jiffy += HZ*ms/1000;
+	uint32_t beginTime = SDL_GetTicks();
+	while(true){
+		if(SDL_GetTicks() - beginTime >= ms)
+			break;
+	}
 	//assert(0);
 }
