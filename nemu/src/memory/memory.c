@@ -3,7 +3,7 @@
 #include "debug.h"
 #include "device/mmio.h"
 
-//#define HAS_CACHE
+#define HAS_CACHE
 uint32_t dram_read(hwaddr_t, size_t);
 uint32_t cache_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
