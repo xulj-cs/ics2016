@@ -13,7 +13,7 @@ static const int keycode_array[] = {
 };
 
 static int key_state[NR_KEYS];
-
+volatile static int scan_code = -1;
 static inline int
 get_index(int keycode) {
 	assert(keycode >= 0 && keycode < 0x80);
@@ -52,7 +52,7 @@ press_key(int index) {
 	assert(index >= 0 && index < NR_KEYS);
 	switch(key_state[index]){
 		case KEY_STATE_EMPTY: key_state[index] = KEY_STATE_PRESS; break;
-		case KEY_STATE_WAIT_RELEASE:  break;
+//		case KEY_STATE_WAIT_RELEASE:  break;
 //		default:assert(0);
 	}
 }
@@ -66,18 +66,19 @@ clear_key(int index) {
 void
 keyboard_event(void) {
 	/* TODO: Fetch the scancode and update the key states. */
-	volatile int scan_code=in_byte(0x60);
-	
-	if(scan_code > 0x80){
-		int index = get_index(scan_code-0x80);
-		if(index!=-1)
-			release_key(index);
-	}
-	else{
-		int index = get_index(scan_code);
-		if(index!=-1)
-			press_key(index);
-	
+	int temp = in_byte(0x60);
+	if(temp!=scan_code){
+		scan_code = temp;
+		if(scan_code > 0x80){
+			int index = get_index(scan_code-0x80);
+			if(index!=-1)
+				release_key(index);
+		}
+		else{
+			int index = get_index(scan_code);
+			if(index!=-1)
+				press_key(index);
+		}
 	}
 	//assert(0);
 }
