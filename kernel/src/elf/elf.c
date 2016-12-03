@@ -55,13 +55,14 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
 			//uint8_t *temp = malloc(ph->p_filesz*1);
-			int j;
-			for(j=0; j<ph->p_filesz; j++){
-				uint8_t temp;
-				ide_read(&temp,ph->p_offset+j,1);
+			// 1 int j;
+			// 1 for(j=0; j<ph->p_filesz; j++){
+			// 1	uint8_t temp;
+			// 1	ide_read(&temp,ph->p_offset+j,1);
 			//memcpy((void *)hwaddr,(void *)(ELF_OFFSET_IN_DISK+ph->p_offset),ph->p_filesz);
-				memcpy((void *)hwaddr+j,&temp,1);
-			}
+			// 1	memcpy((void *)hwaddr+j,&temp,1);
+				ide_read((void*)hwaddr,ph->p_offset,ph->p_filesz);
+			// 1	}
 //			ATTENTION:BUGS HERE!!!!!	bugs here!!!after the implementation of the device
 			//free(temp);
 			/* TODO: zero the memory region 
