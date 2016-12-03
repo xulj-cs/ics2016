@@ -46,7 +46,7 @@ void init_monitor(int argc, char *argv[]) {
 	init_device();
 
 	/* Initialize the sdl library. */
-	//init_sdl();
+	init_sdl();
 
 	/* Display welcome message. */
 	welcome();
