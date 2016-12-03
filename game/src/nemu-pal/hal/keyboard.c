@@ -12,8 +12,9 @@ static const int keycode_array[] = {
 	K_s, K_f, K_p
 };
 
-static int key_state[NR_KEYS];
-volatile static int scan_code = -1;
+static int key_state[NR_KEYS]={0};
+
+//volatile static int scan_code = -1;
 static inline int
 get_index(int keycode) {
 	assert(keycode >= 0 && keycode < 0x80);
@@ -42,7 +43,7 @@ release_key(int index) {
 	assert(index >= 0 && index < NR_KEYS);
 	switch(key_state[index]){
 		case KEY_STATE_WAIT_RELEASE: key_state[index] = KEY_STATE_RELEASE; break;
-//		default:assert(0);
+		default:assert(0);
 	}
 	//key_state[index] = KEY_STATE_WAIT_RELEASE;
 }
@@ -52,8 +53,8 @@ press_key(int index) {
 	assert(index >= 0 && index < NR_KEYS);
 	switch(key_state[index]){
 		case KEY_STATE_EMPTY: key_state[index] = KEY_STATE_PRESS; break;
-//		case KEY_STATE_WAIT_RELEASE:  break;
-//		default:assert(0);
+		case KEY_STATE_WAIT_RELEASE:  break;
+		default:assert(0);
 	}
 }
 /*
@@ -66,10 +67,10 @@ clear_key(int index) {
 void
 keyboard_event(void) {
 	/* TODO: Fetch the scancode and update the key states. */
-	int temp = in_byte(0x60);
-	Log("%x",temp);
-	if(temp!=scan_code){
-		scan_code = temp;
+	int scan_code = in_byte(0x60);
+	//Log("%x",temp);
+	//if(temp!=scan_code){
+	//	scan_code = temp;
 		if(scan_code > 0x80){
 			int index = get_index(scan_code-0x80);
 			if(index!=-1)
@@ -80,7 +81,7 @@ keyboard_event(void) {
 			if(index!=-1)
 				press_key(index);
 		}
-	}
+	//}
 	//assert(0);
 }
 
@@ -100,20 +101,23 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 		
 			key_state[i] = KEY_STATE_WAIT_RELEASE;
 			key_press_callback( get_keycode(i) );
-			sti();
-			return true;
+			//sti();
+			//return true;
 
 		}
 		if(key_state[i] == KEY_STATE_RELEASE){
 		
 			key_state[i] = KEY_STATE_EMPTY;
 			key_release_callback( get_keycode(i) );
-			sti();
-			return true;
+			//sti();
+			//return true;
 
 		}
 	}
 	//assert(0);
 	sti();
-	return false;
+	if( i== NR_KEYS)
+		return true;
+	else
+		return false;
 }
