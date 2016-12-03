@@ -28,15 +28,15 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 	 * `w' X `h' of `src' surface to position (`dx', `dy') of
 	 * `dst' surface.
 	 */
-	int nr_row,nr_col;
+	int nr_row;
 	for(nr_row=0; nr_row<h; nr_row++){
-		//for(nr_col=0; nr_col<w; nr_col++){
+	/*	for(nr_col=0; nr_col<w; nr_col++){
 		
-		//	memcpy(dst->pixels + (dy+nr_row)*dst->pitch + dx+nr_col,\
-		//		   src->pixels + (sy+nr_row)*src->pitch + sx+nr_col,\
-		//		   1);
-		//}
-	
+			memcpy(dst->pixels + (dy+nr_row)*dst->pitch + dx+nr_col,\
+				   src->pixels + (sy+nr_row)*src->pitch + sx+nr_col,\
+				   1);
+		}
+	*/
 			memcpy(dst->pixels + (dy+nr_row)*dst->pitch + dx,\
 				   src->pixels + (sy+nr_row)*src->pitch + sx,\
 				   w);
@@ -58,15 +58,16 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 	int dy = (dstrect == NULL ? 0 : dstrect->y);
 	int w = (dstrect == NULL ? dst->w : dstrect->w);
 	int h = (dstrect == NULL ? dst->h : dstrect->h);
-	int nr_row,nr_col;
+	int nr_row;
 	for(nr_row=0; nr_row<h; nr_row++){
-	//	for(nr_col=0; nr_col<w; nr_col++){
+	/*	for(nr_col=0; nr_col<w; nr_col++){
 		
-	//		memcpy(dst->pixels + (dy+nr_row)*dst->pitch + dx+nr_col,\
-	//			   (uint8_t *)&color,\
-	//			   1);
-	//	}
-			memcpy(dst->pixels + (dy+nr_row)*dst->pitch + dx,\
+		memcpy(dst->pixels + (dy+nr_row)*dst->pitch + dx+nr_col,\
+				   (uint8_t *)&color,\
+				   1);
+		}
+	*/
+		memcpy(dst->pixels + (dy+nr_row)*dst->pitch + dx,\
 				   (uint8_t *)&color,\
 				   w);
 	
