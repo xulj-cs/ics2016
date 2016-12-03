@@ -14,34 +14,65 @@ static const int keycode_array[] = {
 
 static int key_state[NR_KEYS];
 
-void
-keyboard_event(void) {
-	/* TODO: Fetch the scancode and update the key states. */
+static inline int
+get_index(int keycode) {
+	assert(keycode >= 0 && keycode < 0x80);
+	int i;
+	for(i=0; i<NR_KEYS; i++){
+		if(keycode_array[i] == keycode)
+			return i;
+	}
 	assert(0);
+	return -1;
 }
-
 static inline int
 get_keycode(int index) {
 	assert(index >= 0 && index < NR_KEYS);
 	return keycode_array[index];
 }
-
+/*
 static inline int
 query_key(int index) {
 	assert(index >= 0 && index < NR_KEYS);
 	return key_state[index];
 }
-
+*/
 static inline void
 release_key(int index) {
 	assert(index >= 0 && index < NR_KEYS);
-	key_state[index] = KEY_STATE_WAIT_RELEASE;
+	switch(key_state[index]){
+		case KEY_STATE_WAIT_RELEASE: key_state[index] = KEY_STATE_RELEASE; break;
+		default:assert(0);
+	}
+	//key_state[index] = KEY_STATE_WAIT_RELEASE;
 }
 
+static inline void
+press_key(int index) {
+	assert(index >= 0 && index < NR_KEYS);
+	switch(key_state[index]){
+		case KEY_STATE_EMPTY: key_state[index] = KEY_STATE_PRESS; break;
+		case KEY_STATE_WAIT_RELEASE:  break;
+		default:assert(0);
+	}
+}
+/*
 static inline void
 clear_key(int index) {
 	assert(index >= 0 && index < NR_KEYS);
 	key_state[index] = KEY_STATE_EMPTY;
+}
+*/
+void
+keyboard_event(void) {
+	/* TODO: Fetch the scancode and update the key states. */
+	int scan_code=in_byte(0x60);
+	
+	if(scan_code > 0x80)
+		release_key(get_index(scan_code));
+	else
+		press_key(get_index(scan_code));
+	//assert(0);
 }
 
 bool 
@@ -54,8 +85,26 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 	 * If no such key is found, the function return false.
 	 * Remember to enable interrupts before returning from the function.
 	 */
+	int i;
+	for(i=0; i<NR_KEYS; i++){
+		if(key_state[i] == KEY_STATE_PRESS){
+		
+			key_state[i] = KEY_STATE_WAIT_RELEASE;
+			key_press_callback( get_keycode(i) );
+			sti();
+			return true;
 
-	assert(0);
+		}
+		if(key_state[i] == KEY_STATE_RELEASE){
+		
+			key_state[i] = KEY_STATE_EMPTY;
+			key_release_callback( get_keycode(i) );
+			sti();
+			return true;
+
+		}
+	}
+	//assert(0);
 	sti();
 	return false;
 }
