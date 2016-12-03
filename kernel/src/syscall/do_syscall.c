@@ -6,6 +6,11 @@ void add_irq_handle(int, void (*)(void));
 uint32_t mm_brk(uint32_t);
 int fs_ioctl(int, uint32_t, void *);
 int write(int, const void *,size_t);
+int fs_open(const void *,int);
+int fs_read(int,void *,int);
+int fs_write(int,void *,int);
+int fs_lseek(int,int,int);
+int fs_close(int);
 
 static void sys_brk(TrapFrame *tf) {
 	tf->eax = mm_brk(tf->ebx);
@@ -15,7 +20,7 @@ static void sys_ioctl(TrapFrame *tf) {
 	tf->eax = fs_ioctl(tf->ebx, tf->ecx, (void *)tf->edx);
 }
 static void sys_write(TrapFrame *tf) {
-	tf->eax = write(tf->ebx,(const void *)tf->ecx,tf->edx );
+	tf->eax = fs_write(tf->ebx,(void *)tf->ecx,tf->edx );
 }
 void do_syscall(TrapFrame *tf) {
 	switch(tf->eax) {
