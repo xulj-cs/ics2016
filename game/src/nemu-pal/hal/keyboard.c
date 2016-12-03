@@ -42,7 +42,7 @@ release_key(int index) {
 	assert(index >= 0 && index < NR_KEYS);
 	switch(key_state[index]){
 		case KEY_STATE_WAIT_RELEASE: key_state[index] = KEY_STATE_RELEASE; break;
-		default:assert(0);
+//		default:assert(0);
 	}
 	//key_state[index] = KEY_STATE_WAIT_RELEASE;
 }
@@ -53,7 +53,7 @@ press_key(int index) {
 	switch(key_state[index]){
 		case KEY_STATE_EMPTY: key_state[index] = KEY_STATE_PRESS; break;
 		case KEY_STATE_WAIT_RELEASE:  break;
-		default:assert(0);
+//		default:assert(0);
 	}
 }
 /*
