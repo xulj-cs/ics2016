@@ -67,6 +67,7 @@ void
 keyboard_event(void) {
 	/* TODO: Fetch the scancode and update the key states. */
 	int temp = in_byte(0x60);
+	Log("%x",temp);
 	if(temp!=scan_code){
 		scan_code = temp;
 		if(scan_code > 0x80){
