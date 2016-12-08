@@ -130,6 +130,6 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 	if( flag )
 		return true;
 	else
-		Log("nothing happens");
+//		Log("nothing happens");
 		return false;
 }
