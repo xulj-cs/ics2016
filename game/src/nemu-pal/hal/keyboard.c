@@ -42,7 +42,9 @@ static inline void
 release_key(int index) {
 	assert(index >= 0 && index < NR_KEYS);
 	switch(key_state[index]){
-		case KEY_STATE_WAIT_RELEASE: key_state[index] = KEY_STATE_RELEASE; break;
+		case KEY_STATE_WAIT_RELEASE: key_state[index] = KEY_STATE_RELEASE;
+									Log("release %x,waiting the slove",index);
+								    break;
 //		default:assert(0);
 	}
 	//key_state[index] = KEY_STATE_WAIT_RELEASE;
@@ -52,8 +54,12 @@ static inline void
 press_key(int index) {
 	assert(index >= 0 && index < NR_KEYS);
 	switch(key_state[index]){
-		case KEY_STATE_EMPTY: key_state[index] = KEY_STATE_PRESS; break;
-		case KEY_STATE_WAIT_RELEASE:  break;
+		case KEY_STATE_EMPTY: key_state[index] = KEY_STATE_PRESS; 
+							Log("press %x,waiting the slove",index);
+							  break;
+		case KEY_STATE_WAIT_RELEASE:  
+							Log("wait release");
+							break;
 //		default:assert(0);
 	}
 }
