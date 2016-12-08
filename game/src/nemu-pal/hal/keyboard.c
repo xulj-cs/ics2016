@@ -43,7 +43,7 @@ release_key(int index) {
 	assert(index >= 0 && index < NR_KEYS);
 	switch(key_state[index]){
 		case KEY_STATE_WAIT_RELEASE: key_state[index] = KEY_STATE_RELEASE;
-									Log("release %x,waiting the slove",index);
+//									Log("release %x,waiting the slove",index);
 								    break;
 //		default:assert(0);
 	}
@@ -55,10 +55,10 @@ press_key(int index) {
 	assert(index >= 0 && index < NR_KEYS);
 	switch(key_state[index]){
 		case KEY_STATE_EMPTY: key_state[index] = KEY_STATE_PRESS; 
-							Log("press %x,waiting the slove",index);
+//							Log("press %x,waiting the slove",index);
 							  break;
 		case KEY_STATE_WAIT_RELEASE:  
-							Log("wait release");
+//							Log("wait release");
 							break;
 //		default:assert(0);
 	}
@@ -74,7 +74,7 @@ void
 keyboard_event(void) {
 	/* TODO: Fetch the scancode and update the key states. */
 	int scan_code = in_byte(0x60);
-	Log("%x",scan_code);
+//	Log("%x",scan_code);
 	//if(temp!=scan_code){
 	//	scan_code = temp;
 		if(scan_code > 0x80){
@@ -108,7 +108,7 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 		
 			key_state[i] = KEY_STATE_WAIT_RELEASE;
 			key_press_callback( get_keycode(i) );
-			Log("just press %x",i);
+//			Log("just press %x",i);
 			flag = true;
 			//sti();
 			//return true;
@@ -118,7 +118,7 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 		
 			key_state[i] = KEY_STATE_EMPTY;
 			key_release_callback( get_keycode(i) );
-			Log("just release %x",i);
+//			Log("just release %x",i);
 			flag = true;
 			//sti();
 			//return true;
@@ -130,5 +130,6 @@ process_keys(void (*key_press_callback)(int), void (*key_release_callback)(int))
 	if( flag )
 		return true;
 	else
+		Log("nothing happens");
 		return false;
 }
